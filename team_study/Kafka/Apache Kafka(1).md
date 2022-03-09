@@ -10,7 +10,7 @@
 
 #### Before Kafka
 
-![](/Apache Kafka.assets/1.jpg)
+![](../Kafka/Apache Kafka.assets/1.jpg)
 
 데이터를 전송하는 소스 애플리케이션과 데이터를 받는 타겟 애플리케이션으로 구성
 
