@@ -22,6 +22,8 @@
 
 <br/>
 
+
+
 ### Kafka Topic내부
 
 하나의 토픽은 여러 개의 파티션으로 구성될 수 있으며, 첫번째 파티션 번호는 0번부터 시작한다.
@@ -40,8 +42,6 @@
 
 위 그림처럼 클릭로그를 분석하고 시각화하기 위해 엘라스틱서치에 저장하기도 하고 클릭로그를 백업하기 위해 하둡에 저장할 수도 있다.
 
-
-
 ![](./Apache Kafka.assets/11.png)
 
 이제 파티션이 2개 이상인 경우
@@ -57,8 +57,6 @@
 
 파티션을 늘리는 것은 가능하지만 다시 줄일 수 없기 때문에 파티션을 늘리는 것은 아주 조심해야 한다.
 
-
-
 #### 파티션을 늘리는 이유는?
 
 파티션을 늘리면 컨슈머의 개수를 늘려서 데이터 처리를 분산시킬 수 있다.
@@ -73,12 +71,76 @@
 
 <br/>
 
+## Kafka Architecture
+
+![img](https://t1.daumcdn.net/cfile/tistory/99B7A03C5C20888D04)
+
+
+
+**Broker** : Kafka를 구성하는 각 서버 1대 = 1 broker
+
+**Topic** : Data가 저장되는 곳
+
+**Producer** : Broker에 data를 write하는 역할
+
+**Consumer** : Broker에서 data를 read하는 역할
+
+**Consumer-Group** : 메세지 소비자 묶음 단위(n consumers)
+
+**Zookeeper** : Kafka를 운용하기 위한 Coordination service([zookeeper 소개](http://bcho.tistory.com/1016))
+
+**Partition** : topic이 복사(replicated)되어 나뉘어지는 단위
+
 <br/>
+
+<br/>
+
+### Kafka 데이터 쓰기, 복제, 저장
+
+![img](https://t1.daumcdn.net/cfile/tistory/996BD43F5C2089EA1C)
+
+Producer는 1개이상의 partition에 나뉘어 데이터를 write한다.
+상기 partition에 적힌 번호는 각 partition의 offset번호임.
+
+
+
+각 Topic의 partition은 1개의 Leader Replica + 0개 이상의 follower Replica로 구성
+
+→ Leader Replica에 데이터를 write, 다른 broker에 follower replica로 복제
+
+→ Topic의 데이터(log) 중 replica 데이터는 log segment라는 파일(disk)에 기록
+
+→ 메모리가 남아 있으면 페이지 캐시 사용
+
+<br/>
+
+<br/>
+
+
+
+### Kafka 데이터 읽기
+
+![img](https://t1.daumcdn.net/cfile/tistory/99D8AB4F5C208B1B28)
+
+
+
+Consumer는 Partition단위로 데이터를 병렬로 읽을 수 있음
+
+→ 복수의 Consumer로 이루어진 Consumer group을 구성하여 1 topic의 데이터를 분산하여 처리 가능
+
+→ **Topic partition number >= Consumer Group number** 일 경우만 가능
+
+  (Topic partition number < Consumer Group number일 경우 1개 이상의 consumer는 유휴 상태가 됨)
+
+<br/>
+
+<br/>
+
+
 
 ## 참고자료
 
-[ 아파치 카프카 | 데이터💾가 저장되는 토픽에 대해서 알아봅시다. ]: https://www.youtube.com/watch?v=7QfEpRTRdIQ&amp;list=PL3Re5Ri5rZmkY46j6WcJXQYRlDRZSUQ1j&amp;index=2	"Kafka 토픽이란?"
+[아파치 카프카 | 데이터💾가 저장되는 토픽에 대해서 알아봅시다.](https://www.youtube.com/watch?v=7QfEpRTRdIQ&amp;list=PL3Re5Ri5rZmkY46j6WcJXQYRlDRZSUQ1j&amp;index=2)
 
-
-
+[빅 데이터 처리를 위한 아파치 Kafka 개요 및 설명](https://blog.voidmainvoid.net/179)
 

@@ -10,19 +10,19 @@
 
 #### Before Kafka
 
-![](./Apache Kafka.assets/1.jpg)
+![](/Apache Kafka.assets/1.jpg)
 
 데이터를 전송하는 소스 애플리케이션과 데이터를 받는 타겟 애플리케이션으로 구성
 
 처음에는 간단하게 단방향 통신을 수행
 
-![](./Apache Kafka.assets/2.jpg)
+![](/Apache Kafka.assets/2.jpg)
 
 점점 소스 애플리케이션과 타겟 애플리케이션이 많아지면서 데이터를 전송하는 라인이 복잡해짐
 
 문제는 소스 애플리케이션과 타켓 애플리케이션 개수가 늘어날수록 데이터를 전송하는 라인이 많아짐
 
-![](./Apache Kafka.assets/3.png)
+![](/Apache Kafka.assets/3.png)
 
 => 배포와 장애에 대응하기 어렵다, 데이터를 전송할 때 프로토콜 포맷(형식)의 파편화가 심해진다, 추후에 **데이터 포맷**[^1] 내부에 변경사항이 있을 때 유지보수하기 어려워진다.
 
@@ -32,13 +32,13 @@
 
 아파치 카프카는 소스 애플리케이션과 타겟 애플리케이션의 **커플링**[^2]을 약하게 하기 위해 나왔다.
 
-![](./Apache Kafka.assets/4.png)
+![](/Apache Kafka.assets/4.png)
 
 <br/>
 
 #### After Kafka
 
-![](./Apache Kafka.assets/5.png)
+![](/Apache Kafka.assets/5.png)
 
 소스 애플리케이션은 아파치 카프카에 데이터를 전송
 
@@ -56,7 +56,7 @@
 
 ### 카프카를 통해 무엇을 할 수 있을까?
 
-![](./Apache Kafka.assets/6.png)
+![](/Apache Kafka.assets/6.png)
 
 Kafka는 확장성이 뛰어난 분산 메시지 큐(FIFO : First In First Out)로, 각종 데이터를 담는 Topic 이라는 개념이 있는데 쉽게 말하면 **queue**라고 보면 된다.
 
@@ -102,71 +102,6 @@ Producer와 Consumer는 라이브러리로 되어 있어서 애플리케이션�
 **Spotify** : log delivery, Hadoop
 
 **11번가** : 카프카를 이용한 비동기 주문시스템([카프카 컨슈머 애플리케이션 배포 전략 medium post](https://medium.com/11st-pe-techblog/카프카-컨슈머-애플리케이션-배포-전략-4cb2c7550a72))
-
-<br/>
-
-<br/>
-
-## Kafka Architecture
-
-![img](https://t1.daumcdn.net/cfile/tistory/99B7A03C5C20888D04)
-
-
-
-**Broker** : Kafka를 구성하는 각 서버 1대 = 1 broker
-
-**Topic** : Data가 저장되는 곳
-
-**Producer** : Broker에 data를 write하는 역할
-
-**Consumer** : Broker에서 data를 read하는 역할
-
-**Consumer-Group** : 메세지 소비자 묶음 단위(n consumers)
-
-**Zookeeper** : Kafka를 운용하기 위한 Coordination service([zookeeper 소개](http://bcho.tistory.com/1016))
-
-**Partition** : topic이 복사(replicated)되어 나뉘어지는 단위
-
-<br/>
-
-<br/>
-
-## Kafka 데이터 쓰기, 복제, 저장
-
-![img](https://t1.daumcdn.net/cfile/tistory/996BD43F5C2089EA1C)
-
-Producer는 1개이상의 partition에 나뉘어 데이터를 write한다.
-상기 partition에 적힌 번호는 각 partition의 offset번호임.
-
-
-
-각 Topic의 partition은 1개의 Leader Replica + 0개 이상의 follower Replica로 구성
-
-→ Leader Replica에 데이터를 write, 다른 broker에 follower replica로 복제
-
-→ Topic의 데이터(log) 중 replica 데이터는 log segment라는 파일(disk)에 기록
-
-→ 메모리가 남아 있으면 페이지 캐시 사용
-
-<br/>
-
-<br/>
-
-## Kafka 데이터 읽기
-
-![img](https://t1.daumcdn.net/cfile/tistory/99D8AB4F5C208B1B28)
-
-
-
-Consumer는 Partition단위로 데이터를 병렬로 읽을 수 있음
-
-→ 복수의 Consumer로 이루어진 Consumer group을 구성하여 1 topic의 데이터를 분산하여 처리 가능
-
-→ **Topic partition number >= Consumer Group number** 일 경우만 가능
-
-  (Topic partition number < Consumer Group number일 경우 1개 이상의 consumer는 유휴 상태가 됨)
-
-<br/>
 
 <br/>
 
