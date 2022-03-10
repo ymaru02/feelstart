@@ -107,17 +107,20 @@ Producer와 Consumer는 라이브러리로 되어 있어서 애플리케이션�
 
 <br/>
 
+<br/>
+
 ## 참고자료
 
 [빅데이터의 기본 💁‍♂️ 아파치 카프카! 개요 및 설명 | What is apache kafka?](https://www.youtube.com/watch?v=waw0XXNX-uQ&amp;list=PL3Re5Ri5rZmkY46j6WcJXQYRlDRZSUQ1j&amp;index=1)
 
 [빅 데이터 처리를 위한 아파치 Kafka 개요 및 설명](https://blog.voidmainvoid.net/179)
 
+<br/>
 
-
-
-
----
+<br/>
 
 [^1]: 통신, 처리, 해석하는데 적합하도록 형식화된 표현(Syntax)
 [^2]: 결합, 소프트웨어 모듈 간의 상호 의존 정도를 말함
+
+
+
