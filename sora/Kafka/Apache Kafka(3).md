@@ -134,6 +134,14 @@ Kafka broker는 카프카가 설치되어 있는 서버 단위를 말한다.
 
 
 
+#### Kafka replication
+
+replication은 partition의 복제를 뜻한다.
+
+만약 replication이 1이라면  partition은 1개만 존재한다는 것이고 replication이 2라면 partition은 원본 1개와 복제본 1개로 총 2개가 존재한다.
+
+만약 replication이 3이라면 partition은 원본 1개 복제복 2개로 총 3개가 존재한다.
+
 
 
 
