@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useStore } from 'Store/useStore'
+import { loginStore } from 'Store/loginStore'
 
 const About = () => {
-  const { bears, increasePopulation, removeAllBears } = useStore();
+  const { bears, increasePopulation, removeAllBears } = loginStore();
   return (
     <div>
       <h1>소개</h1>
       <p>리액트 라우터를 사용해 보는 프로젝트입니다.</p>
       
       <p>zustand 테스트: { bears }</p>
-
+      { bears
+        ? <p>T</p>
+        : <p>F</p>
+      }
+      
       <button onClick={() => {
         increasePopulation();
       }}>증가 버튼</button>
