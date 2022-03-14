@@ -1,8 +1,8 @@
 import "./App.css";
 import Map from "./components/Atoms/Map";
 import { Route, Routes } from "react-router-dom";
-import About from "./components/Pages/About";
-import Home from "./components/Pages/Home";
+import About from "./Pages/About";
+import Home from "./Pages/Home";
 
 const App = () => {
   return (
