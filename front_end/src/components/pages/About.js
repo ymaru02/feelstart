@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom';
-import create from 'zustand'
-
-const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-}))
+import { useStore } from 'Store/useStore'
 
 const About = () => {
   const { bears, increasePopulation, removeAllBears } = useStore();
