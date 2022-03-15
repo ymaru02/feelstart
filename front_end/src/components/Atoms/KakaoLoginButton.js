@@ -1,4 +1,4 @@
-export const KakaoLoginButton = () => {
+const KakaoLoginButton = () => {
   return (
     <img
       src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
