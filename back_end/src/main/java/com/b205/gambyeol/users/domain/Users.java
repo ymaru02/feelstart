@@ -16,15 +16,15 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long userId; // 사용자 아이디
 
     @Column
-    private Long kakaoId;
+    private Long kakaoId; // 카카오 아이디
 
     @Column
-    private String nickname;
+    private String nickname; // 닉네임
 
     @Column
-    private String profile;
+    private String profile; // 프로필 이미지
 
 }
