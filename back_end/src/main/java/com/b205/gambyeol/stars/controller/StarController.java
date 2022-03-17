@@ -17,4 +17,9 @@ public class StarController {
     public ResponseEntity save(@RequestBody StarRequestDto dto) {
         return ResponseEntity.ok(starService.save(dto));
     }
+
+        @GetMapping("/all")
+    public ResponseEntity findAll() {
+        return  ResponseEntity.ok(starService.findAll());
+    }
 }

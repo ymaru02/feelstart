@@ -27,4 +27,11 @@ public class StarService {
         Star entity = starRepository.save(params.toEntity());
         return entity.getStarId();
     }
+
+        public List<StarResponseDto> findAll() {
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "starId", "date");
+        List<Star> list = starRepository.findAll(sort);
+        return list.stream().map(StarResponseDto::new).collect(Collectors.toList());
+    }
 }
