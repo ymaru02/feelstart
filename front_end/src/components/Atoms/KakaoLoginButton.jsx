@@ -5,7 +5,11 @@ const KakaoLoginButton = () => {
       width="222"
       alt="카카오 로그인 버튼"
       onClick={() => {
-        console.log("TEST");
+        window.Kakao.init("1e8a776ec22fd0574e6fbbd4b934a3c5");
+        const params = {
+          redirectUri: "http://localhost:3000/kakaocallback",
+        };
+        window.Kakao.Auth.authorize(params);
       }}
     />
   );
