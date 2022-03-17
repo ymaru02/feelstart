@@ -29,8 +29,8 @@ public class UsersController {
     @Autowired
     private UsersService userService;
 
-    @PostMapping("/kakaologin")
-    public ResponseEntity<LoginResponseDto> kakaoLoginRequest(final String code) throws IOException, JSONException {
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(final String code) throws IOException, JSONException {
 
         String accessToken=getReturnAccessToken(code); // 액세스 코드를 가져온다
         System.out.println("accessToken: "+accessToken);
@@ -44,7 +44,7 @@ public class UsersController {
         String res=requestToServer(apiUrl, headerStr);
 
         if(res==null){
-            System.out.println("res is null");
+            System.out.println("res");
         }
         if(res!=null){
             JSONObject jObj=new JSONObject(res);
@@ -96,7 +96,7 @@ public class UsersController {
             System.out.println(sb.toString()); // 디버깅
 
             //  RETURN 값 result 변수에 저장
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // 에러
             String br_line = "";
             String result = "";
 
@@ -131,32 +131,22 @@ public class UsersController {
         URL url = new URL(apiURL);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestMethod("GET");
-
         if(headerStr != null && !headerStr.equals("") ) {
             con.setRequestProperty("Authorization", headerStr);
         }
-
         int responseCode = con.getResponseCode();
         BufferedReader br;
-
         if(responseCode == 200) { // 정상 호출
             br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        }
-        else {  // 에러 발생
-            System.out.println("responseCode 에러 발생: "+responseCode);
+        } else {  // 에러 발생
             br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            System.out.println(br.toString());
         }
-
         String inputLine;
         StringBuilder res = new StringBuilder();
-
         while ((inputLine = br.readLine()) != null) {
             res.append(inputLine);
         }
-
         br.close();
-
         if(responseCode==200) {
             return res.toString();
         } else {
