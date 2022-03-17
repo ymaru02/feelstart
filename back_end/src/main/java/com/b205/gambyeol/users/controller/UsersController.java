@@ -8,18 +8,16 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -29,10 +27,10 @@ public class UsersController {
     @Autowired
     private UsersService userService;
 
-    @PostMapping("/kakaologin")
-    public ResponseEntity<LoginResponseDto> kakaoLoginRequest(final String code) throws IOException, JSONException {
-
-        String accessToken=getReturnAccessToken(code); // 액세스 코드를 가져온다
+    @PostMapping("/kakaologinrequest")
+    public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws IOException, JSONException {
+        System.out.println("code: " + map.get("code"));
+        String accessToken=getReturnAccessToken(map.get("code")); // 액세스 코드를 가져온다
         System.out.println("accessToken: "+accessToken);
 
         if(accessToken==null){ // 액세스 토큰을 얻어올 수 없는 경우
@@ -40,7 +38,7 @@ public class UsersController {
         }
 
         String apiUrl="https://kapi.kakao.com/v2/user/me";
-        String headerStr="Bearer"+accessToken;
+        String headerStr="Bearer "+accessToken;
         String res=requestToServer(apiUrl, headerStr);
 
         if(res==null){
@@ -145,7 +143,6 @@ public class UsersController {
         else {  // 에러 발생
             System.out.println("responseCode 에러 발생: "+responseCode);
             br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            System.out.println(br.toString());
         }
 
         String inputLine;
@@ -160,6 +157,7 @@ public class UsersController {
         if(responseCode==200) {
             return res.toString();
         } else {
+            System.out.println(res.toString());
             return null;
         }
     }
