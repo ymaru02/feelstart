@@ -63,7 +63,7 @@
 
 이번 코드는 key없이 click_log 토픽에 login이라는 value를 보낸다.
 
-만약 key를 포함하여 보내고 싶다면 아래 코드와 같이 ProducerRecord 를 선언하면 된다.
+만약 key를 포함하여 보내고 싶다면 빨간 상자 아래 코드와 같이 ProducerRecord 를 선언하면 된다.
 
 ![Kafka18](Apache_Kafka.assets/18.png)
 
