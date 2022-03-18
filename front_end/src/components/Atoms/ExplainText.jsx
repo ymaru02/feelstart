@@ -1,14 +1,12 @@
 import styles from "styles.module.css";
 
-// const Item = ({text}) => {
-//   return text;
-// }
-
-const Image = ({ h, p }) => {
+const Image = ({ h, texts }) => {
   return (
     <div className={styles.gold}>
       <h3>{h}</h3>
-      {p}
+      {texts.map((text, index) => {
+        return <p key={index}>{text.p}</p>;
+      })}
     </div>
   );
 };
