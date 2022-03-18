@@ -2,24 +2,23 @@ package com.b205.gambyeol.users.controller;
 
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.dto.LoginResponseDto;
+import com.b205.gambyeol.users.security.TokenProvider;
 import com.b205.gambyeol.users.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -29,18 +28,20 @@ public class UsersController {
     @Autowired
     private UsersService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(final String code) throws IOException, JSONException {
+    @Autowired
+    private TokenProvider tokenProvider;
 
-        String accessToken=getReturnAccessToken(code); // 액세스 코드를 가져온다
-        System.out.println("accessToken: "+accessToken);
+    @PostMapping("/kakaologinrequest")
+    public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws IOException, JSONException {
+        System.out.println("code: " + map.get("code"));
+        String accessToken=getReturnAccessToken(map.get("code")); // 액세스 코드를 가져온다
 
         if(accessToken==null){ // 액세스 토큰을 얻어올 수 없는 경우
             return ResponseEntity.badRequest().body(null);
         }
 
         String apiUrl="https://kapi.kakao.com/v2/user/me";
-        String headerStr="Bearer"+accessToken;
+        String headerStr="Bearer "+accessToken;
         String res=requestToServer(apiUrl, headerStr);
 
         if(res==null){
@@ -58,8 +59,12 @@ public class UsersController {
 
             Users user=userService.findUserByKakaoId(kakaoId, nickname, profileImg);
 
+            // 토큰 생성
+            final String token=tokenProvider.create(user);
+
+            // 응답 json 만들기
             LoginResponseDto responseDto = LoginResponseDto.builder()
-                    .access_token(accessToken)
+                    .jwt_token(token)
                     .user_id(user.getUserId())
                     .build();
 
@@ -150,6 +155,7 @@ public class UsersController {
         if(responseCode==200) {
             return res.toString();
         } else {
+            System.out.println(res.toString());
             return null;
         }
     }
