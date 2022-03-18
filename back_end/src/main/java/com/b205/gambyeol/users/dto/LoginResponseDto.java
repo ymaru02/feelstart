@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginResponseDto {
 
-    private String access_token; // 액세스 토큰
+    private String jwt_token; // 사용자 정보가 담긴 토큰
     private Long user_id; // 사용자 아이디
 
 }
