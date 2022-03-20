@@ -1,11 +1,11 @@
 import styles from "styles.module.css";
 
-const Image = ({ h, texts }) => {
+const Image = ({ head, texts }) => {
   return (
     <div className={styles.gold}>
-      <h3>{h}</h3>
+      <h3>{head}</h3>
       {texts.map((text, index) => {
-        return <p key={index}>{text.p}</p>;
+        return <p key={index}>{text}</p>;
       })}
     </div>
   );

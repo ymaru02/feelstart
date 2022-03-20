@@ -3,13 +3,13 @@ import ExplainText from "components/Atoms/ExplainText";
 import Box from "@mui/material/Box";
 import styles from "styles.module.css";
 
-const ExplainCard = ({ src, alt, h, texts }) => {
+const ExplainCard = ({ src, alt, head, texts }) => {
   return (
     <Box
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      height="100%"
+      height="calc(100vh - 64px - 59px - 35px)"
     >
       <Box
         flexGrow="1"
@@ -20,7 +20,7 @@ const ExplainCard = ({ src, alt, h, texts }) => {
         <Image src={src} alt={alt} />
       </Box>
       <Box padding="1vh" id={styles.indigo}>
-        <ExplainText h={h} texts={texts} />
+        <ExplainText head={head} texts={texts} />
       </Box>
     </Box>
   );
