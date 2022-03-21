@@ -27,4 +27,9 @@ public class StarController {
     public ResponseEntity findAll() {
         return  ResponseEntity.ok(starService.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable final long id) {
+        return ResponseEntity.ok(starService.findById(id));
+    }
 }

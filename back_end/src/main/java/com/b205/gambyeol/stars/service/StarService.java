@@ -82,4 +82,9 @@ public class StarService {
         List<Star> list = starRepository.findAll(sort);
         return list.stream().map(StarResponseDto::new).collect(Collectors.toList());
     }
+    @Transactional
+    public StarResponseDto findById(final Long id) {
+        Star entity = starRepository.findByStarId(id);
+        return new StarResponseDto(entity);
+    }
 }
