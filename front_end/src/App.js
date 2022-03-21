@@ -18,7 +18,7 @@ const App = () => {
     >
       <Title />
       <Box flexGrow="1">
-        <Routes flexGrow="1">
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/kakaocallback" element={<KakaoCallback />} />
