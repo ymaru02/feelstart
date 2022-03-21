@@ -1,4 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+let ans = false;
 
 const KakaoLoginRequest = async () => {
   try {
@@ -7,22 +11,23 @@ const KakaoLoginRequest = async () => {
       code: code,
     });
     console.log(response);
-    return (
-      <div>
-        {code}
-        <br />
-        {response}
-      </div>
-    );
+    ans = true;
+    return "YES";
   } catch (err) {
     console.log(err);
   }
-  return <div>ERR</div>;
+  return "NO";
 };
 
 const KakaoCallback = () => {
-  const result = KakaoLoginRequest();
-  return <p>TEST</p>;
+  KakaoLoginRequest();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!ans) navigate("/", { replace: true });
+  });
+
+  return null;
 };
 
 export default KakaoCallback;
