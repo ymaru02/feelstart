@@ -6,17 +6,12 @@ import Carousel from "components/Organisms/Carousel";
 
 const Home = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
-      height="100%"
-    >
+    <Box display="flex" flexDirection="column" justifyContent="space-between">
       {/* <Map /> */}
       <Box flexGrow="1">
         <Carousel />
       </Box>
-      <Box id={styles.indigo}>
+      <Box id={styles.indigo} sx={{ mt: 2.7 }}>
         <KakaoLoginButton />
       </Box>
     </Box>

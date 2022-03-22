@@ -8,11 +8,18 @@ import styles from "styles.module.css";
 import Box from "@mui/material/Box";
 
 const App = () => {
+  const appHeight = () => {
+    const doc = document.documentElement;
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+  };
+  window.addEventListener("resize", appHeight);
+  appHeight();
+
   return (
     <Box
       className="App"
       id={styles.dark}
-      height="100vh"
+      minHeight="var(--app-height)"
       display="flex"
       flexDirection="column"
     >
