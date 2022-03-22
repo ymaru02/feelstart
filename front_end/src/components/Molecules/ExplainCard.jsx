@@ -9,7 +9,7 @@ const ExplainCard = ({ src, alt, head, texts }) => {
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      height="calc(100vh - 64px - 59px - 35px)"
+      height="calc(var(--app-height) - 64px - 59px - 35px)"
     >
       <Box
         flexGrow="1"

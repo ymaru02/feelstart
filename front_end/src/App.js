@@ -21,13 +21,13 @@ const App = () => {
     <Box
       className="App"
       id={styles.dark}
-      minHeight="100vh;"
+      minHeight="var(--app-height)"
       display="flex"
       flexDirection="column"
     >
       <Title />
       <Box flexGrow="1">
-        <Routes flexGrow="1">
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/kakaocallback" element={<KakaoCallback />} />
