@@ -11,7 +11,7 @@ const Home = () => {
       <Box flexGrow="1">
         <Carousel />
       </Box>
-      <Box id={styles.indigo} sx={{ mt: 2.7 }}>
+      <Box id={styles.indigo} sx={{ mt: 3 }}>
         <KakaoLoginButton />
       </Box>
     </Box>
