@@ -3,7 +3,7 @@ import styles from "styles.module.css";
 
 const Title = () => {
   return (
-    <AppBar position="static" id={styles.indigo} style={{ Height: "10vh" }}>
+    <AppBar position="sticky" id={styles.indigo} style={{ Height: "10vh" }}>
       <Typography
         variant="h5"
         align="left"
