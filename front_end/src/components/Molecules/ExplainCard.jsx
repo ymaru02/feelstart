@@ -17,7 +17,7 @@ const ExplainCard = ({ src, alt, head, texts }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Image src={src} alt={alt} />
+        <Image src={src} width={222} alt={alt} />
       </Box>
       <Box padding="1vh" id={styles.indigo}>
         <ExplainText head={head} texts={texts} />

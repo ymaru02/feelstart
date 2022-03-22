@@ -6,13 +6,22 @@ import Title from "components/Atoms/Title";
 import KakaoCallback from "components/Atoms/KakaoCallback";
 import styles from "styles.module.css";
 import Box from "@mui/material/Box";
+import MapWrite from "components/Pages/MapWrite";
+import Content from "components/Pages/Content";
 
 const App = () => {
+  const appHeight = () => {
+    const doc = document.documentElement;
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+  };
+  window.addEventListener("resize", appHeight);
+  appHeight();
+
   return (
     <Box
       className="App"
       id={styles.dark}
-      height="100vh"
+      minHeight="100vh;"
       display="flex"
       flexDirection="column"
     >
@@ -22,6 +31,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/kakaocallback" element={<KakaoCallback />} />
+          <Route path="/map" element={<MapWrite />} />
+          <Route path="/content" element={<Content />} />
         </Routes>
       </Box>
     </Box>
