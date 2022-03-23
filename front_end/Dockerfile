@@ -1,14 +1,8 @@
 FROM node:8.11
-
-WORKDIR /usr/src/app
-
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-
-COPY package.json /usr/src/app/
+WORKDIR /front_end
+COPY ./package*.json /front_end
 RUN npm install
-
-COPY . /usr/src/app
-
-EXPOSE 8888
-CMD [ "npm", "start" ]
+COPY / /front_end
+RUN npm run build
+CMD ["npx", "serve", "-s", "build"]
+EXPOSE 3000
