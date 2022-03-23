@@ -1,21 +1,25 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { loginStore } from "Store/loginStore";
 
 let ans = false;
 
 const KakaoLoginRequest = async () => {
+  const { doLogin } = loginStore();
+  doLogin();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
     const response = await axios.post("/account/kakaologinrequest", {
       code: code,
     });
-    console.log(response);
+    // console.log(response);
     ans = true;
     return "YES";
   } catch (err) {
     console.log(err);
   }
+
   return "NO";
 };
 
