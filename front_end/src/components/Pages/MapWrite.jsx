@@ -7,7 +7,9 @@ import styles from "./MapWrite.module.css";
 export default function MapWrite() {
   const [posContent, setPosContent] = useState([1, 2, 3, 4, 5, 6]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setPosContent([1, 2, 3, 4, 5, 6]);
+  }, []);
   return (
     <div>
       <Map />

@@ -5,7 +5,9 @@ import styles from "./Content.module.css";
 export default function Content() {
   const [content, setContent] = useState([1, 2, 3, 4]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setContent([1, 2, 3, 4]);
+  }, []);
 
   return (
     <div>
