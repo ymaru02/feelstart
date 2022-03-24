@@ -3,8 +3,9 @@ import styles from "styles.module.css";
 
 const Title = () => {
   return (
-    <AppBar position="static" id={styles.back}>
+    <AppBar position="sticky" id={styles.indigo} style={{ Height: "10vh" }}>
       <Typography
+        sx={{ mx: 0 }}
         variant="h5"
         align="left"
         className={styles.apricot}

@@ -4,6 +4,12 @@
 .apricot {
   color: #fde1b0;
 }
-#back {
+.gold {
+  color: #d1aa60;
+}
+#dark {
+  background-color: #0d1a29;
+}
+#indigo {
   background-color: #0f1e35;
 }

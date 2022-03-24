@@ -1,24 +1,20 @@
-import { Link } from "react-router-dom";
-import { loginStore } from "Store/loginStore";
 import KakaoLoginButton from "components/Atoms/KakaoLoginButton";
-import Map from "components/Atoms/Map";
-import Image from "components/Atoms/Image";
+// import Map from "components/Atoms/Map";
+import Box from "@mui/material/Box";
+import styles from "styles.module.css";
+import Carousel from "components/Organisms/Carousel";
 
 const Home = () => {
-  const { bears } = loginStore();
   return (
-    <div>
-      <Map />
-      <Image url="https://img.icons8.com/nolan/344/home-page.png" src="test" />
-      <br />
-      <Image url="https://img.icons8.com/nolan/344/home-page.png" src="test" />
-      <h1>홈</h1>
-      <p>가장 먼저 보여지는 페이지입니다.</p>
-      <p>{bears}</p>
-      <Link to="/about">소개</Link>
-      <br></br>
-      <KakaoLoginButton />
-    </div>
+    <Box display="flex" flexDirection="column" justifyContent="space-between">
+      {/* <Map /> */}
+      <Box flexGrow="1">
+        <Carousel />
+      </Box>
+      <Box id={styles.indigo} sx={{ mt: 3 }}>
+        <KakaoLoginButton />
+      </Box>
+    </Box>
   );
 };
 
