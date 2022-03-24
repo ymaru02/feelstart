@@ -1,4 +1,3 @@
-/*global kakao*/
 import React, { useRef, useEffect, useState } from "react";
 
 const { kakao } = window;
