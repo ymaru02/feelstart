@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
 import SelectImage from "components/Molecules/SelectImage";
 import ToggleFeeling from "components/Molecules/ToggleFeeling";
 
-let check_file_type = new Array();
-check_file_type = ["jpg", "jfif", "png", "jpeg", "pjpeg", "pjp"];
+let check_file_type = new Array(["jpg", "jfif", "png", "jpeg", "pjpeg", "pjp"]);
 
 export default function Write() {
   const [file, setFile] = useState("");
@@ -16,7 +14,6 @@ export default function Write() {
 
   const handleFileOnChange = (event) => {
     event.preventDefault();
-
     let file = event.target.files[0];
     let file_dot = file.name.lastIndexOf(".");
     let file_type = file.name.substring(file_dot + 1, file.name.length);
@@ -49,6 +46,7 @@ export default function Write() {
       <ToggleFeeling />
       <textarea></textarea>
       <p>주소</p>
+      {file ? <p>T</p> : <p>F</p>}
       <Box>
         <Button variant="contained" color="primary" component="span">
           취소
