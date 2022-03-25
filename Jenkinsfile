@@ -11,8 +11,8 @@ pipeline {
 		stage('Docker build') { 
 			agent any
 			steps {
-				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/star-pipeline-cicd/front_end' 
-				sh 'docker build -t backend:latest /var/jenkins_home/workspace/star-pipeline-cicd/back_end' 
+				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/star-pipeline-cicd/front_end/' 
+				sh 'docker build -t backend:latest /var/jenkins_home/workspace/star-pipeline-cicd/back_end/' 
 
 			}
 		}
