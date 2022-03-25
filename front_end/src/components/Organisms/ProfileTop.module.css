@@ -1,0 +1,23 @@
+.profiletop {
+  display: flex;
+}
+
+.profilename {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profilenametop {
+  display: flex;
+}
+
+.profilenamemid {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.profilenametop button {
+  margin-left: 20px;
+}

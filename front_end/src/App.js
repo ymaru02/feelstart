@@ -6,6 +6,9 @@ import Title from "components/Atoms/Title";
 import KakaoCallback from "components/Atoms/KakaoCallback";
 import styles from "styles.module.css";
 import Box from "@mui/material/Box";
+import MapWrite from "components/Pages/MapWrite";
+import Content from "components/Pages/Content";
+import Profile from "components/Pages/Profile";
 
 const App = () => {
   const appHeight = () => {
@@ -29,6 +32,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/kakaocallback" element={<KakaoCallback />} />
+          <Route path="/map" element={<MapWrite />} />
+          <Route path="/content" element={<Content />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Box>
     </Box>
