@@ -1,19 +1,14 @@
-import KakaoLoginButton from "components/Atoms/KakaoLoginButton";
-// import Map from "components/Atoms/Map";
+import Onbording from "components/Templates/Onbording";
+import Inbording from "components/Templates/Inbording";
+import { loginStore } from "Store/loginStore";
 import Box from "@mui/material/Box";
-import styles from "styles.module.css";
-import Carousel from "components/Organisms/Carousel";
 
 const Home = () => {
+  const { login, isLogined } = loginStore();
+  <p>{login}</p>;
   return (
-    <Box display="flex" flexDirection="column" justifyContent="space-between">
-      {/* <Map /> */}
-      <Box flexGrow="1">
-        <Carousel />
-      </Box>
-      <Box id={styles.indigo} sx={{ mt: 3 }}>
-        <KakaoLoginButton />
-      </Box>
+    <Box height="100%" id="Home">
+      {isLogined() ? <Inbording /> : <Onbording />}
     </Box>
   );
 };
