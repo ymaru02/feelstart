@@ -7,7 +7,6 @@ let ans = false;
 
 const KakaoLoginRequest = async () => {
   const { doLogin } = loginStore();
-  doLogin();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
     const response = await axios.post("/account/kakaologinrequest", {
@@ -15,6 +14,7 @@ const KakaoLoginRequest = async () => {
     });
     // console.log(response);
     ans = true;
+    doLogin();
     return "YES";
   } catch (err) {
     console.log(err);
