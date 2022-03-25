@@ -1,6 +1,7 @@
 package com.b205.gambyeol.stars.domain;
 
-// import com.b205.gambyeol.users.domain.Users;
+
+import com.b205.gambyeol.users.domain.Users;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,19 +38,8 @@ public class Star {
     @Column @Enumerated(EnumType.STRING)
     private Emotions mood; // 기분(HAPPY, NORMAL, SAD, ANGRY)
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "userId")
-    @Column
-    private String writer; // 작성자
 
-    @Builder
-    public Star(String content, String imageUrl, double latitude, double longitude, String addr, Emotions mood, String writer) {
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.addr = addr;
-        this.mood = mood;
-        this.writer = writer;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users user; // 작성자
+
 }
