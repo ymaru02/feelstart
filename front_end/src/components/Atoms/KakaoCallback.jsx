@@ -9,7 +9,7 @@ const KakaoLoginRequest = async () => {
   const { doLogin } = loginStore();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
-    const response = await axios.post("/account/kakaologinrequest", {
+    await axios.post("/account/kakaologinrequest", {
       code: code,
     });
     // console.log(response);
