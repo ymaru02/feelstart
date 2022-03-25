@@ -7,7 +7,7 @@ const KakaoLoginButton = () => {
       onClick={() => {
         window.Kakao.init("1e8a776ec22fd0574e6fbbd4b934a3c5");
         const params = {
-          redirectUri: "http://localhost:3000/kakaocallback",
+          redirectUri: "https://j6b205.p.ssafy.io/kakaocallback",
         };
         window.Kakao.Auth.authorize(params);
       }}
