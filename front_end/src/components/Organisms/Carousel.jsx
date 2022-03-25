@@ -18,6 +18,7 @@ const Carousel = () => {
     <Slider {...settings}>
       <ExplainCard
         src="https://img.icons8.com/nolan/344/speech-bubble-with-dots.png"
+        width="222"
         alt="test"
         head="당신의 감정을 기록해 보세요"
         texts={[
@@ -28,6 +29,7 @@ const Carousel = () => {
       />
       <ExplainCard
         src="https://img.icons8.com/nolan/344/star.png"
+        width="222"
         alt="test"
         head="감정들을 한 눈에 확인해보세요"
         texts={[
@@ -38,6 +40,7 @@ const Carousel = () => {
       />
       <ExplainCard
         src="https://img.icons8.com/nolan/344/constellation.png"
+        width="222"
         alt="test"
         head="감정들을 이어보세요"
         texts={[

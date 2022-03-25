@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { loginStore } from "Store/loginStore";
+import BottomBar from "components/Molecules/BottomBar";
 
 const About = () => {
   const { bears, increasePopulation, removeAllBears } = loginStore();
@@ -28,6 +29,7 @@ const About = () => {
       </button>
 
       <Link to="/">홈으로</Link>
+      <BottomBar />
     </div>
   );
 };
