@@ -30,6 +30,6 @@ public class StarResponseDto {
         this.longitude = entity.getLongitude();
         this.addr = entity.getAddr();
         this.mood = entity.getMood();
-        this.writer = entity.getWriter();
+        this.writer = entity.getUser().getNickname();
     }
 }
