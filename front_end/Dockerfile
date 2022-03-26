@@ -1,12 +1,14 @@
-FROM node:8.11
-WORKDIR /front_end
-COPY . .
+FROM node:16.14
+RUN mkdir -p /app
+WORKDIR /app
+COPY front_end/package*.json ./
 RUN npm install
+COPY front_end/ .
 RUN npm run build
+EXPOSE $PORT
 
-FROM nginx:stable-alpine as production-stage
-RUN rm /etc/nginx/conf.d/default.conf
-COPY ./front_end.conf /etc/nginx/conf.d/front_end.conf
-COPY --from=build-stage ./front_end/dist /usr/share/nginx/html/front_end
-EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=$PORT
+ENV PROXY_API=$PROXY_API
+ENV PROXY_LOGIN=$PROXY_LOGIN
+CMD [ "npm", "start" ]
