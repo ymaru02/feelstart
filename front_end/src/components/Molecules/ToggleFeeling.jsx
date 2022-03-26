@@ -17,21 +17,42 @@ export default function ToggleFeeling() {
       exclusive
       onChange={handleAlignment}
       aria-label="text alignment"
-      sx={{ border: "none", backgroundColor: "white" }}
+      size="large"
+      sx={{ backgroundColor: "white", width: "90%" }}
     >
       <ToggleButton disabled selected>
         <Box>감정 : </Box>
       </ToggleButton>
-      <ToggleButton value="happy" aria-label="기쁨" color="warning">
+      <ToggleButton
+        value="happy"
+        aria-label="기쁨"
+        color="warning"
+        sx={{ border: 0, backgroundColor: "white", flexGrow: 1 }}
+      >
         <Box>기쁨</Box>
       </ToggleButton>
-      <ToggleButton value="normal" aria-label="보통" color="success">
+      <ToggleButton
+        value="normal"
+        aria-label="보통"
+        color="success"
+        sx={{ border: 0, backgroundColor: "white", flexGrow: 1 }}
+      >
         <Box>보통</Box>
       </ToggleButton>
-      <ToggleButton value="angry" aria-label="화남" color="error">
+      <ToggleButton
+        value="angry"
+        aria-label="화남"
+        color="error"
+        sx={{ border: 0, backgroundColor: "white", flexGrow: 1 }}
+      >
         <Box>화남</Box>
       </ToggleButton>
-      <ToggleButton value="sad" aria-label="슬픔" color="primary">
+      <ToggleButton
+        value="sad"
+        aria-label="슬픔"
+        color="primary"
+        sx={{ border: 0, backgroundColor: "white", flexGrow: 1 }}
+      >
         <Box>슬픔</Box>
       </ToggleButton>
     </ToggleButtonGroup>
