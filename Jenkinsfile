@@ -29,8 +29,8 @@ pipeline {
 				sh 'docker container ls -a -f name=backend -q \
 		| xargs -r docker container rm'
 
-				sh 'docker images -f dangling=true && \
-				docker rmi $(docker images -f dangling=true -q)' 
+				sh 'docker images -qf dangling=true && \
+				docker rmi $(docker images -qf dangling=true -q)' 
 				
 
 				sh 'docker run -d --name frontend \
