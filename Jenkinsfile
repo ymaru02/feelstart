@@ -38,11 +38,11 @@ pipeline {
 				-p 443:443 \
 				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/star-pipeline-cicd/sslkey/ \
 				-v /etc/localtime:/etc/localtime:ro \
-				--network jenkinsnetwork \
+				--network thxstorecicdnetwork \
 				frontend:latest'
 
 				sh 'docker run -d --name backend \
-		--network jenkinsnetwork backend:latest'
+		--network thxstorecicdnetwork backend:latest'
 			}
 		}
 	}
