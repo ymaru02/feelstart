@@ -4,5 +4,5 @@ COPY . .
 RUN chmod +x ./gradlew
 
 RUN rm -rf src/test
-RUN ./gradlew :build.gradle:clean build
-RUN ls build/libs
+RUN ./gradlew :.:clean build
+RUN ls ./build/libs
