@@ -1,6 +1,6 @@
 import React from "react";
 import BottomBar from "components/Molecules/BottomBar";
-import Write from "components/Templates/Write";
+import Write from "components/Pages/Write";
 import Box from "@mui/material/Box";
 
 export default function Inbording() {

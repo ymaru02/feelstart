@@ -20,7 +20,7 @@ export default function ToggleFeeling() {
       size="large"
       sx={{ backgroundColor: "white", width: "90%" }}
     >
-      <ToggleButton disabled selected>
+      <ToggleButton disabled selected value="">
         <Box>감정 : </Box>
       </ToggleButton>
       <ToggleButton
