@@ -29,11 +29,6 @@ pipeline {
 				sh 'docker container ls -a -f name=backend -q \
 		| xargs -r docker container rm'
 
-				if (sh 'docker images -f dangling=true' ){
-					sh 'docker rmi $(docker images -f dangling=true -q)' 
-				}else {
-					sh 'set -e'
-				}
 
 				sh 'docker run -d --name frontend \
 				-p 80:80 \
