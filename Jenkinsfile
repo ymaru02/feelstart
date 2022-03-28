@@ -30,7 +30,7 @@ pipeline {
 		| xargs -r docker container rm'
 
 
-				sh 'docker run -d --name frontend -p 80:80 \
+				sh 'docker run -d --name frontend -p 443:443 \
 				-v /home/ubuntu/star-cicd/:/var/jenkins_home/workspace/star-pipeline-cicd/frontend/ \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network thxstorecicdnetwork \
