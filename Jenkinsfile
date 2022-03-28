@@ -30,12 +30,11 @@ pipeline {
 		| xargs -r docker container rm'
 
 
-				sh 'docker run -d --name frontend \
-				-p 80:8080 \
+				sh 'docker run -d --name frontend -p 80:8080 \
 				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/star-pipeline-cicd/sslkey/ \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network thxstorecicdnetwork \
-				frontend:latest'
+				-u root frontend'
 
 				sh 'docker run -d --name backend \
 		--network thxstorecicdnetwork backend:latest'
