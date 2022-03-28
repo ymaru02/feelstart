@@ -31,7 +31,7 @@ pipeline {
 
 
 				sh 'docker run -d --name frontend \
-				-p 80:80 \
+				-p 80:8080 \
 				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/star-pipeline-cicd/sslkey/ \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network thxstorecicdnetwork \
