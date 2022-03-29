@@ -29,7 +29,7 @@ pipeline {
 				sh 'docker container ls -a -f name=backend -q \
 		| xargs -r docker container rm'
 
-				# sh 'docker images -f dangling=true && docker rmi $(docker images -f dangling=true -q)'
+
 
 				sh 'docker run -d --name frontend -p 80:80 -p 443:443 \
 				-v /home/ubuntu/docker/jenkins_home/workspace/star-pipeline-cicd/front_end/:/var/jenkins_home/workspace/star-pipeline-cicd/front_end/ \
