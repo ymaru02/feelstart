@@ -9,7 +9,14 @@ export default function WriteImageFeelingText({
   handleFileOnChange,
 }) {
   return (
-    <Box flexGrow="1">
+    <Box
+      flexGrow="1"
+      display="flex"
+      flexDirection="column"
+      width="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
       <SelectImage
         previewURL={previewURL}
         handleFileOnChange={handleFileOnChange}

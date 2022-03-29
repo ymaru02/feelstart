@@ -5,7 +5,13 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 export default function TextArea() {
   return (
     <FormControl
-      sx={{ m: 1, width: "90%", backgroundColor: "#2C3D51", height: "40%" }}
+      sx={{
+        m: 1,
+        width: "90%",
+        backgroundColor: "#2C3D51",
+        height: "40%",
+        flexGrow: "1",
+      }}
       variant="outlined"
     >
       <TextareaAutosize

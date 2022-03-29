@@ -17,7 +17,7 @@ export default function ToggleFeeling() {
       exclusive
       onChange={handleAlignment}
       aria-label="text alignment"
-      size="large"
+      // size="large"
       sx={{ backgroundColor: "white", width: "90%" }}
     >
       <ToggleButton disabled selected value="">

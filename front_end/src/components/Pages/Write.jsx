@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SearchMap from "components/Atoms/SearchMap";
@@ -30,13 +30,40 @@ export default function Write() {
       if (file) reader.readAsDataURL(file);
     }
   };
-
   const [isShowKakaoMap, setShowKakaoMap] = useState(false);
   const changeShowKakaoMap = () => {
     setShowKakaoMap(!isShowKakaoMap);
   };
-  const [latitude, setLatitude] = useState(33.450701); // 위도
-  const [longitude, setLongitude] = useState(126.570667); // 경도
+  const [kakaoAdress, setkakaoAdress] = useState("주소를 지정해 주세요!");
+  const setkakaoAdressOriginal = () => {
+    setkakaoAdress("주소를 지정해 주세요!");
+  };
+  const [latitude, setLatitude] = useState(0); // 위도
+  const [longitude, setLongitude] = useState(0); // 경도
+  useEffect(() => {
+    if (navigator.geolocation) {
+      // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+          // var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
+          // map.setCenter(moveLatLon);
+        },
+        function (error) {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        }
+      );
+    } else {
+      alert("GPS를 지원하지 않습니다");
+    }
+  }, []);
+
   return (
     <Box
       height="100%"
@@ -44,6 +71,7 @@ export default function Write() {
       flexDirection="column"
       justifyContent="space-around"
       alignItems="center"
+      width="100%"
     >
       {isShowKakaoMap ? (
         <SearchMap
@@ -51,6 +79,7 @@ export default function Write() {
           setLatitude={setLatitude}
           longitude={longitude}
           setLongitude={setLongitude}
+          setkakaoAdress={setkakaoAdress}
         />
       ) : (
         <WriteImageFeelingText
@@ -59,10 +88,9 @@ export default function Write() {
         />
       )}
 
-      <button id="getParentOutput" onClick={changeShowKakaoMap}>
-        지도 보러 가기
-      </button>
-      {isShowKakaoMap.toString()}
+      <button onClick={changeShowKakaoMap}>지도 보러 가기</button>
+      {kakaoAdress}
+      <button onClick={setkakaoAdressOriginal}>주소 원상복구</button>
       <Box>
         <Button variant="contained" color="primary" component="span">
           취소
