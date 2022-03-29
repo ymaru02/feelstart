@@ -32,7 +32,7 @@ pipeline {
 				sh 'docker images -f dangling=true && docker rmi $(docker images -f dangling=true -q)'
 
 				sh 'docker run -d --name frontend -p 80:80 -p 443:443 \
-				-v /home/ubuntu/star-cicd/:/var/jenkins_home/workspace/star-pipeline-cicd/front_end/ \
+				-v /home/ubuntu/docker/jenkins_home/workspace/star-pipeline-cicd/front_end/:/var/jenkins_home/workspace/star-pipeline-cicd/front_end/ \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network thxstorecicdnetwork \
 				-u root frontend'
