@@ -9,42 +9,50 @@ export default function BottomBar() {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Box sx={{ width: "100vw", position: "fixed", bottom: "0" }}>
+    <Box
+      sx={{
+        width: "100vw",
+        position: "fixed",
+        bottom: "0",
+      }}
+    >
       <BottomNavigation
         showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{ backgroundColor: "#0f1e35" }}
       >
         <BottomNavigationAction
           component={Link}
-          to="/"
-          label="Recents"
+          to="content"
           icon={
             <Image
-              src="https://img.icons8.com/nolan/344/speech-bubble-with-dots.png"
-              width="35"
+              src={`${process.env.PUBLIC_URL}/image/Home.svg`}
+              width="50px"
               alt="test"
             />
           }
         />
         <BottomNavigationAction
-          label="Favorites"
+          component={Link}
+          to="map"
           icon={
             <Image
-              src="https://img.icons8.com/nolan/344/speech-bubble-with-dots.png"
-              width="35"
+              src={`${process.env.PUBLIC_URL}/image/map.svg`}
+              width="50"
               alt="test"
             />
           }
         />
         <BottomNavigationAction
-          label="Nearby"
+          component={Link}
+          to="write"
           icon={
             <Image
-              src="https://img.icons8.com/nolan/344/speech-bubble-with-dots.png"
-              width="35"
+              src={`${process.env.PUBLIC_URL}/image/write.svg`}
+              width="50"
               alt="test"
             />
           }

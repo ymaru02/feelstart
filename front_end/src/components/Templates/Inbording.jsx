@@ -1,8 +1,11 @@
 import React from "react";
 import BottomBar from "components/Molecules/BottomBar";
-import Write from "components/Templates/Write";
+import Write from "components/Pages/Write";
 import Box from "@mui/material/Box";
-
+import { Route, Routes } from "react-router-dom";
+import MapWrite from "components/Pages/MapWrite";
+import Content from "components/Pages/Content";
+import Profile from "components/Pages/Profile";
 export default function Inbording() {
   return (
     <Box
@@ -10,10 +13,15 @@ export default function Inbording() {
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      height="calc(var(--app-height) - 74px - 56px)"
+      minHeight="calc(var(--app-height) - 74px - 56px)"
     >
       <Box flexGrow="1">
-        <Write />
+        <Routes>
+          <Route path="map" element={<MapWrite />} />
+          <Route path="content" element={<Content />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="write" element={<Write />} />
+        </Routes>
       </Box>
       <BottomBar />
     </Box>
