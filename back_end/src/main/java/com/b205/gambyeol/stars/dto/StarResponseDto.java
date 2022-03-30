@@ -12,7 +12,7 @@ public class StarResponseDto {
     private Long starId;
     private String content;
     private LocalDateTime date;
-    private String imageUrl; // 이미지 url
+    private String imageName; // 이미지 url
     private double latitude; // 위도
     private double longitude; // 경도
     private String addr; // 주소
@@ -23,7 +23,7 @@ public class StarResponseDto {
         this.starId = entity.getStarId();
         this.content = entity.getContent();
         this.date = entity.getDate();
-        this.imageUrl = entity.getImageUrl();
+        this.imageName = entity.getImageName();
         this.latitude = entity.getLatitude();
         this.longitude = entity.getLongitude();
         this.addr = entity.getAddr();
