@@ -6,7 +6,7 @@ RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
 RUN rm /etc/nginx/conf.d/default.conf
-RUN cp /etc/nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
-RUN cp --from=build-stage ./front_end/dist /usr/share/nginx/html/front_end
+COPY /etc/nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY --from=build-stage ./front_end/dist /usr/share/nginx/html/front_end
 EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
