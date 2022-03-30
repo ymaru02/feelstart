@@ -37,7 +37,7 @@ pipeline {
 				--network thxstorecicdnetwork \
 				-u root frontend'
 
-				sh 'docker run -d --name backend \
+				sh 'docker run -d --name backend -p 8080:8080 \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
