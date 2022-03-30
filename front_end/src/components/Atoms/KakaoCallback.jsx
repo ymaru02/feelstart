@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { loginStore } from "Store/loginStore";
 
-const KakaoLoginRequest = async () => {
+const KakaoLoginRequest = () => {
   const { setLoginData } = loginStore();
 
   const code = new URL(window.location.href).searchParams.get("code");
