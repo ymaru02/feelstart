@@ -2,10 +2,8 @@ package com.b205.gambyeol.stars.dto;
 
 import com.b205.gambyeol.stars.domain.Emotions;
 import com.b205.gambyeol.stars.domain.Star;
-import com.b205.gambyeol.users.domain.Users;
 import lombok.Getter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
