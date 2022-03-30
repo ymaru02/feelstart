@@ -22,7 +22,7 @@ const KakaoCallback = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("content", { replace: true });
+    navigate("/content", { replace: true });
   });
 
   return null;
