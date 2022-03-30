@@ -8,4 +8,4 @@ RUN ./gradlew :clean build
 RUN ls ./build/libs
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "./gambyeol-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "./build/libs/gambyeol-0.0.1-SNAPSHOT.jar"]
