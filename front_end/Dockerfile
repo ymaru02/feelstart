@@ -5,6 +5,5 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npx", "serve", "-s", "build"]
