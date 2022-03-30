@@ -1,16 +1,17 @@
 import React from "react";
-import FormControl from "@mui/material/FormControl";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { Box } from "@mui/material";
+import { submitStore } from "Store/submitStore";
 
 export default function TextArea() {
+  const { setTextValue } = submitStore();
   return (
-    <FormControl
+    <Box
       sx={{
         m: 1,
         width: "90%",
         backgroundColor: "#2C3D51",
         height: "40%",
-        flexGrow: "1",
       }}
       variant="outlined"
     >
@@ -26,7 +27,8 @@ export default function TextArea() {
           fontSize: "25px",
           padding: "10px",
         }}
+        onChange={setTextValue}
       ></TextareaAutosize>
-    </FormControl>
+    </Box>
   );
 }

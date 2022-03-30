@@ -4,23 +4,17 @@ import SelectImage from "components/Molecules/SelectImage";
 import ToggleFeeling from "components/Molecules/ToggleFeeling";
 import TextArea from "components/Atoms/TextArea";
 
-export default function WriteImageFeelingText({
-  previewURL,
-  handleFileOnChange,
-}) {
+export default function WriteImageFeelingText() {
   return (
     <Box
-      flexGrow="1"
+      height="80%"
       display="flex"
       flexDirection="column"
       width="100%"
-      justifyContent="center"
+      justifyContent="space-around"
       alignItems="center"
     >
-      <SelectImage
-        previewURL={previewURL}
-        handleFileOnChange={handleFileOnChange}
-      ></SelectImage>
+      <SelectImage></SelectImage>
       <ToggleFeeling />
       <TextArea />
     </Box>

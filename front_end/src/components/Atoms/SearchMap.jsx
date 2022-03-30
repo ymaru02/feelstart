@@ -1,17 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { Box } from "@mui/material";
+import { submitStore } from "Store/submitStore";
 
 const { kakao } = window;
 
-export default function SearchMap({
-  latitude,
-  setLatitude,
-  longitude,
-  setLongitude,
-  setkakaoAdress,
-}) {
+export default function SearchMap() {
   const container = useRef(null); //지도를 담을 영역의 DOM 레퍼런스
-
+  const { latitude, setLatitude, longitude, setLongitude, setkakaoAdress } =
+    submitStore();
   useEffect(() => {
     var mapContainer = container.current, // 지도를 표시할 div
       mapOption = {
@@ -49,19 +45,10 @@ export default function SearchMap({
 
           setLatitude(latlng.getLat());
           setLongitude(latlng.getLng());
-          console.log(result);
         }
       });
     });
   }, []);
 
-  return (
-    <Box
-      flexGrow="1"
-      className="map"
-      width="90%"
-      height="100%"
-      ref={container}
-    ></Box>
-  );
+  return <Box className="map" width="90%" height="80%" ref={container}></Box>;
 }
