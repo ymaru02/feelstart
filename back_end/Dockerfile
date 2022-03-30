@@ -6,3 +6,6 @@ RUN chmod +x ./gradlew
 RUN rm -rf src/test
 RUN ./gradlew :clean build
 RUN ls ./build/libs
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "./app.jar"]
