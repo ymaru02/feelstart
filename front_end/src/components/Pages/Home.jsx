@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 
 const Home = () => {
   const { login, isLogined } = loginStore();
-  <p>{login}</p>;
   return (
     <Box height="100%" id="Home">
       {isLogined() ? <Inbording /> : <Onbording />}

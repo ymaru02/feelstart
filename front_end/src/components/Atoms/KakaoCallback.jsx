@@ -28,7 +28,7 @@ const KakaoCallback = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!ans) navigate("/", { replace: true });
+    if (!ans) navigate("content", { replace: true });
   });
 
   return null;
