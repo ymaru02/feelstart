@@ -5,5 +5,10 @@ COPY . .
 RUN npm install
 RUN npm run build
 
+FROM nginx:stable-alpine as production-stage
+RUN rm /etc/nginx/conf.d/default.conf
+COPY . .
+COPY --from=build-stage /build /usr/share/nginx/html/homepage
+
 EXPOSE 3000
-CMD ["npx", "serve", "-s", "build"]
+CMD ["nginx", "-g", "daemon off;"]
