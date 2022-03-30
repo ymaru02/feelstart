@@ -1,5 +1,5 @@
 FROM node:lts-alpine as build-stage
-WORKDIR /app
+WORKDIR /front_end
 COPY package.json package-lock.json ./
 RUN npm install
 RUN npm run build
