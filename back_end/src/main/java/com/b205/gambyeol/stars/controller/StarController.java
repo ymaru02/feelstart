@@ -2,7 +2,6 @@ package com.b205.gambyeol.stars.controller;
 
 import com.b205.gambyeol.stars.dto.StarRequestDto;
 import com.b205.gambyeol.stars.service.StarService;
-import com.b205.gambyeol.users.domain.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
