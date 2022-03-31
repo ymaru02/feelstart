@@ -38,6 +38,7 @@ pipeline {
 				-u root frontend'
 
 				sh 'docker run -d --name backend -p 8080:8080 \
+				-v /home/ubuntu/docker/jenkins_home/workspace/star-pipeline-cicd/back_end/:/var/jenkins_home/workspace/star-pipeline-cicd/back_end/ \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
