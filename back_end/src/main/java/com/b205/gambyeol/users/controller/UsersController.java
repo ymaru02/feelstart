@@ -118,6 +118,7 @@ public class UsersController {
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
+            System.out.println("kauth 요청 결과 result: "+result);
 
             // 토큰 값 저장 및 리턴
             access_token = element.getAsJsonObject().get("access_token").getAsString();
