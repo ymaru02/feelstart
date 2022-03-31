@@ -3,22 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { loginStore } from "Store/loginStore";
 
-const KakaoLoginRequest = () => {
+const KakaoLoginRequest = async () => {
   const { setLoginData } = loginStore();
-
-  const code = new URL(window.location.href).searchParams.get("code");
-  axios
-    .post("/account/kakaologinrequest", {
+  try {
+    const code = new URL(window.location.href).searchParams.get("code");
+    const response = await axios.post("/account/kakaologinrequest", {
       code: code,
-    })
-    .then((response) => {
-      console.log(response);
-      setLoginData(response.data.access_token, response.data.user_id);
-    })
-    .catch((e) => console.log(e));
-  // console.log(response);
-
-  // console.log(response);
+    });
+    console.log(response);
+    setLoginData(response.data.jwt_token, response.data.user_id);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const KakaoCallback = () => {
