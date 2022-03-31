@@ -8,6 +8,7 @@ const Title = () => {
       position="sticky"
       id={styles.indigo}
       style={{ height: "74px", alignItems: "center" }}
+      sx={{ borderBottom: 1, borderColor: "#282c34" }}
     >
       <Box maxWidth="1000px" width="100%">
         <Typography
