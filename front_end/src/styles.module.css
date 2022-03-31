@@ -1,3 +1,19 @@
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
+
+.lightgrey {
+  color: #c0c0c0;
+}
+
+.grey {
+  color: #a0a0a0;
+}
+
 .orange {
   color: #ffbe4a;
 }
@@ -7,9 +23,12 @@
 .gold {
   color: #d1aa60;
 }
+
 #dark {
-  background-color: #0d1a29;
+  background-color: rgb(250, 250, 250);
+  /* background-color: #0d1a29; */
 }
 #indigo {
-  background-color: #0f1e35;
+  background-color: #fff;
+  /* background-color: #0f1e35; */
 }
