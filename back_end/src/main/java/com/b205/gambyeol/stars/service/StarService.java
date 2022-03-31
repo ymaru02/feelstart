@@ -46,11 +46,11 @@ public class StarService {
         String saveFileName = randomStr + originFileName.toLowerCase();
 
         String uploadPath = "";
-        if ("dev".equals(location)) {
-            uploadPath = System.getProperty("user.home") + File.separator + "gambyeolImg";
+        if ("ec2".equals(location)) {
+            uploadPath = System.getProperty("user.dir") + File.separator + "gambyeolImg";
         }
         else {
-            uploadPath = System.getProperty("user.dir") + File.separator + "gambyeolImg";
+            uploadPath = System.getProperty("user.home") + File.separator + "gambyeolImg";
         }
 
         if(!new File(uploadPath).exists()){
@@ -71,7 +71,7 @@ public class StarService {
             }
         }
 
-        params.setImageUrl("file:///" + savePath);
+        params.setImageName(saveFileName);
         Star entity = starRepository.save(params.toEntity());
         return entity.getStarId();
     }
