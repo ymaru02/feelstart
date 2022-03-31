@@ -1,8 +1,8 @@
 import create from "zustand";
 
 export const loginStore = create((set, get) => ({
-  accessToken: "",
+  jwtToken: "",
   userId: "",
   isLogined: () => !!get().userId,
-  setLoginData: (token, pk) => set({ accessToken: token }, { userId: pk }),
+  setLoginData: (token, pk) => set({ jwtToken: token }, { userId: pk }),
 }));
