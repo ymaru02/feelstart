@@ -10,8 +10,8 @@ const KakaoLoginRequest = async () => {
     const response = await axios.post("/account/kakaologinrequest", {
       code: code,
     });
-    console.log(response);
     setLoginData(response.data.jwt_token, response.data.user_id);
+    console.log(response);
   } catch (err) {
     console.log(err);
   }

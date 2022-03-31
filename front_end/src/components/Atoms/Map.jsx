@@ -66,7 +66,7 @@ function Home() {
   return (
     <div
       className="map"
-      style={{ width: "100vw", height: "50vh" }}
+      style={{ width: "100%", height: "500px" }}
       ref={container}
     ></div>
   );
