@@ -14,7 +14,7 @@ import java.util.Optional;
 public class StarRequestDto {
     private String content;
     private LocalDateTime date;
-    private String imageUrl; // 이미지 url
+    private String imageName; // 이미지 url
     private double latitude; // 위도
     private double longitude; // 경도
     private String addr; // 주소
@@ -25,7 +25,7 @@ public class StarRequestDto {
         return Star.builder()
                 .content(content)
                 .date(LocalDateTime.now())
-                .imageUrl(imageUrl)
+                .imageName(imageName)
                 .latitude(latitude)
                 .longitude(longitude)
                 .addr(addr)
@@ -38,6 +38,6 @@ public class StarRequestDto {
         this.user = user;
     }
 
-    public void setImageUrl(String imgUrl) { this.imageUrl = imgUrl; }
+    public void setImageName(String imageName) { this.imageName = imageName; }
 
 }

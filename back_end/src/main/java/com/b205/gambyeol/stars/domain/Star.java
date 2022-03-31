@@ -24,7 +24,7 @@ public class Star {
     private LocalDateTime date; // 작성 일자
 
     @Column
-    private String imageUrl; // 이미지 url
+    private String imageName; // 이미지 이름
 
     @Column
     private double latitude; // 위도
