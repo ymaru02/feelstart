@@ -1,13 +1,15 @@
 import OutlinedCard from "components/Molecules/OutLineCard";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Map from "../Atoms/Map";
+import Map from "components/Atoms/Map";
 import styles from "./MapWrite.module.css";
 
 export default function MapWrite() {
   const [posContent, setPosContent] = useState([1, 2, 3, 4, 5, 6]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setPosContent([1, 2, 3, 4, 5, 6]);
+  }, []);
   return (
     <div>
       <Map />
