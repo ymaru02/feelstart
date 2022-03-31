@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
@@ -33,16 +35,20 @@ public class UsersController {
 
     @PostMapping("/kakaologinrequest")
     public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws IOException, JSONException {
-        System.out.println("code: " + map.get("code"));
+        System.out.println("<<<<<<<<요청 구별용: 요청 1>>>>>>>>"+ LocalDateTime.now());
+        System.out.println("액세스 코드 가져옴, code: " + map.get("code"));
         String accessToken=getReturnAccessToken(map.get("code")); // 액세스 코드를 가져온다
 
         if(accessToken==null){ // 액세스 토큰을 얻어올 수 없는 경우
+            System.out.println("액세스 토큰이 null이다");
             return ResponseEntity.badRequest().body(null);
         }
 
         String apiUrl="https://kapi.kakao.com/v2/user/me";
         String headerStr="Bearer "+accessToken;
         String res=requestToServer(apiUrl, headerStr);
+
+        System.out.println("res: "+res);
 
         if(res==null){
             System.out.println("res");
