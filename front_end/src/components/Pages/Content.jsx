@@ -2,13 +2,19 @@ import RecipeReviewCard from "components/Molecules/RecipeReviewCard";
 import React, { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import axios from "axios";
+import { loginStore } from "Store/loginStore";
 
 export default function Content() {
   const [content, setContent] = useState([1, 2, 3, 4]);
-
+  const token = loginStore().jwtToken;
   useEffect(() => {
+    console.log(token);
     axios
-      .get("http://j6b205.p.ssafy.io:8080/account/stars/all")
+      .get("http://j6b205.p.ssafy.io:8080/stars/all", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(JSON.stringify(res));
 
