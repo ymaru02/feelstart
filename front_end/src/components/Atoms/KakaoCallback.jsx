@@ -7,7 +7,7 @@ const KakaoLoginRequest = async () => {
   const { setLoginData } = loginStore();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
-    const response = await axios.post("/account/kakaologinrequest", {
+    const response = await axios.post("/api/account/kakaologinrequest", {
       code: code,
     });
     setLoginData(response.data.jwt_token, response.data.user_id);
