@@ -25,10 +25,10 @@
 }
 
 #dark {
-  background-color: rgb(250, 250, 250);
-  /* background-color: #0d1a29; */
+  /* background-color: rgb(250, 250, 250); */
+  background-color: #0d1a29;
 }
 #indigo {
-  background-color: #fff;
-  /* background-color: #0f1e35; */
+  /* background-color: #fff; */
+  background-color: #0f1e35;
 }

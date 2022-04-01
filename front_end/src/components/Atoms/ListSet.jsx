@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
-export default function BasicList() {
+export default function BasicList({ handleCloseClick }) {
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <nav aria-label="main mailbox folders">
@@ -46,6 +46,7 @@ export default function BasicList() {
               <ListItemText
                 primaryTypographyProps={{ textAlign: "center" }}
                 primary="취소"
+                onClick={handleCloseClick}
               />
             </ListItemButton>
           </ListItem>

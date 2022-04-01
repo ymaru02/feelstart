@@ -24,6 +24,7 @@ export default function ModalSet() {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleCloseClick = () => setOpen(false);
 
   return (
     <>
@@ -38,7 +39,7 @@ export default function ModalSet() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ListSet />
+          <ListSet handleCloseClick={handleCloseClick} />
         </Box>
       </Modal>
     </>
