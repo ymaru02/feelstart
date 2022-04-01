@@ -8,10 +8,13 @@ export default function Content() {
 
   useEffect(() => {
     axios
-      .get("http://j6b205.p.ssafy.io/stars/all")
+      .get("http://j6b205.p.ssafy.io:8080/account/stars/all")
       .then((res) => {
+        console.log(JSON.stringify(res));
+
         if (JSON.stringify(res).length !== 0) {
           setContent(JSON.stringify(res));
+          console.log(JSON.stringify(res));
         }
       })
       .catch((error) => console.log(error));

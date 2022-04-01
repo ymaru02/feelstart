@@ -35,7 +35,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ imgurl }) {
+export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [favor, setFavor] = useState(false);
   const [openmap, setOpenMap] = useState(false);
@@ -55,9 +55,10 @@ export default function RecipeReviewCard({ imgurl }) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
+
   return (
     <Card
-      sx={{ maxWidth: 1000, border: 1, borderColor: "#c0c0c0" }}
+      sx={{ maxWidth: 1000, width: "100vw", border: 1, borderColor: "#c0c0c0" }}
       style={{
         backgroundColor: "#fff",
       }}
@@ -66,7 +67,9 @@ export default function RecipeReviewCard({ imgurl }) {
         avatar={
           <>
             <AvatarCircle />
-            <Typography style={{ margin: "auto 5px" }}>user.name</Typography>
+            <Typography style={{ margin: "auto 5px" }}>
+              {props.writer}
+            </Typography>
           </>
         }
         action={
@@ -88,30 +91,26 @@ export default function RecipeReviewCard({ imgurl }) {
             <ModalSet />
           </>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={props.mood}
+        subheader={props.date}
         subheaderTypographyProps={{ color: "#a0a0a0" }}
         style={{ color: "#a0a0a0" }}
       />
       <Box>
         {openmap ? (
-          <Map />
+          <Map baseLatitude={props.latitude} baseLongitude={props.longitude} />
         ) : (
           <CardMedia
             sx={{ maxWidth: 1000, maxHeight: 1000 }}
             component="img"
-            image={imgurl}
+            image={props.imgurl}
             alt="Paella dish"
           />
         )}
       </Box>
 
       <CardContent>
-        <Typography variant="body2">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
+        <Typography variant="body2">{props.content}</Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
