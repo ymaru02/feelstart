@@ -1,33 +1,87 @@
-import OutlinedCard from "components/Molecules/OutLineCard";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Map from "components/Atoms/Map";
-import styles from "./MapWrite.module.css";
+import SearchBar from "components/Atoms/SearchBar";
+import SearchBox from "components/Molecules/SearchBox";
+
+const { kakao } = window;
 
 export default function MapWrite() {
-  const [posContent, setPosContent] = useState([1, 2, 3, 4, 5, 6]);
+  const [search, setSearch] = useState("");
+  const [pos, setPos] = useState({
+    latitude: 0,
+    longitude: 0,
+  }); // 위도,경도
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setPos({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        function (error) {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        }
+      );
+    } else {
+      alert("GPS를 지원하지 않습니다");
+    }
+  };
+
+  const address = (key) => {
+    let geocoder = new kakao.maps.services.Geocoder();
+    let addresscallback = function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        setPos({
+          latitude: result[0].y,
+          longitude: result[0].x,
+        });
+      }
+    };
+    geocoder.addressSearch(key, addresscallback);
+  };
+
+  const keyword = (key) => {
+    let places = new kakao.maps.services.Places();
+    let keywordcallback = function (result, status, pagination) {
+      if (status === kakao.maps.services.Status.OK) {
+        setPos({
+          latitude: result[0].y,
+          longitude: result[0].x,
+        });
+      }
+    };
+    places.keywordSearch(key, keywordcallback);
+  };
+  const handleSearch = (key) => {
+    if (key === "") return;
+    setSearch(key);
+
+    address(key);
+  };
 
   useEffect(() => {
-    setPosContent([1, 2, 3, 4, 5, 6]);
+    getLocation();
   }, []);
+
   return (
-    <div>
-      <Map />
-      <br />
-      <div className={styles.content}>
-        <div className={styles.title}>
-          <h2 className={styles.h2}>현재 게시물 위치 주변글</h2>
-        </div>
-        <br />
-        {posContent.map((value, index) => (
-          <OutlinedCard
-            key={index}
-            imgurl={`https://source.unsplash.com/collection/${value}`}
-          />
-        ))}
-      </div>
-      <br />
-      <Link to="/">홈으로</Link>
-    </div>
+    <>
+      <SearchBar handleSearch={handleSearch} />
+      <Map
+        baseLatitude={pos.latitude}
+        baseLongitude={pos.longitude}
+        baseheight={92}
+        search={search}
+      />
+      <SearchBox />
+    </>
   );
 }
