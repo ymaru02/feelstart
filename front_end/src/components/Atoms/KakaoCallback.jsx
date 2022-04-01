@@ -7,9 +7,12 @@ const KakaoLoginRequest = async () => {
   const { setLoginData } = loginStore();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
-    const response = await axios.post("/api/account/kakaologinrequest", {
-      code: code,
-    });
+    const response = await axios.post(
+      "http://j6b205.p.ssafy.io:8080/account/kakaologinrequest",
+      {
+        code: code,
+      }
+    );
     setLoginData(response.data.jwt_token, response.data.user_id);
     console.log(response);
   } catch (err) {
