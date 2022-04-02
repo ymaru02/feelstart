@@ -2,19 +2,16 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { loginStore } from "Store/loginStore";
-import { useCookies } from "react-cookie";
 
 const KakaoLoginRequest = async () => {
-  const { setUserId } = loginStore();
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
-
+  const { setLoginData } = loginStore();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
     const response = await axios.post("/account/kakaologinrequest", {
       code: code,
     });
-    setCookie(response.data.jwt_token);
-    setUserId(response.data.user_id);
+    setLoginData(response.data.jwt_token, response.data.user_id);
+    console.log(response);
   } catch (err) {
     console.log(err);
   }
