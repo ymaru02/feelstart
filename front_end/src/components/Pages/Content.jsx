@@ -28,22 +28,23 @@ export default function Content() {
 
   return (
     <div>
-      {content.data.map((value, index) => (
-        <div className={styles.flexbox} key={index}>
-          <RecipeReviewCard
-            imgurl={`https://source.unsplash.com/collection/${value}`}
-            content={value.content}
-            date={value.date}
-            imageUrl={value.imageUrl}
-            latitude={value.latitude}
-            longitude={value.longitude}
-            addr={value.addr}
-            mood={value.mood}
-            writer={value.writer}
-          />
-          <br />
-        </div>
-      ))}
+      {content &&
+        content.data.map((value, index) => (
+          <div className={styles.flexbox} key={index}>
+            <RecipeReviewCard
+              imgurl={`https://source.unsplash.com/collection/${value}`}
+              content={value.content}
+              date={value.date}
+              imageUrl={value.imageUrl}
+              latitude={value.latitude}
+              longitude={value.longitude}
+              addr={value.addr}
+              mood={value.mood}
+              writer={value.writer}
+            />
+            <br />
+          </div>
+        ))}
     </div>
   );
 }
