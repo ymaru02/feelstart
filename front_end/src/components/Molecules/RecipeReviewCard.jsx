@@ -61,7 +61,7 @@ export default function RecipeReviewCard(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/starimg/${props.imageUrl}`, {
+      .get(`/api/starimg/${props.imageName}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
