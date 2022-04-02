@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
@@ -23,6 +23,8 @@ import AvatarCircle from "components/Atoms/AvatarCircle";
 import ModalSet from "components/Atoms/ModalSet";
 
 import styles from "styles.module.css";
+import axios from "axios";
+import { loginStore } from "Store/loginStore";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,6 +43,7 @@ export default function RecipeReviewCard(props) {
   const [openmap, setOpenMap] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const token = loginStore().jwtToken;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -55,6 +58,18 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
+
+  useEffect(() => {
+    axios
+      .get(`j6b205.p.ssafy.io/:8080/starimg/${props.imageUrl}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  });
 
   return (
     <Card
@@ -103,7 +118,7 @@ export default function RecipeReviewCard(props) {
           <CardMedia
             sx={{ maxWidth: 1000, maxHeight: 1000 }}
             component="img"
-            image={props.imgurl}
+            image={props.imageUrl}
             alt="Paella dish"
           />
         )}
