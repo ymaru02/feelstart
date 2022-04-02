@@ -2,17 +2,17 @@ import RecipeReviewCard from "components/Molecules/RecipeReviewCard";
 import React, { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import axios from "axios";
-import { loginStore } from "Store/loginStore";
+import { useCookies } from "react-cookie";
 
 export default function Content() {
   const [content, setContent] = useState([1, 2, 3, 4]);
-  const token = loginStore().jwtToken;
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
+
   useEffect(() => {
-    console.log(token);
     axios
-      .get("http://j6b205.p.ssafy.io:8080/stars/all", {
+      .get("/stars/all", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${cookies}`,
         },
       })
       .then((res) => {
