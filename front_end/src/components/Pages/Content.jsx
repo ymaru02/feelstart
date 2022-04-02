@@ -2,13 +2,19 @@ import RecipeReviewCard from "components/Molecules/RecipeReviewCard";
 import React, { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 export default function Content() {
   const [content, setContent] = useState([1, 2, 3, 4]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
 
   useEffect(() => {
     axios
-      .get("http://j6b205.p.ssafy.io:8080/account/stars/all")
+      .get("/stars/all", {
+        headers: {
+          Authorization: `Bearer ${cookies}`,
+        },
+      })
       .then((res) => {
         console.log(JSON.stringify(res));
 
