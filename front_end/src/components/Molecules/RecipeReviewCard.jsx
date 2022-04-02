@@ -66,10 +66,7 @@ export default function RecipeReviewCard(props) {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        console.log(res.data);
-        imgurl2 = res.data;
-      });
+      .then((res) => {});
   }, []);
 
   return (
