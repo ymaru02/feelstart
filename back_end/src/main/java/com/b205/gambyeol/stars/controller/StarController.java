@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/stars")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class StarController {
 
     private final StarService starService;
 
-    @PostMapping("/write")
+    @PostMapping("/stars")
     public ResponseEntity save(@RequestPart(value = "dto", required = false) StarRequestDto dto,
                                @AuthenticationPrincipal long userId,
                                @RequestPart(value = "imgFile", required = false) MultipartFile imgFile) {
         return ResponseEntity.ok(starService.save(dto, userId, imgFile));
     }
 
-    @GetMapping("/all")
+    @GetMapping("stars/all")
     public ResponseEntity findAll() {
         return  ResponseEntity.ok(starService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("stars/{id}")
     public ResponseEntity findById(@PathVariable final long id) {
         return ResponseEntity.ok(starService.findById(id));
     }
