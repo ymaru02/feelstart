@@ -34,7 +34,7 @@ pipeline {
 				sh 'docker run -d --name frontend -p 80:80 -p 443:443 \
 				-v /etc/letsencrypt:/etc/letsencrypt \
 				--network thxstorecicdnetwork \
-				-u root frontend'
+				frontend:latest'
 
 				sh 'docker run -d --name backend -p 8080:8080 \
 				-v /var/back_end/gambyeolImg:/gambyeolImg \
