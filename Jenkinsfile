@@ -5,7 +5,7 @@ pipeline {
 		stage('git pull') { 
 			agent any
 			steps {
-				sh 'docker cp backend:/back_end/gambyeolImg /var/back_end/gambyeolImg'
+				sh 'docker cp backend:/back_end/gambyeolImg var/back_end/gambyeolImg'
 				checkout scm
 			}
 		}
