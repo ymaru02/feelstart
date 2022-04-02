@@ -5,6 +5,7 @@ import SearchMap from "components/Atoms/SearchMap";
 import WriteImageFeelingText from "components/Templates/WriteImageFeelingText";
 import { submitStore } from "Store/submitStore";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 export default function Write() {
   const {
     file,
@@ -26,10 +27,14 @@ export default function Write() {
   const setkakaoAdressOriginal = () => {
     setkakaoAdress("");
   };
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
 
   const handlePost = async () => {
     try {
       await axios.post("/stars/write", {
+        headers: {
+          Authorization: `Bearer ${cookies}`,
+        },
         image_file: file,
         dto: {
           content: textValue,
