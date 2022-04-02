@@ -5,7 +5,7 @@ pipeline {
 		stage('git pull') { 
 			agent any
 			steps {
-				checkout scm
+				echo "pulling" 
 			}
 		}
 		stage('Docker build') { 
