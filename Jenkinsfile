@@ -32,7 +32,7 @@ pipeline {
 				sh 'docker images -f dangling=true -q | xargs --no-run-if-empty docker rmi -f'
 
 				sh 'docker run -d --name frontend -p 80:80 -p 443:443 \
-				-v /etc/letsencrypt:/etc/letsencrypt:ro \
+				-v /etc/letsencrypt:/etc/letsencrypt \
 				--network thxstorecicdnetwork \
 				-u root frontend'
 
