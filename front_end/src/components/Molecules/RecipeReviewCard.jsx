@@ -44,6 +44,7 @@ export default function RecipeReviewCard(props) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const token = loginStore().jwtToken;
+  let imgurl = "";
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -67,9 +68,9 @@ export default function RecipeReviewCard(props) {
         },
       })
       .then((res) => {
-        console.log(res);
+        imgurl = res.date;
       });
-  });
+  }, []);
 
   return (
     <Card
@@ -118,7 +119,7 @@ export default function RecipeReviewCard(props) {
           <CardMedia
             sx={{ maxWidth: 1000, maxHeight: 1000 }}
             component="img"
-            image={props.imageUrl}
+            image={imgurl}
             alt="Paella dish"
           />
         )}
