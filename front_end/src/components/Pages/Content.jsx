@@ -5,12 +5,12 @@ import axios from "axios";
 import { loginStore } from "Store/loginStore";
 
 export default function Content() {
-  const [content, setContent] = useState([1, 2, 3, 4]);
+  const [content, setContent] = useState();
   const token = loginStore().jwtToken;
   useEffect(() => {
     console.log(token);
     axios
-      .get("http://j6b205.p.ssafy.io:8080/stars/all", {
+      .get("/stars/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -19,8 +19,8 @@ export default function Content() {
         console.log(JSON.stringify(res));
 
         if (JSON.stringify(res).length !== 0) {
-          setContent(JSON.stringify(res));
-          console.log(JSON.stringify(res));
+          setContent(res.data);
+          console.log(res);
         }
       })
       .catch((error) => console.log(error));
@@ -28,22 +28,23 @@ export default function Content() {
 
   return (
     <div>
-      {content.map((value, index) => (
-        <div className={styles.flexbox} key={index}>
-          <RecipeReviewCard
-            imgurl={`https://source.unsplash.com/collection/${value}`}
-            content={value.content}
-            date={value.date}
-            imageUrl={value.imageUrl}
-            latitude={value.latitude}
-            longitude={value.longitude}
-            addr={value.addr}
-            mood={value.mood}
-            writer={value.writer}
-          />
-          <br />
-        </div>
-      ))}
+      {content &&
+        content.map((value, index) => (
+          <div className={styles.flexbox} key={index}>
+            <RecipeReviewCard
+              imgurl={`https://source.unsplash.com/collection/${value}`}
+              content={value.content}
+              date={value.date}
+              imageUrl={value.imageUrl}
+              latitude={value.latitude}
+              longitude={value.longitude}
+              addr={value.addr}
+              mood={value.mood}
+              writer={value.writer}
+            />
+            <br />
+          </div>
+        ))}
     </div>
   );
 }
