@@ -28,7 +28,7 @@ export default function Content() {
 
   return (
     <div>
-      {content.map((value, index) => (
+      {content.data.map((value, index) => (
         <div className={styles.flexbox} key={index}>
           <RecipeReviewCard
             imgurl={`https://source.unsplash.com/collection/${value}`}
