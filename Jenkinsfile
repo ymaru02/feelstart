@@ -32,13 +32,12 @@ pipeline {
 				sh 'docker images -f dangling=true -q | xargs --no-run-if-empty docker rmi -f'
 
 				sh 'docker run -d --name frontend -p 80:80 -p 443:443 \
-				-v /home/ubuntu/docker/jenkins-data/workspace/star-pipeline-cicd/front_end/:/var/jenkins_home/workspace/star-pipeline-cicd/front_end/ \
-				-v /etc/letsencrypt:/etc/letsencrypt \
+				-v /etc/letsencrypt:/etc/letsencrypt:ro \
 				--network thxstorecicdnetwork \
 				-u root frontend'
 
 				sh 'docker run -d --name backend -p 8080:8080 \
-				-v /home/ubuntu/docker/jenkins-data/workspace/star-pipeline-cicd/back_end/:/var/jenkins_home/workspace/star-pipeline-cicd/back_end/ \
+				-v /home/ubuntu/docker/jenkins-data/workspace/star-pipeline-cicd/back_end/gambyeolImg:/var/jenkins_home/workspace/star-pipeline-cicd/back_end/gambyeolImg \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
