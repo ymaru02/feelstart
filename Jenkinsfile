@@ -1,5 +1,6 @@
 pipeline {
 	agent none
+	options { skipDefaultCheckout(false) }
 	stages {
 		stage('git pull') { 
 			agent any
@@ -36,7 +37,7 @@ pipeline {
 				frontend:latest'
 
 				sh 'docker run -d --name backend -p 8080:8080 \
-				-v /var/back_end/gambyeolImg:/gambyeolImg \
+				-v /var/back_end/gambyeolImg:/back_end/gambyeolImg \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
