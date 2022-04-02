@@ -31,11 +31,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if ("ec2".equals(location)) {
-            registry.addResourceHandler("/starimg/**")
+            registry.addResourceHandler("/api/starimg/**")
                     .addResourceLocations("file:///" + System.getProperty("user.dir") + File.separator + "gambyeolImg" + File.separator);
         }
         else {
-            registry.addResourceHandler("/starimg/**")
+            registry.addResourceHandler("/api/starimg/**")
                     .addResourceLocations("file:///" + System.getProperty("user.home") + File.separator + "gambyeolImg" + File.separator);
         }
     }
