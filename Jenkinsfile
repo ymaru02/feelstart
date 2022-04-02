@@ -37,7 +37,7 @@ pipeline {
 				-u root frontend'
 
 				sh 'docker run -d --name backend -p 8080:8080 \
-				-v /home/ubuntu/docker/jenkins-data/workspace/star-pipeline-cicd/back_end/gambyeolImg:/var/jenkins_home/workspace/star-pipeline-cicd/back_end/gambyeolImg \
+				-v /var/back_end/gambyeolImg:/gambyeolImg \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
