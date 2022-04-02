@@ -10,7 +10,7 @@ export default function Content() {
   useEffect(() => {
     console.log(token);
     axios
-      .get("http://j6b205.p.ssafy.io:8080/stars/all", {
+      .get("/stars/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
