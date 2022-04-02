@@ -5,7 +5,7 @@ import axios from "axios";
 import { loginStore } from "Store/loginStore";
 
 export default function Content() {
-  const [content, setContent] = useState([1, 2, 3, 4]);
+  const [content, setContent] = useState();
   const token = loginStore().jwtToken;
   useEffect(() => {
     console.log(token);
