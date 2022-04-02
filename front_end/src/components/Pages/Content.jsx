@@ -19,8 +19,8 @@ export default function Content() {
         console.log(JSON.stringify(res));
 
         if (JSON.stringify(res).length !== 0) {
-          setContent(JSON.stringify(res));
-          console.log(JSON.stringify(res));
+          setContent(res);
+          console.log(res);
         }
       })
       .catch((error) => console.log(error));
@@ -29,7 +29,7 @@ export default function Content() {
   return (
     <div>
       {content &&
-        content.data.map((value, index) => (
+        content.map((value, index) => (
           <div className={styles.flexbox} key={index}>
             <RecipeReviewCard
               imgurl={`https://source.unsplash.com/collection/${value}`}
