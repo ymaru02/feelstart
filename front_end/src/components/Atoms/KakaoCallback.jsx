@@ -5,7 +5,7 @@ import { loginStore } from "Store/loginStore";
 import { useCookies } from "react-cookie";
 
 const KakaoLoginRequest = async () => {
-  const { setUserId } = loginStore();
+  const { setLoginData } = loginStore();
   const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
 
   try {
@@ -14,7 +14,7 @@ const KakaoLoginRequest = async () => {
       code: code,
     });
     setCookie(response.data.jwt_token);
-    setUserId(response.data.user_id);
+    setLoginData(response.data.user_id);
   } catch (err) {
     console.log(err);
   }
