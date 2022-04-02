@@ -45,7 +45,6 @@ export default function RecipeReviewCard(props) {
   const [comments, setComments] = useState([]);
   const token = loginStore().jwtToken;
   const imgurl = `/back_end/gambyeolImg/${props.imageName}`;
-  let imgurl2 = "";
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -117,15 +116,12 @@ export default function RecipeReviewCard(props) {
         {openmap ? (
           <Map baseLatitude={props.latitude} baseLongitude={props.longitude} />
         ) : (
-          <>
-            <CardMedia
-              sx={{ maxWidth: 1000, maxHeight: 1000 }}
-              component="img"
-              image={imgurl}
-              alt="Paella dish"
-            />
-            <img src={imgurl2} />
-          </>
+          <CardMedia
+            sx={{ maxWidth: 1000, maxHeight: 1000 }}
+            component="img"
+            image={`https://j6b205.p.ssafy.io/api/starimg/${props.imageName}`}
+            alt="Paella dish"
+          />
         )}
       </Box>
 
