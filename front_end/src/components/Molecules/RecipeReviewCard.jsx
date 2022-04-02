@@ -54,7 +54,6 @@ export default function RecipeReviewCard(props) {
     if (comment === "") return;
     setComments((currentArray) => [...currentArray, comment]);
     setComment("");
-    console.log(comments);
   };
   const handelChange = (event) => {
     setComment(event.target.value);
@@ -68,7 +67,8 @@ export default function RecipeReviewCard(props) {
         },
       })
       .then((res) => {
-        imgurl = res.date;
+        console.log(res.data);
+        imgurl = res.data;
       });
   }, []);
 
