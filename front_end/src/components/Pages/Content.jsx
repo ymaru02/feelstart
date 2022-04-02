@@ -18,6 +18,7 @@ export default function Content() {
       .then((res) => {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
+          console.log(res);
         }
       })
       .catch((error) => console.log(error));

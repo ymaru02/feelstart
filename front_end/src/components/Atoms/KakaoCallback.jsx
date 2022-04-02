@@ -11,7 +11,6 @@ const KakaoLoginRequest = async () => {
       code: code,
     });
     setLoginData(response.data.jwt_token, response.data.user_id);
-    console.log(response);
   } catch (err) {
     console.log(err);
   }
