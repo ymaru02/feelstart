@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 @Slf4j
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class UsersController {
 
     @Autowired
