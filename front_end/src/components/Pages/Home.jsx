@@ -1,13 +1,14 @@
 import Onbording from "components/Templates/Onbording";
 import Inbording from "components/Templates/Inbording";
-import { loginStore } from "Store/loginStore";
 import Box from "@mui/material/Box";
+import { useCookies } from "react-cookie";
 
 const Home = () => {
-  const { isLogined } = loginStore();
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
+
   return (
     <Box height="100%" id="Home">
-      {isLogined() ? <Inbording /> : <Onbording />}
+      {!cookies ? <Inbording /> : <Onbording />}
     </Box>
   );
 };
