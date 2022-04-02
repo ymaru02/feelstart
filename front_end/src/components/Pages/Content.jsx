@@ -10,7 +10,7 @@ export default function Content() {
   useEffect(() => {
     console.log(token);
     axios
-      .get("/stars/all", {
+      .get("/api/stars/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
