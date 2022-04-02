@@ -44,7 +44,7 @@ export default function RecipeReviewCard(props) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const token = loginStore().jwtToken;
-  let imgurl = "";
+  const imgurl = `/back_end/gambyeolImg/${props.imageName}`;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -68,7 +68,6 @@ export default function RecipeReviewCard(props) {
       })
       .then((res) => {
         console.log(res.data);
-        imgurl = res.data;
       });
   }, []);
 
