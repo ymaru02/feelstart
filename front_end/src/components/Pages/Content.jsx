@@ -19,7 +19,7 @@ export default function Content() {
         console.log(JSON.stringify(res));
 
         if (JSON.stringify(res).length !== 0) {
-          setContent(res);
+          setContent(res.data);
           console.log(res);
         }
       })
