@@ -26,9 +26,9 @@ export default function SearchBox({ contents }) {
       }}
     >
       <Slider {...settings}>
-        {contents.map((content, index) => {
-          return <BasicCard content={content} key={index} />;
-        })}
+        {/* {contents.map((content, index) => (
+          <BasicCard content={content} key={index} />
+        ))} */}
       </Slider>
     </Box>
   );
