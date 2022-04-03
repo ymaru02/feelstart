@@ -87,7 +87,7 @@ export default function MapWrite() {
 
   useEffect(() => {
     getLocation();
-    // console.log(contents);
+    console.log(contents);
   }, []);
 
   return (
@@ -124,7 +124,7 @@ export default function MapWrite() {
         search={search}
         handlePropsChange={handlePropsChange}
       />
-      <SearchBox contents={contents} />
+      <SearchBox />
     </>
   );
 }
