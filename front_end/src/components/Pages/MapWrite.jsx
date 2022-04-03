@@ -10,7 +10,8 @@ import { contentStore } from "Store/contentStore";
 const { kakao } = window;
 
 export default function MapWrite() {
-  // const { contents } = contentStore();
+  const { contents } = contentStore();
+  console.log(contents);
   // const [pickcontents, setPickContents] = useState([]);
   const [search, setSearch] = useState("");
   const [pos, setPos] = useState({
@@ -123,7 +124,7 @@ export default function MapWrite() {
         search={search}
         handlePropsChange={handlePropsChange}
       />
-      {/* <SearchBox contents={contents} /> */}
+      <SearchBox contents={contents} />
     </>
   );
 }
