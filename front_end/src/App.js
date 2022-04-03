@@ -30,8 +30,8 @@ const App = () => {
       <Box flexGrow="1">
         <Routes>
           {/* 수정사항 */}
-          <Route path="/mapwrite" element={<MapWrite />} />
-          <Route path="/content" element={<Content />} />
+          {/* <Route path="/mapwrite" element={<MapWrite />} />
+          <Route path="/content" element={<Content />} /> */}
           {/*  */}
           <Route path="/about" element={<About />} />
           <Route path="/kakaocallback" element={<KakaoCallback />} />
