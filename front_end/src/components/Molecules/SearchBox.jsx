@@ -4,8 +4,8 @@ import Slider from "react-slick";
 import { contentStore } from "Store/contentStore";
 
 import BasicCard from "components/Molecules/BasicCard";
-export default function SearchBox() {
-  const [content, setContent] = useState([1, 1, 1, 1, 1, 1, 1]);
+export default function SearchBox(props) {
+  const [contents, setContents] = useState(props.contents);
   const contents = contentStore();
 
   const settings = {
@@ -33,8 +33,8 @@ export default function SearchBox() {
       }}
     >
       <Slider {...settings}>
-        {content.map((value, index) => {
-          return <BasicCard value={value} key={index} />;
+        {contents.map((content, index) => {
+          return <BasicCard content={content} key={index} />;
         })}
       </Slider>
     </Box>
