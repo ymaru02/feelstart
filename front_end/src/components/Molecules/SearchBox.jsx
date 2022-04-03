@@ -10,7 +10,9 @@ export default function SearchBox(props) {
     slidesToScroll: 3,
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(props.contents);
+  }, []);
 
   return (
     <Box
