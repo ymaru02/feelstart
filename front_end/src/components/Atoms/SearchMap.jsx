@@ -16,10 +16,7 @@ export default function SearchMap() {
       };
     var map = new kakao.maps.Map(mapContainer, mapOption);
     //지도의 레벨(확대, 축소 정도)}); //지도 생성 및 객체 리턴
-    var marker = new kakao.maps.Marker({
-      // 지도 중심좌표에 마커를 생성합니다
-      position: map.getCenter(),
-    });
+    var marker = new kakao.maps.Marker();
     // 지도에 마커를 표시합니다
     marker.setMap(map);
 

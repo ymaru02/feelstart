@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { submitStore } from "Store/submitStore";
 
 export default function TextArea() {
-  const { setTextValue } = submitStore();
+  const { textValue, setTextValue } = submitStore();
   return (
     <Box
       sx={{
@@ -28,6 +28,7 @@ export default function TextArea() {
           padding: "10px",
         }}
         onChange={setTextValue}
+        value={textValue}
       ></TextareaAutosize>
     </Box>
   );
