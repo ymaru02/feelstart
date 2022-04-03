@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "react-slick";
-import { contentStore } from "Store/contentStore";
+// import { contentStore } from "Store/contentStore";
 
 import BasicCard from "components/Molecules/BasicCard";
 export default function SearchBox(props) {
   const [contents, setContents] = useState(props.contents);
-  const contents = contentStore();
+  // const contents = contentStore();
 
   const settings = {
     // dots: true,
@@ -18,7 +18,7 @@ export default function SearchBox(props) {
   };
 
   useEffect(() => {
-    setContent(contents.contentStore);
+    setContents(contents.contentStore);
   }, []);
 
   return (
