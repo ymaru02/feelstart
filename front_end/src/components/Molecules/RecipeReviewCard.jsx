@@ -44,6 +44,7 @@ export default function RecipeReviewCard(props) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const token = loginStore().jwtToken;
+  const imgurl = `/back_end/gambyeolImg/${props.imageName}`;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -53,7 +54,6 @@ export default function RecipeReviewCard(props) {
     if (comment === "") return;
     setComments((currentArray) => [...currentArray, comment]);
     setComment("");
-    console.log(comments);
   };
   const handelChange = (event) => {
     setComment(event.target.value);
@@ -61,15 +61,13 @@ export default function RecipeReviewCard(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/starimg/${props.imageUrl}`, {
+      .get(`/api/starimg/${props.imageName}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        console.log(res);
-      });
-  });
+      .then((res) => {});
+  }, []);
 
   return (
     <Card
@@ -118,7 +116,7 @@ export default function RecipeReviewCard(props) {
           <CardMedia
             sx={{ maxWidth: 1000, maxHeight: 1000 }}
             component="img"
-            image={props.imageUrl}
+            image={`https://j6b205.p.ssafy.io/api/starimg/${props.imageName}`}
             alt="Paella dish"
           />
         )}

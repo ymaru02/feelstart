@@ -31,7 +31,7 @@ export default function Content() {
             <RecipeReviewCard
               content={value.content}
               date={value.date}
-              imageUrl={value.imageUrl}
+              imageName={value.imageName}
               latitude={value.latitude}
               longitude={value.longitude}
               addr={value.addr}
