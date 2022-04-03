@@ -124,7 +124,7 @@ export default function MapWrite() {
         search={search}
         handlePropsChange={handlePropsChange}
       />
-      <SearchBox />
+      <SearchBox contents={contents} />
     </>
   );
 }
