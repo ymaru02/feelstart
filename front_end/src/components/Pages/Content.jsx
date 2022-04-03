@@ -23,6 +23,7 @@ export default function Content() {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
           setNewMap(res.data);
+          console.log(res.data);
         }
       })
       .catch((error) => console.log(error));
