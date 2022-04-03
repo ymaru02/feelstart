@@ -10,7 +10,8 @@ import { contentStore } from "Store/contentStore";
 const { kakao } = window;
 
 export default function MapWrite() {
-  const [contents, setContents] = useState([]);
+  const contents = contentStore().contents;
+  const [pickcontents, setPickContents] = useState([]);
   const [search, setSearch] = useState("");
   const [pos, setPos] = useState({
     latitude: 0,
@@ -85,8 +86,6 @@ export default function MapWrite() {
 
   useEffect(() => {
     getLocation();
-    setContents(contentStore().contentStore);
-    console.log(contentStore().contentStore);
   }, []);
 
   return (
