@@ -18,13 +18,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-import Map from "components/Atoms/Map";
+import MiniMap from "components/Atoms/MiniMap";
 import AvatarCircle from "components/Atoms/AvatarCircle";
 import ModalSet from "components/Atoms/ModalSet";
 
 import styles from "styles.module.css";
-import axios from "axios";
-import { loginStore } from "Store/loginStore";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -43,8 +41,6 @@ export default function RecipeReviewCard(props) {
   const [openmap, setOpenMap] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const token = loginStore().jwtToken;
-  const imgurl = `/back_end/gambyeolImg/${props.imageName}`;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -58,16 +54,6 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
-
-  useEffect(() => {
-    axios
-      .get(`/api/starimg/${props.imageName}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {});
-  }, []);
 
   return (
     <Card
@@ -111,7 +97,11 @@ export default function RecipeReviewCard(props) {
       />
       <Box>
         {openmap ? (
-          <Map baseLatitude={props.latitude} baseLongitude={props.longitude} />
+          <MiniMap
+            baseLatitude={props.latitude}
+            baseLongitude={props.longitude}
+            mood={props.mood}
+          />
         ) : (
           <CardMedia
             sx={{ maxWidth: 1000, maxHeight: 1000 }}

@@ -30,7 +30,7 @@ export default function SearchBar({ handleSearch }) {
         width: 500,
         maxWidth: "100%",
         position: "absolute",
-        top: 100,
+        top: 110,
         left: 0,
         right: 0,
         marginLeft: "auto",
@@ -66,10 +66,6 @@ export default function SearchBar({ handleSearch }) {
           aria-label="search"
         >
           <SearchIcon />
-        </IconButton>
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} aria-label="directions">
-          <DirectionsIcon />
         </IconButton>
       </Paper>
     </Box>
