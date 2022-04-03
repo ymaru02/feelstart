@@ -3,10 +3,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import axios from "axios";
 import { loginStore } from "Store/loginStore";
+import { contentStore } from "Store/contentStore";
 
 export default function Content() {
   const [content, setContent] = useState();
+
   const token = loginStore().jwtToken;
+  const setNewMap = contentStore();
+
   useEffect(() => {
     console.log(token);
     axios
@@ -18,6 +22,7 @@ export default function Content() {
       .then((res) => {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
+          setNewMap(res.data);
         }
       })
       .catch((error) => console.log(error));
