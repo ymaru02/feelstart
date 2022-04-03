@@ -26,9 +26,34 @@ export default function SearchBox({ contents = [] }) {
       }}
     >
       <Slider {...settings}>
-        {contents.map((content) => (
-          <BasicCard content={content} key={content.starId} />
-        ))}
+        {contents.map(
+          (
+            {
+              starId,
+              content,
+              date,
+              imageName,
+              latitude,
+              longitude,
+              addr,
+              mood,
+              writer,
+            },
+            index
+          ) => (
+            <BasicCard
+              starId={starId}
+              content={content}
+              date={date}
+              imageName={imageName}
+              latitude={latitude}
+              longitude={longitude}
+              addr={addr}
+              mood={mood}
+              key={index}
+            />
+          )
+        )}
       </Slider>
     </Box>
   );
