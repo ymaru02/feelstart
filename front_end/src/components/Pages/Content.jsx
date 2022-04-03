@@ -9,7 +9,7 @@ export default function Content() {
   const [content, setContent] = useState();
 
   const token = loginStore().jwtToken;
-  const setNewMap = contentStore();
+  const { setNewMap } = contentStore();
 
   useEffect(() => {
     console.log(token);
