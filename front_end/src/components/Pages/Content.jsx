@@ -9,7 +9,7 @@ export default function Content() {
   const [content, setContent] = useState();
 
   const token = loginStore().jwtToken;
-  const { setNewMap } = contentStore();
+  const { setNewContents } = contentStore();
 
   useEffect(() => {
     console.log(token);
@@ -22,7 +22,7 @@ export default function Content() {
       .then((res) => {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
-          setNewMap(res.data);
+          setNewContents(res.data);
           console.log(res.data);
         }
       })
