@@ -57,18 +57,18 @@ export default function MapWrite() {
     };
     geocoder.addressSearch(key, addresscallback);
   };
-  const keyword = (key) => {
-    let places = new kakao.maps.services.Places();
-    let keywordcallback = function (result, status, pagination) {
-      if (status === kakao.maps.services.Status.OK) {
-        setPos({
-          latitude: result[0].y,
-          longitude: result[0].x,
-        });
-      }
-    };
-    places.keywordSearch(key, keywordcallback);
-  };
+  // const keyword = (key) => {
+  //   let places = new kakao.maps.services.Places();
+  //   let keywordcallback = function (result, status, pagination) {
+  //     if (status === kakao.maps.services.Status.OK) {
+  //       setPos({
+  //         latitude: result[0].y,
+  //         longitude: result[0].x,
+  //       });
+  //     }
+  //   };
+  //   places.keywordSearch(key, keywordcallback);
+  // };
   const handleSearch = (key) => {
     if (key === "") return;
     setSearch(key);
