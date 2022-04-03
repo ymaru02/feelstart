@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Slider from "react-slick";
 
 import BasicCard from "components/Molecules/BasicCard";
-export default function SearchBox({ contents }) {
+export default function SearchBox({ contents = [] }) {
   const settings = {
     speed: 500,
     slidesToShow: 3,
@@ -26,9 +26,9 @@ export default function SearchBox({ contents }) {
       }}
     >
       <Slider {...settings}>
-        {/* {contents.map((content, index) => (
+        {contents.map((content, index) => (
           <BasicCard content={content} key={index} />
-        ))} */}
+        ))}
       </Slider>
     </Box>
   );
