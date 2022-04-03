@@ -5,6 +5,8 @@ import SearchMap from "components/Atoms/SearchMap";
 import WriteImageFeelingText from "components/Templates/WriteImageFeelingText";
 import { submitStore } from "Store/submitStore";
 import axios from "axios";
+import { loginStore } from "Store/loginStore";
+
 export default function Write() {
   const {
     file,
@@ -27,9 +29,14 @@ export default function Write() {
     setkakaoAdress("");
   };
 
+  const { jwtToken } = loginStore();
+
   const handlePost = async () => {
     try {
       await axios.post("/stars/write", {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
         image_file: file,
         dto: {
           content: textValue,
