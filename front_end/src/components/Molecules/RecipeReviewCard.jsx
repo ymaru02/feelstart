@@ -54,9 +54,7 @@ export default function RecipeReviewCard(props) {
     setComment(event.target.value);
   };
 
-  useEffect(() => {
-    props.imageName = encodeURIComponent(`${props.imageName}`);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Card
