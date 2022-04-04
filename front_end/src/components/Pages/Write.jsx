@@ -32,18 +32,28 @@ export default function Write() {
   const { getJwtToken } = loginStore();
 
   const handlePost = async () => {
+    var formData = new FormData();
+    formData.append("imgFile", file);
+    formData.append(
+      "dto",
+      new Blob(
+        [
+          JSON.stringify({
+            content: textValue,
+            latitude: latitude,
+            longitude: longitude,
+            addr: kakaoAdress,
+            mode: alignment,
+          }),
+        ],
+        { type: "application/json" }
+      )
+    );
     try {
-      await axios.post("/api/stars", {
+      await axios.post("/api/stars", formData, {
         headers: {
           Authorization: `Bearer ${getJwtToken()}`,
-        },
-        image_file: file,
-        dto: {
-          content: textValue,
-          latitude: latitude,
-          longitude: longitude,
-          addr: kakaoAdress,
-          mode: alignment,
+          "Content-Type": "multipart/form-data",
         },
       });
       reset();
