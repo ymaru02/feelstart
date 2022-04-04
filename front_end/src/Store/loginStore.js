@@ -1,9 +1,9 @@
 import create from "zustand";
 
 export const loginStore = create((set, get) => ({
-  jwtToken: "",
+  jwtToken: "T",
   userId: "",
   isLogined: () => !!get().jwtToken,
-  getjwtToekn: () => get().jwtToken,
+  getJwtToken: () => get().jwtToken,
   setLoginData: (token, pk) => set({ jwtToken: token, userId: pk }),
 }));
