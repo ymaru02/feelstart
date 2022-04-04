@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -53,6 +53,10 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
+
+  useEffect(() => {
+    props.imageName = encodeURIComponent(`${props.imageName}`);
+  }, []);
 
   return (
     <Card
