@@ -10,8 +10,6 @@ export default function SearchBox({ contents = [1, 1, 1, 1] }) {
     slidesToScroll: 3,
   };
 
-  const slickDiv = document.getElementsByClassName("slick-slide");
-  console.log(slickDiv);
   useEffect(() => {}, []);
 
   return (
@@ -28,36 +26,40 @@ export default function SearchBox({ contents = [1, 1, 1, 1] }) {
         zIndex: "tooltip",
       }}
     >
-      <Slider {...settings}>
-        {contents.map(
-          (
-            {
-              starId,
-              content,
-              date,
-              imageName,
-              latitude,
-              longitude,
-              addr,
-              mood,
-              writer,
-            },
-            index
-          ) => (
-            <BasicCard
-              starId={starId}
-              content={content}
-              date={date}
-              imageName={imageName}
-              latitude={latitude}
-              longitude={longitude}
-              addr={addr}
-              mood={mood}
-              key={index}
-            />
-          )
-        )}
-      </Slider>
+      {contents.length > 3 ? (
+        <Slider {...settings}>
+          {contents.map(
+            (
+              {
+                starId,
+                content,
+                date,
+                imageName,
+                latitude,
+                longitude,
+                addr,
+                mood,
+                writer,
+              },
+              index
+            ) => (
+              <BasicCard
+                starId={starId}
+                content={content}
+                date={date}
+                imageName={imageName}
+                latitude={latitude}
+                longitude={longitude}
+                addr={addr}
+                mood={mood}
+                key={index}
+              />
+            )
+          )}
+        </Slider>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 }
