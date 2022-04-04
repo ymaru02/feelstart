@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 export default function ProfileBottom() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("0");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -88,9 +88,9 @@ export default function ProfileBottom() {
           indicatorColor="secondary"
           centered
         >
-          <Tab className={classes.label} value="1" label="Item One" />
-          <Tab className={classes.label} value="2" label="Item Two" />
-          <Tab className={classes.label} value="3" label="Item Three" />
+          <Tab className={classes.label} value="0" label="Item One" />
+          <Tab className={classes.label} value="1" label="Item Two" />
+          <Tab className={classes.label} value="2" label="Item Three" />
         </Tabs>
       </div>
       <div>

@@ -10,7 +10,7 @@ export default function BasicCard(props) {
     <Card
       sx={{
         maxWidth: 345,
-        borderRadius: 10,
+        borderRadius: 3,
         left: 0,
         right: 0,
         marginLeft: "auto",
@@ -24,11 +24,11 @@ export default function BasicCard(props) {
           image={`https://j6b205.p.ssafy.io/api/starimg/${props.imageName}`}
           alt="green iguana"
         />
-        <CardContent>
+        {/* <CardContent>
           <Typography gutterBottom component="div">
-            {props.content}
+            {props.addr}
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
     </Card>
   );
