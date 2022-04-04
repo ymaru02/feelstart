@@ -36,6 +36,8 @@ public class StarService {
     public Long save(StarRequestDto params, long userId, MultipartFile imgFile) {
         // 작성자 등록
         Users finduser = usersRepository.findByUserId(userId);
+        System.out.println(finduser);
+        System.out.println("--------------------------------");
         params.setUser(finduser);
 
         // 이미지 파일 등록
