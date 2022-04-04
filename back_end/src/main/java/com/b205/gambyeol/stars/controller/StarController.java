@@ -19,6 +19,8 @@ public class StarController {
     public ResponseEntity save(@RequestPart(value = "dto", required = false) StarRequestDto dto,
                                @AuthenticationPrincipal long userId,
                                @RequestPart(value = "imgFile", required = false) MultipartFile imgFile) {
+        System.out.println("글 작성 controller 시작");
+        System.out.println(dto);
         return ResponseEntity.ok(starService.save(dto, userId, imgFile));
     }
 
