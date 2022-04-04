@@ -8,6 +8,7 @@ import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.domain.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class StarService {
     private String location;
 
     @Transactional
-    public Long save(StarRequestDto params, long userId, MultipartFile imgFile) {
+    public Long save(@NotNull StarRequestDto params, long userId, MultipartFile imgFile) {
         // 작성자 등록
         Users finduser = usersRepository.findByUserId(userId);
         System.out.println("--------------------------------");
@@ -45,7 +46,9 @@ public class StarService {
         Random rnd = new Random();
         String randomStr = time + userId + String.valueOf((char) ((int) (rnd.nextInt(26)) + 97)) + String.valueOf(rnd.nextInt());
         String originFileName=imgFile.getOriginalFilename();
-        String saveFileName = randomStr + originFileName.toLowerCase();
+        int index = originFileName.lastIndexOf(".");
+        String extention =  originFileName.substring(index);
+        String saveFileName = randomStr+extention;
 
         String uploadPath = "";
         if ("ec2".equals(location)) {
