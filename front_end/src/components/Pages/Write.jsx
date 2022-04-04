@@ -33,7 +33,7 @@ export default function Write() {
 
   const handlePost = async () => {
     try {
-      await axios.post("api/stars", {
+      await axios.post("/api/stars", {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
