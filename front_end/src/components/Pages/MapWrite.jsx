@@ -10,7 +10,9 @@ import { contentStore } from "Store/contentStore";
 const { kakao } = window;
 
 export default function MapWrite() {
-  const contents = contentStore().contentStore;
+  const { contents } = contentStore();
+  console.log(contents);
+  // const [pickcontents, setPickContents] = useState([]);
   const [search, setSearch] = useState("");
   const [pos, setPos] = useState({
     latitude: 0,
@@ -57,18 +59,18 @@ export default function MapWrite() {
     };
     geocoder.addressSearch(key, addresscallback);
   };
-  const keyword = (key) => {
-    let places = new kakao.maps.services.Places();
-    let keywordcallback = function (result, status, pagination) {
-      if (status === kakao.maps.services.Status.OK) {
-        setPos({
-          latitude: result[0].y,
-          longitude: result[0].x,
-        });
-      }
-    };
-    places.keywordSearch(key, keywordcallback);
-  };
+  // const keyword = (key) => {
+  //   let places = new kakao.maps.services.Places();
+  //   let keywordcallback = function (result, status, pagination) {
+  //     if (status === kakao.maps.services.Status.OK) {
+  //       setPos({
+  //         latitude: result[0].y,
+  //         longitude: result[0].x,
+  //       });
+  //     }
+  //   };
+  //   places.keywordSearch(key, keywordcallback);
+  // };
   const handleSearch = (key) => {
     if (key === "") return;
     setSearch(key);
@@ -85,6 +87,7 @@ export default function MapWrite() {
 
   useEffect(() => {
     getLocation();
+    console.log(contents);
   }, []);
 
   return (
@@ -121,7 +124,7 @@ export default function MapWrite() {
         search={search}
         handlePropsChange={handlePropsChange}
       />
-      <SearchBox />
+      <SearchBox contents={contents} />
     </>
   );
 }
