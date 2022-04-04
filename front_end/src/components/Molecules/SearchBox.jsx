@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Slider from "react-slick";
-import { contentStore } from "Store/contentStore";
 
 import BasicCard from "components/Molecules/BasicCard";
-export default function SearchBox() {
-  const [content, setContent] = useState([1, 1, 1, 1, 1, 1, 1]);
-  const contents = contentStore();
-
+export default function SearchBox({ contents = [] }) {
   const settings = {
-    // dots: true,
-    // infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    // arrows: true,
   };
 
   useEffect(() => {
-    setContent(contents.contentStore);
+    console.log(contents);
   }, []);
 
   return (
@@ -33,9 +26,34 @@ export default function SearchBox() {
       }}
     >
       <Slider {...settings}>
-        {content.map((value, index) => {
-          return <BasicCard value={value} key={index} />;
-        })}
+        {contents.map(
+          (
+            {
+              starId,
+              content,
+              date,
+              imageName,
+              latitude,
+              longitude,
+              addr,
+              mood,
+              writer,
+            },
+            index
+          ) => (
+            <BasicCard
+              starId={starId}
+              content={content}
+              date={date}
+              imageName={imageName}
+              latitude={latitude}
+              longitude={longitude}
+              addr={addr}
+              mood={mood}
+              key={index}
+            />
+          )
+        )}
       </Slider>
     </Box>
   );
