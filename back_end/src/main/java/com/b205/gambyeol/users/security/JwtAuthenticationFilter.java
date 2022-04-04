@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -28,6 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { // 요청 �
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        System.out.println("<<<<이번 요청>>>>:"+ LocalDateTime.now());
 
         try {
             // 요청에서 토큰 가져오기
