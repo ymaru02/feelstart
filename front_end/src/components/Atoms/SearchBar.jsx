@@ -27,7 +27,7 @@ export default function SearchBar({ handleSearch }) {
       sx={{
         width: 500,
         maxWidth: "100%",
-        position: "absolute",
+        position: "fixed",
         left: 0,
         right: 0,
         marginLeft: "auto",
