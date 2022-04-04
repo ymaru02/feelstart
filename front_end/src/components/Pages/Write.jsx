@@ -33,19 +33,24 @@ export default function Write() {
 
   const handlePost = async () => {
     try {
-      await axios.post("api/stars", {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
+      await axios.post(
+        "/api/stars",
+        {
+          imgFile: file,
+          dto: {
+            content: textValue,
+            latitude: latitude,
+            longitude: longitude,
+            addr: kakaoAdress,
+            mode: alignment,
+          },
         },
-        image_file: file,
-        dto: {
-          content: textValue,
-          latitude: latitude,
-          longitude: longitude,
-          addr: kakaoAdress,
-          mode: alignment,
-        },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
       reset();
     } catch (e) {
       console.log(e);
