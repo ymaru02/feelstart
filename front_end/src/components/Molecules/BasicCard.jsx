@@ -7,7 +7,16 @@ import { CardActionArea } from "@mui/material";
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        borderRadius: 10,
+        left: 0,
+        right: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -16,7 +25,7 @@ export default function BasicCard(props) {
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom component="div">
             {props.content}
           </Typography>
         </CardContent>
