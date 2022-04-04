@@ -14,7 +14,8 @@ const Title = () => {
       <Box maxWidth="1000px" width="100%">
         <Typography variant="h5" align="left" style={{ margin: "5px" }}>
           <Link
-            to="/content"
+            // to="/content"
+            to="/profile"
             style={{ textDecoration: "none" }}
             className={styles.apricot}
           >

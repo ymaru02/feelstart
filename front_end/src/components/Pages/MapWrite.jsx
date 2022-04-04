@@ -139,7 +139,7 @@ export default function MapWrite() {
             position: "fixed",
             width: 300,
             maxWidth: "100%",
-            top: 160,
+            top: 125,
             left: 0,
             right: 0,
             marginLeft: "auto",
