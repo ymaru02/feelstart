@@ -14,6 +14,7 @@ export default function BottomBar() {
         width: "100vw",
         position: "fixed",
         bottom: "0",
+        zIndex: 3000,
       }}
     >
       <BottomNavigation
