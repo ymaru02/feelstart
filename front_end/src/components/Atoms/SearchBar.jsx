@@ -28,7 +28,6 @@ export default function SearchBar({ handleSearch }) {
         width: 500,
         maxWidth: "100%",
         position: "absolute",
-        top: 110,
         left: 0,
         right: 0,
         marginLeft: "auto",
