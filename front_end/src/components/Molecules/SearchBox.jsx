@@ -3,16 +3,16 @@ import Box from "@mui/material/Box";
 import Slider from "react-slick";
 
 import BasicCard from "components/Molecules/BasicCard";
-export default function SearchBox({ contents = [] }) {
+export default function SearchBox({ contents = [1, 1, 1, 1] }) {
   const settings = {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
   };
 
-  useEffect(() => {
-    console.log(contents);
-  }, []);
+  const slickDiv = document.getElementsByClassName("slick-slide");
+  console.log(slickDiv);
+  useEffect(() => {}, []);
 
   return (
     <Box
@@ -20,9 +20,12 @@ export default function SearchBox({ contents = [] }) {
         width: "100%",
         maxHeight: 300,
         position: "fixed",
+        left: 0,
+        right: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
         bottom: 10,
         zIndex: "tooltip",
-        // display: "flex",
       }}
     >
       <Slider {...settings}>
