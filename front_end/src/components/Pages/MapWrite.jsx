@@ -96,12 +96,9 @@ export default function MapWrite() {
           Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const d = R * c; // Distance in km return d;
-      console.log("d", d);
-
       return d;
     }
 
-    console.log("level", 0.05 * 2 ** level);
     setPickContents(
       contents.filter((content) => {
         return (

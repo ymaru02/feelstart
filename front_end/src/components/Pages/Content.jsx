@@ -23,7 +23,6 @@ export default function Content() {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
           setNewContents(res.data);
-          console.log(res.data);
         }
       })
       .catch((error) => console.log(error));
