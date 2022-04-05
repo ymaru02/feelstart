@@ -1,16 +1,14 @@
 package com.b205.gambyeol.users.service;
 
-import com.b205.gambyeol.users.domain.LoginUserInfoRepository;
+import com.b205.gambyeol.log.domain.LoginUserInfoRepository;
 import com.b205.gambyeol.users.domain.Users;
-import com.b205.gambyeol.users.domain.LoginUserInformation;
+import com.b205.gambyeol.log.domain.LoginUserInformation;
 import com.b205.gambyeol.users.domain.UsersRepository;
-import com.b205.gambyeol.users.dto.LoginUserInfoRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -59,14 +57,14 @@ public class UsersService {
         return usersRepository.save(user); //DB에 넣어주고 리턴
     }
 
-
-    public LoginUserInformation logSave(@NotNull Map<String, String> params, long userId) {
-
+    // 로그인 관련 로그 DB에 저장하는 메소드
+    public LoginUserInformation logSave(@NotNull Map<String, Object> params, long userId) {
+        System.out.println(params.get("ip"));
         LoginUserInformation log = LoginUserInformation.builder()
-                .loginIp(params.get("loginIp"))
-                .accessOs(params.get("accessOs"))
-                .accessBrowser(params.get("accessBrowser"))
-                .kakaoId(userId)
+                .loginIp(params.get("ip").toString())
+                .accessOs(params.get("os").toString())
+                .accessBrowser(params.get("broswser").toString())
+                .userId(userId)
                 .loginUserDatetime(LocalDateTime.now())
                 .build();
 

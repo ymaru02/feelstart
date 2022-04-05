@@ -1,4 +1,4 @@
-package com.b205.gambyeol.users.domain;
+package com.b205.gambyeol.log.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +29,7 @@ public class LoginUserInformation {
     private String accessBrowser; // 접속한 브라우저
 
     @Column
-    private Long kakaoId; // 접속한 사용자의 카카오Id
+    private Long userId; // 접속한 사용자Id
 
     @Column
     private LocalDateTime loginUserDatetime; // 접속한 날짜와 시간
