@@ -7,7 +7,16 @@ import { CardActionArea } from "@mui/material";
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        borderRadius: 3,
+        left: 0,
+        right: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -15,11 +24,11 @@ export default function BasicCard(props) {
           image={`https://j6b205.p.ssafy.io/api/starimg/${props.imageName}`}
           alt="green iguana"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.content}
+        {/* <CardContent>
+          <Typography gutterBottom component="div">
+            {props.addr}
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
     </Card>
   );

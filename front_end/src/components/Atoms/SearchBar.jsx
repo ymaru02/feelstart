@@ -28,7 +28,6 @@ export default function SearchBar({ handleSearch }) {
         width: 500,
         maxWidth: "100%",
         position: "absolute",
-        top: 110,
         left: 0,
         right: 0,
         marginLeft: "auto",
@@ -40,6 +39,10 @@ export default function SearchBar({ handleSearch }) {
       <Paper
         component="form"
         sx={{
+          left: 0,
+          right: 0,
+          marginLeft: "auto",
+          marginRight: "auto",
           p: "2px 4px",
           display: "flex",
           alignItems: "center",
