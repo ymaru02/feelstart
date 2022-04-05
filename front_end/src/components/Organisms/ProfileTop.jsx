@@ -3,15 +3,28 @@ import Avatar from "@mui/material/Avatar";
 import styles from "./ProfileTop.module.css";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 export default function ProfileTop() {
   return (
-    <div className={styles.profilecontainer}>
-      <div className={styles.profiletop}>
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
         <Avatar
-          sx={{ width: 150, height: 150, margin: 5 }}
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
+          sx={{
+            width: 56,
+            height: 56,
+            mx: 3,
+            top: 0,
+            bottom: 0,
+            marginTop: "auto",
+            marginBottom: "auto",
+          }}
         />
 
         <section className={styles.profilename}>
@@ -22,32 +35,30 @@ export default function ProfileTop() {
           <ul className={styles.profilenamemid}>
             <Stack spacing={2} direction="row">
               <li>
-                <div>
+                <Box>
                   게시물
-                  <span>user.count</span>
-                </div>
+                  <p>user.count</p>
+                </Box>
               </li>
               <li>
-                {" "}
-                <div>
+                <Box>
                   팔로워
-                  <span>user.count</span>
-                </div>
+                  <p>user.count</p>
+                </Box>
               </li>
               <li>
-                {" "}
-                <div>
+                <Box>
                   팔로우
-                  <span>user.count</span>
-                </div>
+                  <p>user.count</p>
+                </Box>
               </li>
             </Stack>
           </ul>
           <Stack spacing={2} direction="row">
-            <div className={styles.profilenametop}>user.introductory</div>
+            <Box className={styles.profilenametop}>user.introductory</Box>
           </Stack>
         </section>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
