@@ -1,6 +1,5 @@
 package com.b205.gambyeol.users.controller;
 
-import com.b205.gambyeol.users.domain.LoginUserInformation;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.dto.LoginResponseDto;
 import com.b205.gambyeol.users.security.TokenProvider;
@@ -17,7 +16,6 @@ import java.util.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
@@ -30,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller
-@RequestMapping("/api/account")
+@RequestMapping("/api")
 public class UsersController {
 
     @Autowired
@@ -39,7 +37,8 @@ public class UsersController {
     @Autowired
     private TokenProvider tokenProvider;
 
-    @PostMapping("/kakaologinrequest")
+
+    @PostMapping("/account/kakaologinrequest")
     public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws Exception {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -75,10 +74,9 @@ public class UsersController {
             Users user = userService.findUserByKakaoId(kakaoId, nickname, profileImg);
 
             // 로그인 로그내역 저장
-            Map<String, String> broswserInfo = broswserInfo(request);
+            Map<String, Object> broswserInfo = broswserInfo(request);
             System.out.println("접속 broswserInfo : "+broswserInfo);
-            LoginUserInformation log = userService.logSave(broswserInfo, kakaoId);
-            System.out.println("_________________________________");
+            userService.logSave(broswserInfo, user.getUserId());
 
             // 토큰 생성
             final String token=tokenProvider.create(user);
@@ -189,14 +187,14 @@ public class UsersController {
      * @return
      * @throws Exception
      */
-    public static Map<String, String> broswserInfo(HttpServletRequest request) {
+    public static Map<String, Object> broswserInfo(HttpServletRequest request) {
         String agent = request.getHeader("USER-AGENT");
 
         String os = getClientOS(agent);
         String broswser = getClientBrowser(agent);
         String ip = getUserIp(request);
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("ip", ip);
         map.put("header", agent);
