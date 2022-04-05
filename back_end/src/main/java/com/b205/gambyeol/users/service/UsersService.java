@@ -1,14 +1,26 @@
 package com.b205.gambyeol.users.service;
 
+import com.b205.gambyeol.users.domain.LoginUserInfoRepository;
 import com.b205.gambyeol.users.domain.Users;
+import com.b205.gambyeol.users.domain.LoginUserInformation;
 import com.b205.gambyeol.users.domain.UsersRepository;
+import com.b205.gambyeol.users.dto.LoginUserInfoRequestDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UsersService {
+
+    private final LoginUserInfoRepository loginLogRepository;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -47,4 +59,17 @@ public class UsersService {
         return usersRepository.save(user); //DB에 넣어주고 리턴
     }
 
+
+    public LoginUserInformation logSave(@NotNull Map<String, String> params, long userId) {
+
+        LoginUserInformation log = LoginUserInformation.builder()
+                .loginIp(params.get("loginIp"))
+                .accessOs(params.get("accessOs"))
+                .accessBrowser(params.get("accessBrowser"))
+                .kakaoId(userId)
+                .loginUserDatetime(LocalDateTime.now())
+                .build();
+
+        return loginLogRepository.save(log); //DB에 넣어주고 리턴
+    }
 }
