@@ -104,8 +104,8 @@ public class StarService {
     }
 
     // 입력된 유저 id, 게시글 id를 가진 좋아요 객체를 찾아내는 메소드
-    public Likes findLikesByStarStarIdAndUserUserId(final Boolean mark, final Long starId, final Long userId) {
-        Likes likes = likesRepository.findLikesByStarStarIdAndUserUserId(starId, userId);
+    public Long findLikesByStarStarIdAndUserUserId(final Boolean mark, final Long starId, final Long userId) {
+        Likes likes = likesRepository.findByStarStarIdAndUserUserId(starId, userId);
 
         // 좋아요 or 좋아요 취소한 기록이 없는 경우 등록하고 likes 객체를 가져온다.
         if(likes == null) {
@@ -114,7 +114,7 @@ public class StarService {
             likes.setMark(mark);
         }
 
-        return likes;
+        return likes.getLikesId();
     }
 
     // 좋아요 등록하는 메소드
@@ -133,5 +133,21 @@ public class StarService {
                 .build();
 
         return likesRepository.save(likes);
+    }
+
+    public Boolean findLikeAll(final Long id, final Long userId) {
+        Likes likes = likesRepository.findByStarStarIdAndUserUserId(id,userId);
+
+        // 좋아요 or 좋아요 취소한 기록이 없는 경우
+        if(likes == null) {
+            return false;
+        }else {
+            return likes.getMark();
+        }
+    }
+
+    public Long countLikes(final Long id) {
+        Long count = likesRepository.countByStarStarId(id);
+        return count;
     }
 }

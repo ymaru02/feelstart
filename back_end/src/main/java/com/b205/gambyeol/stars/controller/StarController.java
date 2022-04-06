@@ -22,6 +22,14 @@ public class StarController {
         System.out.println("글 작성 controller 시작");
         return ResponseEntity.ok(starService.save(dto, userId, imgFile));
     }
+
+    // 좋아요 등록/취소
+    @PostMapping("stars/likes")
+    public ResponseEntity likeSave(@RequestParam Boolean mark,
+                                   @AuthenticationPrincipal long userId,
+                                   @RequestParam final long id) {
+        return ResponseEntity.ok(starService.findLikesByStarStarIdAndUserUserId(mark, userId, id));
+    }
     
     // 글 전체보기
     @GetMapping("stars/all")
@@ -41,12 +49,17 @@ public class StarController {
         return ResponseEntity.ok(starService.findById(id));
     }
 
-    // 좋아요 등록/취소
-    @PostMapping("stars/likes")
-    public ResponseEntity likeSave(@RequestPart(value = "mark", required = false) Boolean mark,
-                                   @AuthenticationPrincipal long userId,
-                                   @RequestPart(value = "starId", required = false) long starId) {
-
-        return ResponseEntity.ok(starService.findLikesByStarStarIdAndUserUserId(mark, userId, starId));
+    // 글 좋아요 조회
+    @GetMapping("stars/{id}/likes")
+    public ResponseEntity findLikeAll(@PathVariable final long id, @AuthenticationPrincipal long userId) {
+        return  ResponseEntity.ok(starService.findLikeAll(id, userId));
     }
+
+    // 글 좋아요 갯수
+    @GetMapping("stars/{id}/likes/count")
+    public ResponseEntity findLikeAll(@PathVariable final long id) {
+        return  ResponseEntity.ok(starService.countLikes(id));
+    }
+
+
 }
