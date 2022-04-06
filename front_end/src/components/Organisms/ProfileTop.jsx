@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import styles from "./ProfileTop.module.css";
 import Button from "@mui/material/Button";
@@ -6,6 +6,22 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
 export default function ProfileTop() {
+  const [vw, setVw] = useState();
+
+  window.addEventListener(
+    "resize",
+    function () {
+      setVw(
+        Math.max(
+          document.documentElement.clientWidth || 0,
+          window.innerWidth || 0
+        )
+      );
+    },
+    true
+  );
+
+  useEffect(() => {}, [vw]);
   return (
     <Box>
       <Box
@@ -15,17 +31,31 @@ export default function ProfileTop() {
           alignContent: "center",
         }}
       >
-        <Avatar
-          sx={{
-            width: 56,
-            height: 56,
-            mx: 3,
-            top: 0,
-            bottom: 0,
-            marginTop: "auto",
-            marginBottom: "auto",
-          }}
-        />
+        {Number(vw) < 1200 ? (
+          <Avatar
+            sx={{
+              width: 56,
+              height: 56,
+              mx: 3,
+              top: 0,
+              bottom: 0,
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
+          />
+        ) : (
+          <Avatar
+            sx={{
+              width: 120,
+              height: 120,
+              mx: 3,
+              top: 0,
+              bottom: 0,
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
+          />
+        )}
 
         <section className={styles.profilename}>
           <Stack spacing={2} direction="row">
