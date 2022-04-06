@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import MapWrite from "components/Pages/MapWrite";
 import Content from "components/Pages/Content";
 import Profile from "components/Pages/Profile";
+import Admin from "components/Pages/Admin";
 export default function Inbording() {
   return (
     <Box
@@ -21,6 +22,7 @@ export default function Inbording() {
           <Route path="content" element={<Content />} />
           <Route path="profile" element={<Profile />} />
           <Route path="write" element={<Write />} />
+          <Route path="admin" element={<Admin />} />
         </Routes>
       </Box>
       <BottomBar />

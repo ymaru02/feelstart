@@ -42,6 +42,7 @@ export default function Content() {
               addr={value.addr}
               mood={value.mood}
               writer={value.writer}
+              value={value}
             />
             <br />
           </div>
