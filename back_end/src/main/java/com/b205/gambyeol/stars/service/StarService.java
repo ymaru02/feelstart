@@ -4,7 +4,6 @@ import com.b205.gambyeol.stars.domain.Likes;
 import com.b205.gambyeol.stars.domain.Star;
 import com.b205.gambyeol.stars.domain.StarLikesRepository;
 import com.b205.gambyeol.stars.domain.StarRepository;
-import com.b205.gambyeol.stars.dto.StarLikesRequestDto;
 import com.b205.gambyeol.stars.dto.StarRequestDto;
 import com.b205.gambyeol.stars.dto.StarResponseDto;
 import com.b205.gambyeol.users.domain.Users;
@@ -105,14 +104,14 @@ public class StarService {
     }
 
     // 입력된 유저 id, 게시글 id를 가진 좋아요 객체를 찾아내는 메소드
-    public Likes findLikesByStarStarIdAndUserUserId(@NotNull StarLikesRequestDto params, final Long starId, final Long userId) {
+    public Likes findLikesByStarStarIdAndUserUserId(final Boolean mark, final Long starId, final Long userId) {
         Likes likes = likesRepository.findLikesByStarStarIdAndUserUserId(starId, userId);
 
         // 좋아요 or 좋아요 취소한 기록이 없는 경우 등록하고 likes 객체를 가져온다.
         if(likes == null) {
-            likes = saveLikes(params, starId, userId);
+            likes = saveLikes(mark, starId, userId);
         }else {
-            likes.setMark(params.getMark());
+            likes.setMark(mark);
         }
 
         return likes;
@@ -120,16 +119,19 @@ public class StarService {
 
     // 좋아요 등록하는 메소드
     @Transactional
-    public Likes saveLikes(@NotNull StarLikesRequestDto params, long userId, long starId) {
-        // 게시된 글 정보 등록
+    public Likes saveLikes(Boolean mark, long userId, long starId) {
+        // 게시된 글 정보
         Star findstar = starRepository.findByStarId(starId);
-        params.setStar(findstar);
 
-        // 좋아요 누른 사람 정보 등록
+        // 좋아요 누른 사람 정보
         Users finduser = usersRepository.findByUserId(userId);
-        params.setUser(finduser);
 
-        Likes entity = likesRepository.save(params.toEntity());
-        return entity;
+        Likes likes = Likes.builder()
+                .mark(mark)
+                .user(finduser)
+                .star(findstar)
+                .build();
+
+        return likesRepository.save(likes);
     }
 }
