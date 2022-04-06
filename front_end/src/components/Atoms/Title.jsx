@@ -15,7 +15,7 @@ const Title = () => {
         <Typography variant="h5" align="left" style={{ margin: "5px" }}>
           <Link
             // to="/content"
-            to="/profile"
+            to="/admin"
             style={{ textDecoration: "none" }}
             className={styles.apricot}
           >
