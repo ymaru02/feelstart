@@ -24,19 +24,19 @@ public class StarController {
     }
     
     // 글 전체보기
-    @GetMapping("stars/all")
+    @GetMapping("/stars/all")
     public ResponseEntity findAll() {
         return  ResponseEntity.ok(starService.findAll());
     }
 
     // 해당 userId별 글 모아보기
-    @GetMapping("stars/all/{userId}")
+    @GetMapping("/stars/all/{userId}")
     public ResponseEntity findAllByMyStar(@PathVariable final long userId) {
         return ResponseEntity.ok(starService.findAllByUserId(userId));
     }
 
     // 좋아요 등록/취소
-    @PostMapping("stars/likes")
+    @PostMapping("/stars/likes")
     public ResponseEntity likeSave(@RequestParam Boolean mark,
                                    @AuthenticationPrincipal long userId,
                                    @RequestParam final long id) {
@@ -44,19 +44,19 @@ public class StarController {
     }
 
     // 글 상세보기
-    @GetMapping("stars/{id}")
+    @GetMapping("/stars/{id}")
     public ResponseEntity findById(@PathVariable final long id) {
         return ResponseEntity.ok(starService.findById(id));
     }
 
     // 글 좋아요 조회
-    @GetMapping("stars/{id}/likes")
+    @GetMapping("/stars/{id}/likes")
     public ResponseEntity findLikeAll(@PathVariable final long id, @AuthenticationPrincipal long userId) {
         return  ResponseEntity.ok(starService.findLike(id, userId));
     }
 
     // 글 좋아요 갯수
-    @GetMapping("stars/{id}/likes/count")
+    @GetMapping("/stars/{id}/likes/count")
     public ResponseEntity findLikeAll(@PathVariable final long id) {
         return  ResponseEntity.ok(starService.countLikes(id));
     }
