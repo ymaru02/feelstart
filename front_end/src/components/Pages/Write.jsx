@@ -43,7 +43,7 @@ export default function Write() {
             latitude: latitude,
             longitude: longitude,
             addr: kakaoAdress,
-            mode: alignment,
+            mood: alignment,
           }),
         ],
         { type: "application/json" }
