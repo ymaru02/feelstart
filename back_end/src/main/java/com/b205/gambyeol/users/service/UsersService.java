@@ -4,6 +4,7 @@ import com.b205.gambyeol.log.domain.LoginUserInfoRepository;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.log.domain.LoginUserInformation;
 import com.b205.gambyeol.users.domain.UsersRepository;
+import com.b205.gambyeol.users.dto.UsersDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -68,5 +69,10 @@ public class UsersService {
                 .build();
 
         return loginLogRepository.save(log); //DB에 넣어주고 리턴
+    }
+
+    public UsersDto findById(final Long id) {
+        Users entity = usersRepository.findByUserId(id);
+        return new UsersDto(entity);
     }
 }
