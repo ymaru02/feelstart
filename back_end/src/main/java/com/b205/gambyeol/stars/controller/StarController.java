@@ -29,6 +29,13 @@ public class StarController {
         return  ResponseEntity.ok(starService.findAll());
     }
 
+
+    // 내 글 모아보기
+    @GetMapping("stars/myall")
+    public ResponseEntity findAllByMyStar(@AuthenticationPrincipal long userId) {
+        return ResponseEntity.ok(starService.findAllByUserUserId(userId));
+    }
+
     @GetMapping("stars/{id}")
     public ResponseEntity findById(@PathVariable final long id) {
         return ResponseEntity.ok(starService.findById(id));
