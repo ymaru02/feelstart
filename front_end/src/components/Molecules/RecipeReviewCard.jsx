@@ -43,7 +43,11 @@ export default function RecipeReviewCard(props) {
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
-  const handleClickMap = () => setOpenMap((cur) => !cur);
+  const handleClickMap = () => {
+    setOpenMap((cur) => !cur);
+
+    jsonfileSave();
+  };
   const handelSubmit = (event) => {
     event.preventDefault();
     if (comment === "") return;
@@ -53,6 +57,8 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
+
+  const jsonfileSave = () => {};
 
   useEffect(() => {}, []);
 

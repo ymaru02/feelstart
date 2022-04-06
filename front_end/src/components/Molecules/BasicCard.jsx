@@ -9,7 +9,7 @@ export default function BasicCard(props) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 355,
         borderRadius: 3,
         left: 0,
         right: 0,
