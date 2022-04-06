@@ -1,7 +1,5 @@
 package com.b205.gambyeol.stars.controller;
 
-import com.b205.gambyeol.stars.domain.Likes;
-import com.b205.gambyeol.stars.dto.StarLikesRequestDto;
 import com.b205.gambyeol.stars.dto.StarRequestDto;
 import com.b205.gambyeol.stars.service.StarService;
 import lombok.RequiredArgsConstructor;
@@ -45,10 +43,10 @@ public class StarController {
 
     // 좋아요 등록/취소
     @PostMapping("stars/likes")
-    public ResponseEntity likeSave(@RequestPart(value = "dto", required = false) StarLikesRequestDto dto,
+    public ResponseEntity likeSave(@RequestPart(value = "mark", required = false) Boolean mark,
                                    @AuthenticationPrincipal long userId,
                                    @RequestPart(value = "starId", required = false) long starId) {
 
-        return ResponseEntity.ok(starService.findLikesByStarStarIdAndUserUserId(dto, userId, starId));
+        return ResponseEntity.ok(starService.findLikesByStarStarIdAndUserUserId(mark, userId, starId));
     }
 }
