@@ -87,6 +87,15 @@ public class StarService {
         List<Star> list = starRepository.findAll(sort);
         return list.stream().map(StarResponseDto::new).collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<StarResponseDto> findAllByUserUserId(final long userId) {
+        Users finduser = usersRepository.findByUserId(userId);
+        Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        List<Star> list = starRepository.findAllByUserUserId(finduser.getUserId(), sort);
+        return list.stream().map(StarResponseDto::new).collect(Collectors.toList());
+    }
+
     @Transactional
     public StarResponseDto findById(final Long id) {
         Star entity = starRepository.findByStarId(id);
