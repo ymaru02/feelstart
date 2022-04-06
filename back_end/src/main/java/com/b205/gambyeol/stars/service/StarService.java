@@ -90,7 +90,7 @@ public class StarService {
     }
 
     @Transactional
-    public List<StarResponseDto> findAllByUserUserId(final Long userId) {
+    public List<StarResponseDto> findAllByUserId(final Long userId) {
         Users finduser = usersRepository.findByUserId(userId);
         Sort sort = Sort.by(Sort.Direction.DESC, "date");
         List<Star> list = starRepository.findAllByUserUserId(finduser.getUserId(), sort);
@@ -104,7 +104,7 @@ public class StarService {
     }
 
     // 입력된 유저 id, 게시글 id를 가진 좋아요 객체를 찾아내는 메소드
-    public Long findLikesByStarStarIdAndUserUserId(final Boolean mark, final Long starId, final Long userId) {
+    public Long findLikesByStarIdAndUserId(final Boolean mark, final Long starId, final Long userId) {
         Likes likes = likesRepository.findByStarStarIdAndUserUserId(starId, userId);
 
         // 좋아요 or 좋아요 취소한 기록이 없는 경우 등록하고 likes 객체를 가져온다.
@@ -135,7 +135,7 @@ public class StarService {
         return likesRepository.save(likes);
     }
 
-    public Boolean findLikeAll(final Long id, final Long userId) {
+    public Boolean findLike(final Long id, final Long userId) {
         Likes likes = likesRepository.findByStarStarIdAndUserUserId(id,userId);
 
         // 좋아요 or 좋아요 취소한 기록이 없는 경우

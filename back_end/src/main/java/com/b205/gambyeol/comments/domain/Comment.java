@@ -1,5 +1,6 @@
-package com.b205.gambyeol.stars.domain;
+package com.b205.gambyeol.comments.domain;
 
+import com.b205.gambyeol.stars.domain.Star;
 import com.b205.gambyeol.users.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
