@@ -93,6 +93,12 @@ public class UsersController {
         return ResponseEntity.ok().body(null);
     }
 
+    @GetMapping("users/{id}")
+    public ResponseEntity findById(@PathVariable final long id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
+
+
     public String getReturnAccessToken(String code) {
 
         String access_token = "";
