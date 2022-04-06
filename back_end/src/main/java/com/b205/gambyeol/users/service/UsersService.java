@@ -59,7 +59,6 @@ public class UsersService {
 
     // 로그인 관련 로그 DB에 저장하는 메소드
     public LoginUserInformation logSave(@NotNull Map<String, Object> params, long userId) {
-        System.out.println(params.get("ip"));
         LoginUserInformation log = LoginUserInformation.builder()
                 .loginIp(params.get("ip").toString())
                 .accessOs(params.get("os").toString())

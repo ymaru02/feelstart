@@ -1,7 +1,10 @@
 package com.b205.gambyeol.stars.service;
 
+import com.b205.gambyeol.stars.domain.Likes;
 import com.b205.gambyeol.stars.domain.Star;
+import com.b205.gambyeol.stars.domain.StarLikesRepository;
 import com.b205.gambyeol.stars.domain.StarRepository;
+import com.b205.gambyeol.stars.dto.StarLikesRequestDto;
 import com.b205.gambyeol.stars.dto.StarRequestDto;
 import com.b205.gambyeol.stars.dto.StarResponseDto;
 import com.b205.gambyeol.users.domain.Users;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 public class StarService {
 
     private final StarRepository starRepository;
+    private final StarLikesRepository likesRepository;
     private final UsersRepository usersRepository;
 
     @Value("${access.url.location}")
@@ -37,8 +41,6 @@ public class StarService {
     public Long save(@NotNull StarRequestDto params, long userId, MultipartFile imgFile) {
         // 작성자 등록
         Users finduser = usersRepository.findByUserId(userId);
-        System.out.println("--------------------------------");
-        System.out.println(finduser);
         params.setUser(finduser);
 
         // 이미지 파일 등록
@@ -89,7 +91,7 @@ public class StarService {
     }
 
     @Transactional
-    public List<StarResponseDto> findAllByUserUserId(final long userId) {
+    public List<StarResponseDto> findAllByUserUserId(final Long userId) {
         Users finduser = usersRepository.findByUserId(userId);
         Sort sort = Sort.by(Sort.Direction.DESC, "date");
         List<Star> list = starRepository.findAllByUserUserId(finduser.getUserId(), sort);
@@ -100,5 +102,34 @@ public class StarService {
     public StarResponseDto findById(final Long id) {
         Star entity = starRepository.findByStarId(id);
         return new StarResponseDto(entity);
+    }
+
+    // 입력된 유저 id, 게시글 id를 가진 좋아요 객체를 찾아내는 메소드
+    public Likes findLikesByStarStarIdAndUserUserId(@NotNull StarLikesRequestDto params, final Long starId, final Long userId) {
+        Likes likes = likesRepository.findLikesByStarStarIdAndUserUserId(starId, userId);
+
+        // 좋아요 or 좋아요 취소한 기록이 없는 경우 등록하고 likes 객체를 가져온다.
+        if(likes == null) {
+            likes = saveLikes(params, starId, userId);
+        }else {
+            likes.setMark(params.getMark());
+        }
+
+        return likes;
+    }
+
+    // 좋아요 등록하는 메소드
+    @Transactional
+    public Likes saveLikes(@NotNull StarLikesRequestDto params, long userId, long starId) {
+        // 게시된 글 정보 등록
+        Star findstar = starRepository.findByStarId(starId);
+        params.setStar(findstar);
+
+        // 좋아요 누른 사람 정보 등록
+        Users finduser = usersRepository.findByUserId(userId);
+        params.setUser(finduser);
+
+        Likes entity = likesRepository.save(params.toEntity());
+        return entity;
     }
 }
