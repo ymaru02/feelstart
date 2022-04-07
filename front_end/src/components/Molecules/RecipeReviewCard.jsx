@@ -40,13 +40,29 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [favor, setFavor] = useState(false);
+  const [favorCnt, setFavorCnt] = useState(0);
   const [openmap, setOpenMap] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const token = loginStore().jwtToken;
 
+  const { getJwtToken } = loginStore();
+
   const handleExpandClick = () => setExpanded(!expanded);
-  const handleFavorClick = () => setFavor((current) => !current);
+  const handleFavorClick = async () => {
+    let like = favor;
+    console.log(!like);
+    await axios.post(
+      "api/stars/likes",
+      { mark: !like, star_id: props.starid },
+      {
+        headers: {
+          Authorization: `Bearer ${getJwtToken()}`,
+        },
+      }
+    );
+    setFavor(!like);
+  };
   const handleClickMap = () => {
     setOpenMap((cur) => !cur);
     handleClickSave();
@@ -60,6 +76,34 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment(event.target.value);
   };
+
+  async function like() {
+    let res = await axios.get(`api/stars/${props.starid}/likes`, {
+      headers: {
+        Authorization: `Bearer ${getJwtToken()}`,
+      },
+    });
+    console.log(res);
+    return setFavor(res.data);
+  }
+
+  async function likeCnt() {
+    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
+      headers: {
+        Authorization: `Bearer ${getJwtToken()}`,
+      },
+    });
+    console.log(res);
+    return setFavorCnt(res.data);
+  }
+
+  useEffect(() => {
+    like();
+  }, []);
+
+  useEffect(() => {
+    likeCnt();
+  }, [favor]);
 
   const handleClickSave = () => {
     const data = {
@@ -141,6 +185,7 @@ export default function RecipeReviewCard(props) {
         <Typography variant="body2">{props.content}</Typography>
       </CardContent>
       <CardActions disableSpacing>
+        {!!favorCnt && favorCnt}
         <IconButton
           onClick={handleFavorClick}
           variant="outlined"
