@@ -7,11 +7,12 @@ import { loginStore } from "Store/loginStore";
 
 export default function Profile() {
   const token = loginStore().jwtToken;
+  const userId = loginStore().userId;
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/api/stars/myall", {
+      .get(`/api/stars/all/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -22,7 +23,7 @@ export default function Profile() {
         }
       })
       .catch((error) => console.log(error));
-  });
+  }, []);
   return (
     <div className={styles.profilecontainer}>
       <ProfileTop contents={contents} />
