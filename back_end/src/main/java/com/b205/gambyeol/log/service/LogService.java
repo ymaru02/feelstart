@@ -5,6 +5,7 @@ import com.b205.gambyeol.log.domain.LoginUserInformation;
 import com.b205.gambyeol.log.dto.LoginUserInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LogService {
 
+    @Autowired
     private final LoginUserInfoRepository loginLogRepository;
 
     public List<LoginUserInfoResponseDto> findAll() {
