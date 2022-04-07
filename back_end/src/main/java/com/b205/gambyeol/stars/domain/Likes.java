@@ -20,8 +20,8 @@ public class Likes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likesId;    // like PK
 
-    @Column
-    private Boolean mark;    // 좋아요 (true:좋아요, false:좋아요 취소)
+//    @Column
+//    private Boolean mark;    // 좋아요 (true:좋아요, false:좋아요 취소)
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Users user; // 작성자
