@@ -55,7 +55,6 @@ export default function RecipeReviewCard(props) {
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = async () => {
     let like = favor;
-    console.log(!like);
     await axios.post(
       "api/stars/likes",
       { mark: !like, star_id: props.starid },
@@ -112,7 +111,6 @@ export default function RecipeReviewCard(props) {
         Authorization: `Bearer ${getJwtToken()}`,
       },
     });
-    console.log(res);
     return setFavor(res.data);
   }
 
@@ -122,7 +120,6 @@ export default function RecipeReviewCard(props) {
         Authorization: `Bearer ${getJwtToken()}`,
       },
     });
-    console.log(res);
     return setFavorCnt(res.data);
   }
 
