@@ -298,12 +298,17 @@ export default function RecipeReviewCard(props) {
         unmountOnExit
       >
         <CardContent>
-          <Grid container spacing={2} sx={{ marginBottom: 3 }}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: 3 }}
+          >
             {comments.map((value, index) => (
               <Fragment key={index}>
                 <Grid
                   item
-                  xs={2}
+                  xs={3}
                   sx={{
                     fontFamily: "Jua, sans-serif",
                   }}
@@ -312,7 +317,7 @@ export default function RecipeReviewCard(props) {
                 </Grid>
                 <Grid
                   item
-                  xs={10}
+                  xs={9}
                   sx={{
                     fontFamily: "Jua, sans-serif",
                     textAlign: "left",
