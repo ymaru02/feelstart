@@ -1,6 +1,7 @@
 package com.b205.gambyeol.users.service;
 
 import com.b205.gambyeol.log.domain.LoginUserInfoRepository;
+import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.FollowRepository;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.log.domain.LoginUserInformation;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,10 +99,36 @@ public class UsersService {
 //        // targetId를 가진 user가 userId를 가진 user를 구독했는지 확인
 //        userProfileDto.setFollow(followRepository.findFollowByFromUserAndToUser());
 //
-//
-//
-//
 //        return userProfileDto;
 //    }
+
+    @Transactional
+    public UserProfileDto getProfile(Long userId, Long loginId){
+
+        Users profileUser=usersRepository.findByUserId(userId); // 프로필 주인
+
+        // 로그인한 사용자의 프로필 페이지인지 확인
+        boolean isLoginUser=(userId==loginId)?true:false;
+
+        boolean follow=false;
+        Follow isFollowed = followRepository.findByFromUserAndToUser(usersRepository.findByUserId(loginId), profileUser);
+        if(isFollowed!=null) follow=true;
+
+        UsersDto usersDto=new UsersDto(profileUser); // 프로필 주인 정보
+        int userFollowerCount = followRepository.findByToUser(profileUser).size();
+        int userFollowingCount = followRepository.findByFromUser(profileUser).size();
+
+        UserProfileDto userProfileDto = UserProfileDto.builder()
+                .loginId(loginId)
+                .loginUser(isLoginUser)
+                .follow(follow)
+                .usersDto(usersDto)
+                .userFollowerCount(userFollowerCount)
+                .userFollowingCount(userFollowingCount)
+                .build();
+
+        return userProfileDto;
+
+    }
 
 }

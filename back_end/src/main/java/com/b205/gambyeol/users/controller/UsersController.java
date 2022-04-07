@@ -336,10 +336,11 @@ public class UsersController {
         return ResponseEntity.ok(followService.findFollowByUser(id, userId));
     }
 
-//    @GetMapping("/user/profile/{id}")
-//    public ResponseEntity profile(@RequestParam final long id, @AuthenticationPrincipal long userId) {
-//        UserProfileDto userProfileDto = userService.getProfile(id, userId);
-//
-//    }
+    @GetMapping("/user/profile/{id}")
+    public ResponseEntity profile(@PathVariable final long id, @AuthenticationPrincipal long userId) {
+        UserProfileDto userProfileDto = userService.getProfile(id, userId);
+        return ResponseEntity.ok().body(userProfileDto);
+
+    }
 
 }
