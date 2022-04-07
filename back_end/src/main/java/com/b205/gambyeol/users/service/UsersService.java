@@ -84,24 +84,6 @@ public class UsersService {
         return new UsersDto(entity);
     }
 
-//    @Transactional
-//    public UserProfileDto getProfile(final Long targetId, long userId) {
-//        UserProfileDto userProfileDto = new UserProfileDto();
-//        Users targetUser = usersRepository.getById(targetId);
-//        UsersDto entity = findById(targetId);
-//        userProfileDto.setUsersDto(entity);
-//
-//        // userId를 활용해 targetId가 로그인된 사용자인지 확인
-//        Users loginUser = usersRepository.findByUserId(userId);
-//        userProfileDto.setLoginUser(loginUser.getUserId() == targetUser.getUserId());
-//        userProfileDto.setLoginId(loginUser.getUserId());
-//
-//        // targetId를 가진 user가 userId를 가진 user를 구독했는지 확인
-//        userProfileDto.setFollow(followRepository.findFollowByFromUserAndToUser());
-//
-//        return userProfileDto;
-//    }
-
     @Transactional
     public UserProfileDto getProfile(Long userId, Long loginId){
 

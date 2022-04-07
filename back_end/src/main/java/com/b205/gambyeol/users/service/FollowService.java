@@ -4,6 +4,7 @@ import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.FollowRepository;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.domain.UsersRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,37 +17,26 @@ public class FollowService {
     private final FollowRepository followRepository;
 
     @Transactional
-    public Long save(final Long toUserId, final Long fromUserId) {
+    public Boolean save(Long toUserId, Long fromUserId) {
         Users fromUser = usersRepository.findByUserId(fromUserId);
         Users toUser = usersRepository.findByUserId(toUserId);
-
-        Follow entity = followRepository.findByFromUserAndToUser(fromUser, toUser);
-
-        if(entity == null) {
-            Follow follow = followRepository.save(Follow.builder()
-                    .toUser(toUser)
-                    .fromUser(fromUser)
-                    .build());
-            return follow.getFollowId();
-        }else {
-            return entity.getFollowId();
+        if (fromUser == null || toUser == null) {
+            return false;
         }
-    }
-
-    @Transactional
-    public Boolean findFollowByUser(final long toUserId, final long fromUserId) {
-        Users fromUser = usersRepository.findByUserId(fromUserId);
-        Users toUser = usersRepository.findByUserId(toUserId);
 
         Follow entity = followRepository.findByFromUserAndToUser(fromUser, toUser);
 
         if(entity != null) {
-            System.out.println("delete");
-            followRepository.deleteById(entity.getFollowId());
-            return true;
+            followRepository.delete(entity);
         }else {
-            System.out.println("no delete");
-            return false;
+            Follow follow = Follow.builder()
+                    .fromUser(fromUser)
+                    .toUser(toUser)
+                    .build();
+
+            followRepository.save(follow);
         }
+        return true;
     }
+
 }

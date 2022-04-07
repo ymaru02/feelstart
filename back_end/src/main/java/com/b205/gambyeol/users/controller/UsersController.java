@@ -7,6 +7,7 @@ import com.b205.gambyeol.users.dto.UserProfileDto;
 import com.b205.gambyeol.users.security.TokenProvider;
 import com.b205.gambyeol.users.service.FollowService;
 import com.b205.gambyeol.users.service.UsersService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -321,19 +322,14 @@ public class UsersController {
     }
 
     /**
-     * fromUserId를 가진 user가 toUserId를 가진 user를 팔로우 하는 정보를 추가
-     * @param id 팔로우 당하는 유저의 id
+     * fromUserId를 가진 user가 toUserId를 가진 user를 팔로우 하는 정보를 추가/ 취소
+     * @param map "id" 팔로우 당하는 유저의 id
      * @param userId
      * @return
      */
-    @PostMapping("/follow")
-    public ResponseEntity followUser(@RequestBody final long id, @AuthenticationPrincipal long userId) {
-        return ResponseEntity.ok(followService.save(id, userId));
-    }
-
-    @DeleteMapping("/follow")
-    public ResponseEntity unFollowUser(@RequestBody final long id, @AuthenticationPrincipal long userId) {
-        return ResponseEntity.ok(followService.findFollowByUser(id, userId));
+    @PostMapping("follow")
+    public ResponseEntity followUser(@RequestBody Map<String,String> map, @AuthenticationPrincipal long userId) {
+        return ResponseEntity.ok().body(followService.save(Long.parseLong(map.get("id")), userId));
     }
 
     @GetMapping("/user/profile/{id}")
