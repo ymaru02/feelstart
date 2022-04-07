@@ -18,6 +18,7 @@ public class StarResponseDto {
     private String addr; // 주소
     private Emotions mood; // 기분(HAPPY, NORMAL, SAD, ANGRY)
     private String writer; // 작성자
+    private Long userId;   // 작성자 id
 
     public StarResponseDto(Star entity) {
         this.starId = entity.getStarId();
@@ -29,5 +30,6 @@ public class StarResponseDto {
         this.addr = entity.getAddr();
         this.mood = entity.getMood();
         this.writer = entity.getUser().getNickname();
+        this.userId = entity.getUser().getUserId();
     }
 }

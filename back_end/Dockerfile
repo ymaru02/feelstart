@@ -1,5 +1,11 @@
-FROM openjdk:8-alpine
+FROM openjdk:8 AS builder
+WORKDIR /back_end
+COPY . .
+RUN chmod +x ./gradlew
 
-WORKDIR /server
-COPY ./build/libs/jenkins-cicd-stars-0.0.1-SNAPSHOT.jar stars-server.jar
-ENTRYPOINT ["java", "-jar", "stars-server.jar"]
+RUN rm -rf src/test
+RUN ./gradlew :clean build
+RUN ls ./build/libs
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "./build/libs/gambyeol-0.0.1-SNAPSHOT.jar"]

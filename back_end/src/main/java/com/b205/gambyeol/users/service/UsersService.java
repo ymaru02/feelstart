@@ -1,14 +1,25 @@
 package com.b205.gambyeol.users.service;
 
+import com.b205.gambyeol.log.domain.LoginUserInfoRepository;
 import com.b205.gambyeol.users.domain.Users;
+import com.b205.gambyeol.log.domain.LoginUserInformation;
 import com.b205.gambyeol.users.domain.UsersRepository;
+import com.b205.gambyeol.users.dto.UsersDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UsersService {
+
+    private final LoginUserInfoRepository loginLogRepository;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -47,4 +58,21 @@ public class UsersService {
         return usersRepository.save(user); //DB에 넣어주고 리턴
     }
 
+    // 로그인 관련 로그 DB에 저장하는 메소드
+    public LoginUserInformation logSave(@NotNull Map<String, Object> params, long userId) {
+        LoginUserInformation log = LoginUserInformation.builder()
+                .loginIp(params.get("ip").toString())
+                .accessOs(params.get("os").toString())
+                .accessBrowser(params.get("broswser").toString())
+                .userId(userId)
+                .loginUserDatetime(LocalDateTime.now())
+                .build();
+
+        return loginLogRepository.save(log); //DB에 넣어주고 리턴
+    }
+
+    public UsersDto findById(final Long id) {
+        Users entity = usersRepository.findByUserId(id);
+        return new UsersDto(entity);
+    }
 }
