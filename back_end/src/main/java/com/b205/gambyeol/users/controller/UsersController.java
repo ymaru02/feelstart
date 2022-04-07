@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
@@ -22,7 +24,7 @@ import org.json.JSONObject;
 
 @Slf4j
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class UsersController {
 
     @Autowired
@@ -33,17 +35,20 @@ public class UsersController {
 
     @PostMapping("/kakaologinrequest")
     public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws IOException, JSONException {
-        System.out.println("code: " + map.get("code"));
-        System.out.println("code 받아옴");
+        System.out.println("<<<<<<<<요청 구별용: 요청 1>>>>>>>>"+ LocalDateTime.now());
+        System.out.println("액세스 코드 가져옴, code: " + map.get("code"));
         String accessToken=getReturnAccessToken(map.get("code")); // 액세스 코드를 가져온다
 
         if(accessToken==null){ // 액세스 토큰을 얻어올 수 없는 경우
+            System.out.println("액세스 토큰이 null이다");
             return ResponseEntity.badRequest().body(null);
         }
 
         String apiUrl="https://kapi.kakao.com/v2/user/me";
         String headerStr="Bearer "+accessToken;
         String res=requestToServer(apiUrl, headerStr);
+
+        System.out.println("res: "+res);
 
         if(res==null){
             System.out.println("res");
@@ -95,9 +100,9 @@ public class UsersController {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=70fdaeceaade72a04f3cb9a76a7ecfe2");  //앱 KEY VALUE
-            sb.append("&redirect_uri=http://localhost:3000/kakaocallback"); // 앱 CALLBACK 경로
-//            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback");
             sb.append("&code=" + code);
+            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback"); // 앱 CALLBACK 경로
+
             bw.write(sb.toString());
             bw.flush();
             System.out.println(sb.toString()); // 디버깅
@@ -113,6 +118,7 @@ public class UsersController {
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
+            System.out.println("kauth 요청 결과 result: "+result);
 
             // 토큰 값 저장 및 리턴
             access_token = element.getAsJsonObject().get("access_token").getAsString();

@@ -1,8 +1,9 @@
-import create from 'zustand'
+import create from "zustand";
 
 export const loginStore = create((set, get) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-  isLogined: () => !!get().bears,
-}))
+  jwtToken: "",
+  userId: "",
+  isLogined: () => !!get().jwtToken,
+  getJwtToken: () => get().jwtToken,
+  setLoginData: (token, pk) => set({ jwtToken: token, userId: pk }),
+}));

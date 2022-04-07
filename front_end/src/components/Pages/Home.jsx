@@ -1,24 +1,14 @@
-import { Link } from "react-router-dom";
+import Onbording from "components/Templates/Onbording";
+import Inbording from "components/Templates/Inbording";
 import { loginStore } from "Store/loginStore";
-import KakaoLoginButton from "components/Atoms/KakaoLoginButton";
-import Map from "components/Atoms/Map";
-import Image from "components/Atoms/Image";
+import Box from "@mui/material/Box";
 
 const Home = () => {
-  const { bears } = loginStore();
+  const { isLogined } = loginStore();
   return (
-    <div>
-      <Map />
-      <Image url="https://img.icons8.com/nolan/344/home-page.png" src="test" />
-      <br />
-      <Image url="https://img.icons8.com/nolan/344/home-page.png" src="test" />
-      <h1>홈</h1>
-      <p>가장 먼저 보여지는 페이지입니다.</p>
-      <p>{bears}</p>
-      <Link to="/about">소개</Link>
-      <br></br>
-      <KakaoLoginButton />
-    </div>
+    <Box height="100%" id="Home">
+      {isLogined() ? <Inbording /> : <Onbording />}
+    </Box>
   );
 };
 

@@ -1,7 +1,5 @@
-import styles from "styles.module.css";
-
-const Image = (props) => {
-  return <img src={props.url} width="222" alt={props.exp} id={styles.back} />;
+const Image = ({ src, width, alt }) => {
+  return <img src={src} width={width} alt={alt} />;
 };
 
 export default Image;
