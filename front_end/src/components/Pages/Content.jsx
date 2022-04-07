@@ -1,32 +1,21 @@
 import RecipeReviewCard from "components/Molecules/RecipeReviewCard";
 import React, { useEffect, useState } from "react";
 import styles from "./Content.module.css";
-import axios from "axios";
-import { loginStore } from "Store/loginStore";
 import { contentStore } from "Store/contentStore";
 import Box from "@mui/material/Box";
 
 export default function Content() {
   const [content, setContent] = useState();
 
-  const token = loginStore().jwtToken;
-  const { setNewContents } = contentStore();
+  const contents = contentStore().contents;
 
   useEffect(() => {
-    axios
-      .get("/api/stars/all", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (JSON.stringify(res).length !== 0) {
-          setContent(res.data);
-          setNewContents(res.data);
-        }
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    setContent(contents);
+
+    return () => {
+      setContent([]);
+    };
+  }, [contents]);
 
   return (
     <Box sx={{ marginBottom: 10 }}>

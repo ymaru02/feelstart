@@ -25,6 +25,10 @@ export default function Admin() {
         setDataSet(res.data);
       })
       .catch((error) => console.log(error));
+
+    return () => {
+      setDataSet([]);
+    };
   }, []);
 
   return (
@@ -121,10 +125,10 @@ export default function Admin() {
             <Line dataset={dataset} />
           </Grid>
           <Grid item xs={3} sm={6}>
-            <Bar />
+            <Doughnut dataset={dataset} />
           </Grid>
           <Grid item xs={3} sm={6}>
-            <Doughnut dataset={dataset} />
+            <Bar dataset={dataset} />
           </Grid>
         </Grid>
       </Container>

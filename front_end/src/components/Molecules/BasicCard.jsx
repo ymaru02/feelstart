@@ -31,6 +31,10 @@ export default function BasicCard(props) {
       calcuHeigth = 230;
     }
     setHeigth(calcuHeigth);
+
+    return () => {
+      setHeigth(0);
+    };
   }, [vw]);
 
   return (

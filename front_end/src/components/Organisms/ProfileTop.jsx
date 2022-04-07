@@ -3,15 +3,16 @@ import Avatar from "@mui/material/Avatar";
 import styles from "./ProfileTop.module.css";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
-import axios from "axios";
 import { loginStore } from "Store/loginStore";
-
+import { useParams } from "react-router-dom";
 export default function ProfileTop(props) {
   const [vw, setVw] = useState();
-  const token = loginStore().jwtToken;
   const [src, setSrc] = useState("");
   const [username, setName] = useState("");
+  const myId = loginStore().userId;
+  const { userid } = useParams();
 
   window.addEventListener(
     "resize",
@@ -27,20 +28,14 @@ export default function ProfileTop(props) {
   );
 
   useEffect(() => {
-    axios
-      .get(`/api/users/${props.userid}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setSrc(res.data.profile);
-        setName(res.data.nickname);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+    setSrc(props.userData.profile);
+    setName(props.userData.nickname);
+
+    return () => {
+      setSrc("");
+      setName("");
+    };
+  }, [props.userData.profile]);
 
   return (
     <Box>
@@ -116,7 +111,33 @@ export default function ProfileTop(props) {
         <section className={styles.profilename}>
           <Stack spacing={2} direction="row">
             <h1>{username}</h1>
-            {/* <Button variant="outlined">Outlined</Button> */}
+            {myId === Number(userid) ? (
+              <></>
+            ) : props.follow ? (
+              <Button
+                variant="text"
+                onClick={props.handleFollowClick}
+                sx={{
+                  padding: 1,
+                  borderRadius: 3,
+                  color: "rgb(255,200,100)",
+                }}
+              >
+                팔로우 취소
+              </Button>
+            ) : (
+              <Button
+                variant="text"
+                onClick={props.handleFollowClick}
+                sx={{
+                  padding: 1,
+                  borderRadius: 3,
+                  color: "rgb(255,200,100)",
+                }}
+              >
+                팔로우
+              </Button>
+            )}
           </Stack>
           <ul className={styles.profilenamemid}>
             <Stack spacing={2} direction="row">
@@ -129,20 +150,17 @@ export default function ProfileTop(props) {
               <li>
                 <Box>
                   팔로워
-                  <p>user.count</p>
+                  <p>{props.followerCount}</p>
                 </Box>
               </li>
               <li>
                 <Box>
                   팔로우
-                  <p>user.count</p>
+                  <p>{props.followingCount}</p>
                 </Box>
               </li>
             </Stack>
           </ul>
-          <Stack spacing={2} direction="row">
-            <Box className={styles.profilenametop}>user.introductory</Box>
-          </Stack>
         </section>
       </Box>
     </Box>
