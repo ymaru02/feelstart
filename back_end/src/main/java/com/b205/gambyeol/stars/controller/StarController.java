@@ -6,6 +6,7 @@ import com.b205.gambyeol.stars.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -24,6 +26,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class StarController {
 
+    @Autowired
     private final StarService starService;
 
     @Value("${access.url.location}")
@@ -95,8 +98,36 @@ public class StarController {
         return  ResponseEntity.ok(starService.findAll());
     }
 
-    @GetMapping("stars/{id}")
+    // 해당 userId별 글 모아보기
+    @GetMapping("/stars/all/{userId}")
+    public ResponseEntity findAllByMyStar(@PathVariable final long userId) {
+        return ResponseEntity.ok(starService.findAllByUserId(userId));
+    }
+
+    // 좋아요 등록/삭제
+    @PostMapping("/stars/likes")
+    public void likeSave(@RequestBody Map<String,String> map,
+                         @AuthenticationPrincipal long userId) {
+        starService.findLikesByStarIdAndUserId(Long.parseLong(map.get("star_id")), userId);
+    }
+
+    // 글 상세보기
+    @GetMapping("/stars/{id}")
     public ResponseEntity findById(@PathVariable final long id) {
         return ResponseEntity.ok(starService.findById(id));
     }
+
+    // 글 좋아요 조회
+    @GetMapping("/stars/{id}/likes")
+    public ResponseEntity findLikeAll(@PathVariable final long id, @AuthenticationPrincipal long userId) {
+        return  ResponseEntity.ok(starService.findLike(id, userId));
+    }
+
+    // 글 좋아요 갯수
+    @GetMapping("/stars/{id}/likes/count")
+    public ResponseEntity findLikeAll(@PathVariable final long id) {
+        return ResponseEntity.ok(starService.countLikes(id));
+    }
+
+
 }

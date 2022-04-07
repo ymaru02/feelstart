@@ -4,9 +4,11 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Box from "@mui/material/Box";
 import Image from "components/Atoms/Image";
 import { Link } from "react-router-dom";
+import { loginStore } from "Store/loginStore";
 
 export default function BottomBar() {
   const [value, setValue] = React.useState(0);
+  const userId = loginStore().userId;
 
   return (
     <Box
@@ -14,6 +16,7 @@ export default function BottomBar() {
         width: "100vw",
         position: "fixed",
         bottom: "0",
+        zIndex: 3000,
       }}
     >
       <BottomNavigation
@@ -52,6 +55,28 @@ export default function BottomBar() {
           icon={
             <Image
               src={`${process.env.PUBLIC_URL}/image/write.svg`}
+              width="50"
+              alt="test"
+            />
+          }
+        />
+        <BottomNavigationAction
+          component={Link}
+          to={`profile/${userId}`}
+          icon={
+            <Image
+              src={`${process.env.PUBLIC_URL}/image/customer.svg`}
+              width="50"
+              alt="test"
+            />
+          }
+        />
+        <BottomNavigationAction
+          component={Link}
+          to="admin"
+          icon={
+            <Image
+              src={`${process.env.PUBLIC_URL}/image/setting.svg`}
               width="50"
               alt="test"
             />
