@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import styles from "./ProfileTop.module.css";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function ProfileTop() {
+export default function ProfileTop(props) {
   const [vw, setVw] = useState();
 
   window.addEventListener(
@@ -60,14 +59,14 @@ export default function ProfileTop() {
         <section className={styles.profilename}>
           <Stack spacing={2} direction="row">
             <h1>user.name</h1>
-            <Button variant="outlined">Outlined</Button>
+            {/* <Button variant="outlined">Outlined</Button> */}
           </Stack>
           <ul className={styles.profilenamemid}>
             <Stack spacing={2} direction="row">
               <li>
                 <Box>
                   게시물
-                  <p>user.count</p>
+                  <p>{props.contents.length}</p>
                 </Box>
               </li>
               <li>
