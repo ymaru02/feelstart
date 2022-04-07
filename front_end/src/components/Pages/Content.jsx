@@ -12,7 +12,6 @@ export default function Content() {
   const { setNewContents } = contentStore();
 
   useEffect(() => {
-    console.log(token);
     axios
       .get("/api/stars/all", {
         headers: {

@@ -22,6 +22,9 @@ import AvatarCircle from "components/Atoms/AvatarCircle";
 import ModalSet from "components/Atoms/ModalSet";
 
 import styles from "styles.module.css";
+import axios from "axios";
+
+import { loginStore } from "Store/loginStore";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,13 +43,13 @@ export default function RecipeReviewCard(props) {
   const [openmap, setOpenMap] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const token = loginStore().jwtToken;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
   const handleClickMap = () => {
     setOpenMap((cur) => !cur);
-
-    jsonfileSave();
+    handleClickSave();
   };
   const handelSubmit = (event) => {
     event.preventDefault();
@@ -58,13 +61,28 @@ export default function RecipeReviewCard(props) {
     setComment(event.target.value);
   };
 
-  const jsonfileSave = () => {};
+  const handleClickSave = () => {
+    const data = {
+      user: props.value.userId,
+      latitude: props.value.latitude,
+      longitude: props.value.longitude,
+      mood: props.value.mood,
+    };
 
-  useEffect(() => {}, []);
+    axios
+      .post("api/clicks", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <Card
-      sx={{ maxWidth: 1000, width: "100vw", border: 1, borderColor: "#c0c0c0" }}
+      sx={{ maxWidth: 800, width: "100vw", border: 1, borderColor: "#c0c0c0" }}
       style={{
         backgroundColor: "#fff",
       }}
