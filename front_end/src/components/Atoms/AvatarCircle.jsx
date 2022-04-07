@@ -19,7 +19,11 @@ export default function AvatarCircle(props) {
       .catch((e) => {
         console.log(e);
       });
-  });
+
+    return () => {
+      setSrc("");
+    };
+  }, []);
   return (
     <Avatar
       sx={{ width: 50, height: 50 }}

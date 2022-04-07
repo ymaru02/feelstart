@@ -2,17 +2,26 @@ import React, { useEffect, useRef } from "react";
 import { Chart, registerables } from "chart.js";
 import Box from "@mui/material/Box";
 
-export default function Bar() {
+export default function Bar(props) {
   const canvasDom = useRef(null);
 
+  const labels = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+  const obj = { SUN: 0, MON: 0, TUE: 0, WED: 0, THU: 0, FRI: 0, SAT: 0 };
+
+  props.dataset.map((data) => {
+    let date2 = new Date(data.loginUserDatetime);
+    const day = labels[date2.getDay()];
+    obj[day] += 1;
+  });
+
   useEffect(() => {
-    const labels = ["January", "February", "March", "April", "May", "June"];
     const data = {
       labels: labels,
       datasets: [
         {
           label: "My First Dataset",
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: [obj.SUN, obj.MON, obj.TUE, obj.WED, obj.THU, obj.FRI, obj.SAT],
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(255, 159, 64, 0.2)",
@@ -52,7 +61,7 @@ export default function Bar() {
     const ChartName = new Chart(ctx, config);
 
     return () => ChartName.destroy();
-  }, []);
+  }, [obj]);
 
   return (
     <Box
