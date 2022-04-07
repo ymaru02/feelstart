@@ -11,6 +11,7 @@ import com.b205.gambyeol.users.domain.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class StarService {
-
+    @Autowired
     private final StarRepository starRepository;
+    @Autowired
     private final StarLikesRepository likesRepository;
+    @Autowired
     private final UsersRepository usersRepository;
 
     @Value("${access.url.location}")
@@ -104,22 +107,20 @@ public class StarService {
     }
 
     // 입력된 유저 id, 게시글 id를 가진 좋아요 객체를 찾아내는 메소드
-    public Long findLikesByStarIdAndUserId(final Boolean mark, final Long starId, final Long userId) {
+    public void findLikesByStarIdAndUserId(final Long starId, final Long userId) {
         Likes likes = likesRepository.findByStarStarIdAndUserUserId(starId, userId);
 
         // 좋아요 or 좋아요 취소한 기록이 없는 경우 등록하고 likes 객체를 가져온다.
         if(likes == null) {
-            likes = saveLikes(mark, starId, userId);
+            saveLikes(starId, userId);
         }else {
-            likes.setMark(mark);
+            deleteLikes(starId, userId);
         }
-
-        return likes.getLikesId();
     }
 
     // 좋아요 등록하는 메소드
     @Transactional
-    public Likes saveLikes(Boolean mark, long userId, long starId) {
+    public Likes saveLikes(final long starId, final long userId) {
         // 게시된 글 정보
         Star findstar = starRepository.findByStarId(starId);
 
@@ -127,12 +128,18 @@ public class StarService {
         Users finduser = usersRepository.findByUserId(userId);
 
         Likes likes = Likes.builder()
-                .mark(mark)
                 .user(finduser)
                 .star(findstar)
                 .build();
 
         return likesRepository.save(likes);
+    }
+
+    // 좋아요 삭제하는 메소드
+    @Transactional
+    public void deleteLikes(final long starId, final long userId) {
+        Likes entity = likesRepository.findByStarStarIdAndUserUserId(starId, userId);
+        likesRepository.delete(entity);
     }
 
     public Boolean findLike(final Long id, final Long userId) {
@@ -142,7 +149,7 @@ public class StarService {
         if(likes == null) {
             return false;
         }else {
-            return likes.getMark();
+            return true;
         }
     }
 

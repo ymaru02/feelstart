@@ -6,6 +6,7 @@ import com.b205.gambyeol.stars.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -24,6 +26,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class StarController {
 
+    @Autowired
     private final StarService starService;
 
     @Value("${access.url.location}")
@@ -101,12 +104,11 @@ public class StarController {
         return ResponseEntity.ok(starService.findAllByUserId(userId));
     }
 
-    // 좋아요 등록/취소
+    // 좋아요 등록/삭제
     @PostMapping("/stars/likes")
-    public ResponseEntity likeSave(@RequestBody Boolean mark,
-                                   @AuthenticationPrincipal long userId,
-                                   @RequestBody final long id) {
-        return ResponseEntity.ok(starService.findLikesByStarIdAndUserId(mark, userId, id));
+    public void likeSave(@RequestBody Map<String,String> map,
+                         @AuthenticationPrincipal long userId) {
+        starService.findLikesByStarIdAndUserId(Long.parseLong(map.get("star_id")), userId);
     }
 
     // 글 상세보기
