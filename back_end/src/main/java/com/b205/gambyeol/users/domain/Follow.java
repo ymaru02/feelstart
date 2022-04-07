@@ -1,16 +1,14 @@
 package com.b205.gambyeol.users.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor // 매개변수가 없는 생성자
+@AllArgsConstructor // 모든 인자를 매개변수로 받는 생성자
 public class Follow {
 
     @Id
