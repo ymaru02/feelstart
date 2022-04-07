@@ -3,6 +3,7 @@ package com.b205.gambyeol.comments.controller;
 import com.b205.gambyeol.comments.dto.CommentRequestDto;
 import com.b205.gambyeol.comments.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
 
+    @Autowired
     private final CommentService commentService;
 
     // 해당게시글의 댓글 전체보기

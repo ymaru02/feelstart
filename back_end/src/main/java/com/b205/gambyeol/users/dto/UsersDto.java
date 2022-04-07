@@ -1,6 +1,5 @@
 package com.b205.gambyeol.users.dto;
 
-import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.Users;
 import lombok.Getter;
 
