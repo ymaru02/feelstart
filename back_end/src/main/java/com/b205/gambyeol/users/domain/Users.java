@@ -27,4 +27,5 @@ public class Users {
     @Column
     private String profile; // 프로필 이미지
 
+
 }

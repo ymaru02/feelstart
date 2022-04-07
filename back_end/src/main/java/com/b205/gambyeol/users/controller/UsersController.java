@@ -127,7 +127,8 @@ public class UsersController {
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=70fdaeceaade72a04f3cb9a76a7ecfe2");  //앱 KEY VALUE
             sb.append("&code=" + code);
-            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback"); // 앱 CALLBACK 경로
+//            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback"); // 앱 CALLBACK 경로
+            sb.append("&redirect_uri=http://localhost:3000/kakaocallback");
 
             bw.write(sb.toString());
             bw.flush();
@@ -335,10 +336,11 @@ public class UsersController {
         return ResponseEntity.ok(followService.findFollowByUser(id, userId));
     }
 
-//    @GetMapping("/user/profile/{id}")
-//    public ResponseEntity profile(@RequestParam final long id, @AuthenticationPrincipal long userId) {
-//        UserProfileDto userProfileDto = userService.getProfile(id, userId);
-//
-//    }
+    @GetMapping("/user/profile/{id}")
+    public ResponseEntity profile(@PathVariable final long id, @AuthenticationPrincipal long userId) {
+        UserProfileDto userProfileDto = userService.getProfile(id, userId);
+        return ResponseEntity.ok().body(userProfileDto);
+
+    }
 
 }
