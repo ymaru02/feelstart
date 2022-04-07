@@ -22,7 +22,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UsersService {
 
+    @Autowired
     private final LoginUserInfoRepository loginLogRepository;
+    @Autowired
     private final FollowRepository followRepository;
 
     @Autowired
