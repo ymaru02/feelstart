@@ -4,6 +4,7 @@ import styles from "./Content.module.css";
 import axios from "axios";
 import { loginStore } from "Store/loginStore";
 import { contentStore } from "Store/contentStore";
+import Box from "@mui/material/Box";
 
 export default function Content() {
   const [content, setContent] = useState();
@@ -28,10 +29,10 @@ export default function Content() {
   }, []);
 
   return (
-    <div>
+    <Box sx={{ marginBottom: 10 }}>
       {content &&
         content.map((value, index) => (
-          <div className={styles.flexbox} key={index}>
+          <Box className={styles.flexbox} key={index}>
             <RecipeReviewCard
               content={value.content}
               date={value.date}
@@ -44,8 +45,8 @@ export default function Content() {
               value={value}
             />
             <br />
-          </div>
+          </Box>
         ))}
-    </div>
+    </Box>
   );
 }

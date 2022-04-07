@@ -20,7 +20,7 @@ export default function Inbording() {
         <Routes>
           <Route path="map" element={<MapWrite />} />
           <Route path="content" element={<Content />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:userid" element={<Profile />} />
           <Route path="write" element={<Write />} />
           <Route path="admin" element={<Admin />} />
         </Routes>

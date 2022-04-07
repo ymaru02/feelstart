@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -16,7 +16,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-
+import Grid from "@mui/material/Grid";
 import MiniMap from "components/Atoms/MiniMap";
 import AvatarCircle from "components/Atoms/AvatarCircle";
 import ModalSet from "components/Atoms/ModalSet";
@@ -25,6 +25,8 @@ import styles from "styles.module.css";
 import axios from "axios";
 
 import { loginStore } from "Store/loginStore";
+import { Link } from "react-router-dom";
+import { fontFamily } from "@mui/system";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,9 +43,11 @@ export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [favor, setFavor] = useState(false);
   const [openmap, setOpenMap] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState({ writer: "", content: "" });
   const [comments, setComments] = useState([]);
+  const [mood, setMood] = useState(1);
   const token = loginStore().jwtToken;
+  const username = loginStore().username;
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = () => setFavor((current) => !current);
@@ -53,17 +57,42 @@ export default function RecipeReviewCard(props) {
   };
   const handelSubmit = (event) => {
     event.preventDefault();
-    if (comment === "") return;
+    if (comment.content === "") return;
+
+    const formData = new FormData();
+    formData.append(
+      "dto",
+      new Blob(
+        [
+          JSON.stringify({
+            content: comment.content,
+          }),
+        ],
+        { type: "application/json" }
+      )
+    );
+    formData.append("id", props.value.starId);
+
+    axios
+      .post("/api/stars/comments", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setComments((currentArray) => [...currentArray, comment]);
-    setComment("");
+    setComment({ writer: username, content: "" });
   };
   const handelChange = (event) => {
-    setComment(event.target.value);
+    setComment({ writer: username, content: event.target.value });
   };
 
   const handleClickSave = () => {
     const data = {
-      user: props.value.userId,
+      user: username,
       latitude: props.value.latitude,
       longitude: props.value.longitude,
       mood: props.value.mood,
@@ -80,6 +109,36 @@ export default function RecipeReviewCard(props) {
       });
   };
 
+  useEffect(() => {
+    axios
+      .get(`/api/stars/${props.value.starId}/comments/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((error) => console.log(error));
+
+    switch (props.mood) {
+      case "HAPPY":
+        setMood(5);
+        break;
+      case "NORMAL":
+        setMood(2);
+        break;
+      case "ANGRY":
+        setMood(3);
+        break;
+      case "SAD":
+        setMood(4);
+        break;
+      default:
+        break;
+    }
+  }, []);
+
   return (
     <Card
       sx={{ maxWidth: 800, width: "100vw", border: 1, borderColor: "#c0c0c0" }}
@@ -90,9 +149,20 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         avatar={
           <>
-            <AvatarCircle />
-            <Typography style={{ margin: "auto 5px" }}>
-              {props.writer}
+            <AvatarCircle id={props.value.userId} />
+            <Typography
+              style={{ margin: "auto 5px", textDecorationLine: "none" }}
+            >
+              <Link
+                to={`/profile/${props.value.userId}`}
+                style={{
+                  textDecorationLine: "none",
+                  color: "rgb(120, 120, 120)",
+                  fontWeight: "bold ",
+                }}
+              >
+                {props.writer}
+              </Link>
             </Typography>
           </>
         }
@@ -112,11 +182,21 @@ export default function RecipeReviewCard(props) {
                 }}
               />
             </IconButton>
-            <ModalSet />
+            <ModalSet id={props.value.userId} />
           </>
         }
-        title={props.mood}
-        subheader={props.date}
+        title={
+          <>
+            <img
+              src={`image/star_${mood}-removebg-preview.png`}
+              width={50}
+              height={50}
+            ></img>
+            {props.mood}
+          </>
+        }
+        titleTypographyProps={{ fontSize: 23, color: "black" }}
+        subheader={props.date.replace("T", " ").split(".")[0]}
         subheaderTypographyProps={{ color: "#a0a0a0" }}
         style={{ color: "#a0a0a0" }}
       />
@@ -138,7 +218,9 @@ export default function RecipeReviewCard(props) {
       </Box>
 
       <CardContent>
-        <Typography variant="body2">{props.content}</Typography>
+        <Typography variant="h4" sx={{ fontFamily: "Dongle, sans-serif" }}>
+          {props.content}
+        </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
@@ -174,13 +256,47 @@ export default function RecipeReviewCard(props) {
         unmountOnExit
       >
         <CardContent>
-          <Box>
+          <Grid container spacing={2} sx={{ marginBottom: 3 }}>
             {comments.map((value, index) => (
-              <Typography paragraph key={index}>
-                {value}
-              </Typography>
+              <Fragment key={index}>
+                <Grid
+                  item
+                  xs={2}
+                  sx={{
+                    fontFamily: "Jua, sans-serif",
+                  }}
+                >
+                  {value.writer}:
+                </Grid>
+                <Grid
+                  item
+                  xs={10}
+                  sx={{
+                    fontFamily: "Jua, sans-serif",
+                    textAlign: "left",
+                  }}
+                >
+                  {value.content}
+                  {value.date ? (
+                    <Typography
+                      sx={{
+                        color: "rgb(120,120,120)",
+                        fontFamily: "Jua, sans-serif",
+                      }}
+                      variant="caption"
+                      display="block"
+                      gutterBottom
+                    >
+                      {value.date.split("T")[0]}{" "}
+                      {value.date.split("T")[1].split(".")[0]}
+                    </Typography>
+                  ) : (
+                    <></>
+                  )}
+                </Grid>
+              </Fragment>
             ))}
-          </Box>
+          </Grid>
           <Box sx={{ display: "flex", alignItems: "flex-end" }}>
             <Avatar sx={{ mr: 1, my: 0.5 }}></Avatar>
             <form style={{ width: "100%" }} onSubmit={handelSubmit}>
@@ -190,8 +306,7 @@ export default function RecipeReviewCard(props) {
                 id="comment"
                 label="댓글달기"
                 variant="filled"
-                value={comment}
-                // InputProps={{ style: { color: "#c0c0c0" } }}
+                value={comment.content}
                 InputLabelProps={{ style: { color: "#c0c0c0" } }}
               />
             </form>
