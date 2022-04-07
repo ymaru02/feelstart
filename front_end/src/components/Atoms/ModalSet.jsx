@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import ListSet from "components/Atoms/ListSet";
 import Modal from "@mui/material/Modal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
+import axios from "axios";
+import { loginStore } from "Store/loginStore";
 
 const style = {
   position: "absolute",
@@ -19,12 +21,31 @@ const style = {
   p: 2,
 };
 
-export default function ModalSet() {
+export default function ModalSet(props) {
+  const token = loginStore().jwtToken;
   const [open, setOpen] = useState(false);
+  const [follow, setFollow] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleCloseClick = () => setOpen(false);
+  const handleFollowClick = () => {
+    axios
+      .post(
+        `/api/follow/`,
+        { id: props.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -39,7 +60,10 @@ export default function ModalSet() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ListSet handleCloseClick={handleCloseClick} />
+          <ListSet
+            handleCloseClick={handleCloseClick}
+            handleFollowClick={handleFollowClick}
+          />
         </Box>
       </Modal>
     </>
