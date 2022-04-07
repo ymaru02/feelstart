@@ -34,6 +34,7 @@ public class UsersController {
     @PostMapping("/kakaologinrequest")
     public ResponseEntity<LoginResponseDto> kakaoLoginRequest(@RequestBody Map<String,String> map) throws IOException, JSONException {
         System.out.println("code: " + map.get("code"));
+        System.out.println("code 받아옴");
         String accessToken=getReturnAccessToken(map.get("code")); // 액세스 코드를 가져온다
 
         if(accessToken==null){ // 액세스 토큰을 얻어올 수 없는 경우
@@ -94,7 +95,8 @@ public class UsersController {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=70fdaeceaade72a04f3cb9a76a7ecfe2");  //앱 KEY VALUE
-            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback"); // 앱 CALLBACK 경로
+            sb.append("&redirect_uri=http://localhost:3000/kakaocallback"); // 앱 CALLBACK 경로
+//            sb.append("&redirect_uri=https://j6b205.p.ssafy.io/kakaocallback");
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
