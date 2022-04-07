@@ -38,6 +38,7 @@ pipeline {
 
 				sh 'docker run -d --name backend -p 8080:8080 \
 				-v /var/back_end/gambyeolImg:/back_end/gambyeolImg \
+				-v /var/back_end/clicklog:/back_end/clicklog \
 		--network thxstorecicdnetwork backend:latest'
 			}
 		}
