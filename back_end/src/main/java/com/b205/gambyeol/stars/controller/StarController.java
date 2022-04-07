@@ -52,7 +52,7 @@ public class StarController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(clickdata);
+        
         String uploadPath = "";
         if ("ec2".equals(location)) {
             uploadPath = System.getProperty("user.dir") + File.separator + "clicklog";
