@@ -29,7 +29,7 @@ export default function Write() {
     setkakaoAdress("");
   };
 
-  const { getJwtToken } = loginStore();
+  const { jwtToken } = loginStore();
 
   const handlePost = async () => {
     var formData = new FormData();
@@ -52,7 +52,7 @@ export default function Write() {
     try {
       await axios.post("/api/stars", formData, {
         headers: {
-          Authorization: `Bearer ${getJwtToken()}`,
+          Authorization: `Bearer ${jwtToken}`,
           "Content-Type": "multipart/form-data",
         },
       });
