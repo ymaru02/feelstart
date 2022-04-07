@@ -93,33 +93,6 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment({ writer: username, content: event.target.value });
   };
-
-  async function like() {
-    let res = await axios.get(`api/stars/${props.starid}/likes`, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    return setFavor(res.data);
-  }
-
-  async function likeCnt() {
-    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    return setFavorCnt(res.data);
-  }
-
-  useEffect(() => {
-    like();
-  }, []);
-
-  useEffect(() => {
-    likeCnt();
-  }, [favor]);
-
   const handleClickSave = () => {
     const data = {
       user: username,
@@ -138,8 +111,34 @@ export default function RecipeReviewCard(props) {
         console.log(e);
       });
   };
+  async function like() {
+    let res = await axios.get(`api/stars/${props.starid}/likes`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+    return setFavor(res.data);
+  }
+  async function likeCnt() {
+    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+    return setFavorCnt(res.data);
+  }
 
   useEffect(() => {
+    likeCnt();
+
+    return () => {
+      setFavorCnt(0);
+    };
+  }, [favor]);
+
+  useEffect(() => {
+    like();
+
     axios
       .get(`/api/stars/${props.value.starId}/comments/all`, {
         headers: {
@@ -167,6 +166,11 @@ export default function RecipeReviewCard(props) {
       default:
         break;
     }
+
+    return () => {
+      setComments([]);
+      setFavor(false);
+    };
   }, []);
 
   return (
