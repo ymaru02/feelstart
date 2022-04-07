@@ -36,9 +36,9 @@ public class StarController {
 
     // 좋아요 등록/취소
     @PostMapping("/stars/likes")
-    public ResponseEntity likeSave(@RequestParam Boolean mark,
+    public ResponseEntity likeSave(@RequestBody Boolean mark,
                                    @AuthenticationPrincipal long userId,
-                                   @RequestParam final long id) {
+                                   @RequestBody final long id) {
         return ResponseEntity.ok(starService.findLikesByStarIdAndUserId(mark, userId, id));
     }
 

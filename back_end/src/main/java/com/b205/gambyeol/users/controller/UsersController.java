@@ -3,6 +3,7 @@ package com.b205.gambyeol.users.controller;
 import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.dto.LoginResponseDto;
+import com.b205.gambyeol.users.dto.UserProfileDto;
 import com.b205.gambyeol.users.security.TokenProvider;
 import com.b205.gambyeol.users.service.FollowService;
 import com.b205.gambyeol.users.service.UsersService;
@@ -325,12 +326,19 @@ public class UsersController {
      * @return
      */
     @PostMapping("/follow")
-    public ResponseEntity followUser(@RequestParam final long id, @AuthenticationPrincipal long userId) {
+    public ResponseEntity followUser(@RequestBody final long id, @AuthenticationPrincipal long userId) {
         return ResponseEntity.ok(followService.save(id, userId));
     }
 
     @DeleteMapping("/follow")
-    public ResponseEntity unFollowUser(@RequestParam final long id, @AuthenticationPrincipal long userId) {
+    public ResponseEntity unFollowUser(@RequestBody final long id, @AuthenticationPrincipal long userId) {
         return ResponseEntity.ok(followService.findFollowByUser(id, userId));
     }
+
+//    @GetMapping("/user/profile/{id}")
+//    public ResponseEntity profile(@RequestParam final long id, @AuthenticationPrincipal long userId) {
+//        UserProfileDto userProfileDto = userService.getProfile(id, userId);
+//
+//    }
+
 }
