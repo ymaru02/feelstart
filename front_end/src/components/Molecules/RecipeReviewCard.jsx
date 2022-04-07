@@ -50,7 +50,7 @@ export default function RecipeReviewCard(props) {
   const token = loginStore().jwtToken;
   const username = loginStore().username;
 
-  const { getJwtToken } = loginStore();
+  const { jwtToken } = loginStore();
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleFavorClick = async () => {
@@ -60,7 +60,7 @@ export default function RecipeReviewCard(props) {
       { mark: !like, star_id: props.starid },
       {
         headers: {
-          Authorization: `Bearer ${getJwtToken()}`,
+          Authorization: `Bearer ${jwtToken}`,
         },
       }
     );
@@ -108,7 +108,7 @@ export default function RecipeReviewCard(props) {
   async function like() {
     let res = await axios.get(`api/stars/${props.starid}/likes`, {
       headers: {
-        Authorization: `Bearer ${getJwtToken()}`,
+        Authorization: `Bearer ${jwtToken}`,
       },
     });
     return setFavor(res.data);
@@ -117,7 +117,7 @@ export default function RecipeReviewCard(props) {
   async function likeCnt() {
     let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
       headers: {
-        Authorization: `Bearer ${getJwtToken()}`,
+        Authorization: `Bearer ${jwtToken}`,
       },
     });
     return setFavorCnt(res.data);
