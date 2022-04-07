@@ -27,9 +27,7 @@ export default function ProfileBottom({ contents = [] }) {
 
   const classes = useStyles();
 
-  useEffect(() => {
-    console.log(contents);
-  });
+  useEffect(() => {});
   return (
     <>
       <div className={styles.bttongroup}>
@@ -54,10 +52,16 @@ export default function ProfileBottom({ contents = [] }) {
           >
             {contents.map((item, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
-                <ImageListItem key={item.img}>
+                <ImageListItem
+                  key={item.img}
+                  sx={{
+                    margin: 2,
+                    border: "1px solid rgb(99,99,99)",
+                    borderRadius: 3,
+                  }}
+                >
                   <img
-                    src={`${item.img}?w=300&h=300&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    src={`https://j6b205.p.ssafy.io/api/starimg/${item.imageName}`}
                     alt={item.title}
                     loading="lazy"
                   />
