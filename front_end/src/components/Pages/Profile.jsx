@@ -4,29 +4,27 @@ import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import axios from "axios";
 import { loginStore } from "Store/loginStore";
-
+import { useParams } from "react-router-dom";
 export default function Profile() {
   const token = loginStore().jwtToken;
-  const userId = loginStore().userId;
   const [contents, setContents] = useState([]);
+  const { userid } = useParams();
 
   useEffect(() => {
     axios
-      .get(`/api/stars/all/${userId}`, {
+      .get(`/api/stars/all/${userid}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        if (JSON.stringify(res).length !== 0) {
-          setContents(res.data);
-        }
+        setContents(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [userid]);
   return (
     <div className={styles.profilecontainer}>
-      <ProfileTop contents={contents} />
+      <ProfileTop contents={contents} userid={userid} />
       <ProfileBottom contents={contents} />
     </div>
   );

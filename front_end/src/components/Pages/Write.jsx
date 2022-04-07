@@ -69,8 +69,6 @@ export default function Write() {
         (position) => {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
-          // var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
-          // map.setCenter(moveLatLon);
         },
         function (error) {
           console.error(error);
