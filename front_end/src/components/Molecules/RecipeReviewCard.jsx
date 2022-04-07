@@ -74,27 +74,16 @@ export default function RecipeReviewCard(props) {
     event.preventDefault();
     if (comment.content === "") return;
 
-    const formData = new FormData();
-    formData.append(
-      "dto",
-      new Blob(
-        [
-          JSON.stringify({
-            content: comment.content,
-          }),
-        ],
-        { type: "application/json" }
-      )
-    );
-    formData.append("id", props.value.starId);
-
     axios
-      .post("/api/stars/comments", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        "/api/stars/comments",
+        { content: comment.content, id: props.starid },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .catch((e) => {
         console.log(e);
       });
