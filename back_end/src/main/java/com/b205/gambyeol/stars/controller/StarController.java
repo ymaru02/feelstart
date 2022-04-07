@@ -19,7 +19,6 @@ public class StarController {
     public ResponseEntity save(@RequestPart(value = "dto", required = false) StarRequestDto dto,
                                @AuthenticationPrincipal long userId,
                                @RequestPart(value = "imgFile", required = false) MultipartFile imgFile) {
-        System.out.println("글 작성 controller 시작");
         return ResponseEntity.ok(starService.save(dto, userId, imgFile));
     }
     
@@ -58,7 +57,7 @@ public class StarController {
     // 글 좋아요 갯수
     @GetMapping("/stars/{id}/likes/count")
     public ResponseEntity findLikeAll(@PathVariable final long id) {
-        return  ResponseEntity.ok(starService.countLikes(id));
+        return ResponseEntity.ok(starService.countLikes(id));
     }
 
 

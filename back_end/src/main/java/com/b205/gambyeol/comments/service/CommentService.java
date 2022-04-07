@@ -6,7 +6,6 @@ import com.b205.gambyeol.comments.dto.CommentRequestDto;
 import com.b205.gambyeol.comments.dto.CommentResponseDto;
 import com.b205.gambyeol.stars.domain.Star;
 import com.b205.gambyeol.stars.domain.StarRepository;
-import com.b205.gambyeol.stars.dto.StarResponseDto;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
