@@ -1,13 +1,16 @@
 package com.b205.gambyeol.users.controller;
 
+import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.dto.LoginResponseDto;
 import com.b205.gambyeol.users.security.TokenProvider;
+import com.b205.gambyeol.users.service.FollowService;
 import com.b205.gambyeol.users.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,9 @@ public class UsersController {
 
     @Autowired
     private UsersService userService;
+
+    @Autowired
+    private FollowService followService;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -312,4 +318,19 @@ public class UsersController {
         return ip;
     }
 
+    /**
+     * fromUserId를 가진 user가 toUserId를 가진 user를 팔로우 하는 정보를 추가
+     * @param id 팔로우 당하는 유저의 id
+     * @param userId
+     * @return
+     */
+    @PostMapping("/follow")
+    public ResponseEntity followUser(@RequestParam final long id, @AuthenticationPrincipal long userId) {
+        return ResponseEntity.ok(followService.save(id, userId));
+    }
+
+    @DeleteMapping("/follow")
+    public ResponseEntity unFollowUser(@RequestParam final long id, @AuthenticationPrincipal long userId) {
+        return ResponseEntity.ok(followService.findFollowByUser(id, userId));
+    }
 }
