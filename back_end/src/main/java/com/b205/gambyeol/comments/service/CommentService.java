@@ -4,6 +4,7 @@ import com.b205.gambyeol.comments.domain.Comment;
 import com.b205.gambyeol.comments.domain.CommentRepository;
 import com.b205.gambyeol.comments.dto.CommentRequestDto;
 import com.b205.gambyeol.comments.dto.CommentResponseDto;
+import com.b205.gambyeol.stars.domain.Likes;
 import com.b205.gambyeol.stars.domain.Star;
 import com.b205.gambyeol.stars.domain.StarRepository;
 import com.b205.gambyeol.users.domain.Users;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,15 +39,19 @@ public class CommentService {
     }
 
     @Transactional
-    public Long save(@NotNull CommentRequestDto params, final long userId, final long starId) {
+    public Long save(final long userId, final String content, final long starId) {
         // 작성자 등록
         Users finduser = usersRepository.findByUserId(userId);
-        params.setUser(finduser);
 
         Star findstar = starRepository.findByStarId(starId);
-        params.setStar(findstar);
+        Comment comment = Comment.builder()
+                .user(finduser)
+                .star(findstar)
+                .date(LocalDateTime.now())
+                .content(content)
+                .build();
 
-        Comment entity = commentRepository.save(params.toEntity());
+        Comment entity = commentRepository.save(comment);
         return entity.getCommentId();
     }
 
