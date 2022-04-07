@@ -43,6 +43,7 @@ export default function Content() {
               mood={value.mood}
               writer={value.writer}
               value={value}
+              starid={value.starId}
             />
             <br />
           </Box>

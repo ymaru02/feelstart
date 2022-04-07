@@ -42,6 +42,7 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [favor, setFavor] = useState(false);
+  const [favorCnt, setFavorCnt] = useState(0);
   const [openmap, setOpenMap] = useState(false);
   const [comment, setComment] = useState({ writer: "", content: "" });
   const [comments, setComments] = useState([]);
@@ -49,8 +50,23 @@ export default function RecipeReviewCard(props) {
   const token = loginStore().jwtToken;
   const username = loginStore().username;
 
+  const { getJwtToken } = loginStore();
+
   const handleExpandClick = () => setExpanded(!expanded);
-  const handleFavorClick = () => setFavor((current) => !current);
+  const handleFavorClick = async () => {
+    let like = favor;
+    console.log(!like);
+    await axios.post(
+      "api/stars/likes",
+      { mark: !like, star_id: props.starid },
+      {
+        headers: {
+          Authorization: `Bearer ${getJwtToken()}`,
+        },
+      }
+    );
+    setFavor(!like);
+  };
   const handleClickMap = () => {
     setOpenMap((cur) => !cur);
     handleClickSave();
@@ -89,6 +105,34 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment({ writer: username, content: event.target.value });
   };
+
+  async function like() {
+    let res = await axios.get(`api/stars/${props.starid}/likes`, {
+      headers: {
+        Authorization: `Bearer ${getJwtToken()}`,
+      },
+    });
+    console.log(res);
+    return setFavor(res.data);
+  }
+
+  async function likeCnt() {
+    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
+      headers: {
+        Authorization: `Bearer ${getJwtToken()}`,
+      },
+    });
+    console.log(res);
+    return setFavorCnt(res.data);
+  }
+
+  useEffect(() => {
+    like();
+  }, []);
+
+  useEffect(() => {
+    likeCnt();
+  }, [favor]);
 
   const handleClickSave = () => {
     const data = {
@@ -223,6 +267,7 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+        {!!favorCnt && favorCnt}
         <IconButton
           onClick={handleFavorClick}
           variant="outlined"

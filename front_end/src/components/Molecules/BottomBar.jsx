@@ -71,6 +71,17 @@ export default function BottomBar() {
             />
           }
         />
+        <BottomNavigationAction
+          component={Link}
+          to="admin"
+          icon={
+            <Image
+              src={`${process.env.PUBLIC_URL}/image/setting.svg`}
+              width="50"
+              alt="test"
+            />
+          }
+        />
       </BottomNavigation>
     </Box>
   );
