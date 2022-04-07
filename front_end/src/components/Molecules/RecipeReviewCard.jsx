@@ -49,6 +49,7 @@ export default function RecipeReviewCard(props) {
   const [mood, setMood] = useState(1);
   const token = loginStore().jwtToken;
   const username = loginStore().username;
+  const userpk = loginStore().userId;
 
   const { jwtToken } = loginStore();
 
@@ -95,7 +96,7 @@ export default function RecipeReviewCard(props) {
   };
   const handleClickSave = () => {
     const data = {
-      user: username,
+      user: userpk,
       latitude: props.value.latitude,
       longitude: props.value.longitude,
       mood: props.value.mood,
@@ -263,7 +264,10 @@ export default function RecipeReviewCard(props) {
       <CardActions disableSpacing>
         {!!favorCnt && favorCnt}
         <IconButton
-          onClick={handleFavorClick}
+          onClick={ () => {
+            handleFavorClick()
+            handleClickSave()
+          } }
           variant="outlined"
           style={favor ? { color: "#ff3333" } : { color: "#a0a0a0" }}
           aria-label="add to favorites"
