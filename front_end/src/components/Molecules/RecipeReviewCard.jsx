@@ -227,16 +227,20 @@ export default function RecipeReviewCard(props) {
           </>
         }
         title={
-          <>
+          <Fragment>
             <img
               src={`image/star_${mood}-removebg-preview.png`}
               width={50}
               height={50}
             ></img>
-            {props.mood}
-          </>
+            <Typography
+              sx={{ display: "inline", fontFamily: "Jua, sans-serif" }}
+            >
+              {props.mood}
+            </Typography>
+          </Fragment>
         }
-        titleTypographyProps={{ fontSize: 23, color: "black" }}
+        titleTypographyProps={{ color: "black" }}
         subheader={props.date.replace("T", " ").split(".")[0]}
         subheaderTypographyProps={{ color: "#a0a0a0" }}
         style={{ color: "#a0a0a0" }}
