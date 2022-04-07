@@ -2,9 +2,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { loginStore } from "Store/loginStore";
+import { contentStore } from "Store/contentStore";
 
 const KakaoLoginRequest = async () => {
   const { setLoginData, setUserName } = loginStore();
+  const { setNewContents } = contentStore();
   try {
     const code = new URL(window.location.href).searchParams.get("code");
     const response = await axios.post("/api/account/kakaologinrequest", {
@@ -18,6 +20,13 @@ const KakaoLoginRequest = async () => {
       },
     });
     setUserName(res.data.nickname);
+
+    const contents = await axios.get("/api/stars/all", {
+      headers: {
+        Authorization: `Bearer ${response.data.jwt_token}`,
+      },
+    });
+    setNewContents(contents.data);
   } catch (err) {
     console.log(err);
   }

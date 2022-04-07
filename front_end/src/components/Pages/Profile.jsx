@@ -8,7 +8,33 @@ import { useParams } from "react-router-dom";
 export default function Profile() {
   const token = loginStore().jwtToken;
   const [contents, setContents] = useState([]);
+  const [userData, setUserData] = useState({});
+  const [follow, setFollow] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
   const { userid } = useParams();
+
+  const handleFollowClick = () => {
+    axios
+      .post(
+        `/api/follow`,
+        { id: userid },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (follow) {
+          setFollowerCount((state) => state - 1);
+        } else {
+          setFollowerCount((state) => state + 1);
+        }
+        setFollow((state) => !state);
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     axios
@@ -21,10 +47,40 @@ export default function Profile() {
         setContents(res.data);
       })
       .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/user/profile/${userid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setUserData(res.data.usersDto);
+        setFollow(res.data.follow);
+        setFollowerCount(res.data.userFollowerCount);
+        setFollowingCount(res.data.userFollowingCount);
+      })
+      .catch((error) => console.log(error));
+
+    return () => {
+      setUserData({});
+      setFollow(false);
+      setFollowerCount(0);
+      setFollowingCount(0);
+    };
   }, [userid]);
+
   return (
     <div className={styles.profilecontainer}>
-      <ProfileTop contents={contents} userid={userid} />
+      <ProfileTop
+        contents={contents}
+        userid={userid}
+        userData={userData}
+        follow={follow}
+        followerCount={followerCount}
+        followingCount={followingCount}
+        handleFollowClick={handleFollowClick}
+      />
       <ProfileBottom contents={contents} />
     </div>
   );
