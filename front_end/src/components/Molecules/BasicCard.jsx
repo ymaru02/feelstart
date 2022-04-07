@@ -1,25 +1,32 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 10 }}>
+    <Card
+      sx={{
+        maxWidth: 355,
+        borderRadius: 3,
+        left: 0,
+        right: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={`https://j6b205.p.ssafy.io/api/starimg/${props.imageName}`}
           alt="green iguana"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.content}
+        {/* <CardContent>
+          <Typography gutterBottom component="div">
+            {props.addr}
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
     </Card>
   );

@@ -4,6 +4,7 @@ import styles from "./Content.module.css";
 import axios from "axios";
 import { loginStore } from "Store/loginStore";
 import { contentStore } from "Store/contentStore";
+import Box from "@mui/material/Box";
 
 export default function Content() {
   const [content, setContent] = useState();
@@ -12,7 +13,6 @@ export default function Content() {
   const { setNewContents } = contentStore();
 
   useEffect(() => {
-    console.log(token);
     axios
       .get("/api/stars/all", {
         headers: {
@@ -23,17 +23,16 @@ export default function Content() {
         if (JSON.stringify(res).length !== 0) {
           setContent(res.data);
           setNewContents(res.data);
-          console.log(res.data);
         }
       })
       .catch((error) => console.log(error));
   }, []);
 
   return (
-    <div>
+    <Box sx={{ marginBottom: 10 }}>
       {content &&
         content.map((value, index) => (
-          <div className={styles.flexbox} key={index}>
+          <Box className={styles.flexbox} key={index}>
             <RecipeReviewCard
               content={value.content}
               date={value.date}
@@ -43,10 +42,12 @@ export default function Content() {
               addr={value.addr}
               mood={value.mood}
               writer={value.writer}
+              value={value}
+              starid={value.starId}
             />
             <br />
-          </div>
+          </Box>
         ))}
-    </div>
+    </Box>
   );
 }
