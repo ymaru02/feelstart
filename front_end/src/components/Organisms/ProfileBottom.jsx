@@ -8,6 +8,7 @@ import styles from "./ProfileBottom.module.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { makeStyles } from "@mui/styles";
+import MidMap from "components/Atoms/MidMap";
 
 const useStyles = makeStyles({
   label: {
@@ -20,17 +21,42 @@ const useStyles = makeStyles({
 
 export default function ProfileBottom({ contents = [] }) {
   const [value, setValue] = React.useState("0");
-
+  const [pos, setPos] = React.useState({
+    latitude: 0,
+    longitude: 0,
+  });
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const classes = useStyles();
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (navigator.geolocation) {
+      // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setPos({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        function (error) {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        }
+      );
+    } else {
+      alert("GPS를 지원하지 않습니다");
+    }
+  }, []);
   return (
     <>
-      <div className={styles.bttongroup}>
+      <Box className={styles.bttongroup}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -42,35 +68,43 @@ export default function ProfileBottom({ contents = [] }) {
           <Tab className={classes.label} value="1" label="지도" />
           <Tab className={classes.label} value="2" label="친구" />
         </Tabs>
-      </div>
-      <div>
-        <Box>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-          >
-            {contents.map((item, index) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
-                <ImageListItem
-                  key={item.img}
-                  sx={{
-                    margin: 2,
-                    border: "1px solid rgb(99,99,99)",
-                    borderRadius: 3,
-                  }}
-                >
-                  <img
-                    src={`https://j6b205.p.ssafy.io/api/starimg/${item.imageName}`}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </div>
+      </Box>
+      <Box hidden={value !== "0"}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {contents.map((item, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <ImageListItem
+                key={item.img}
+                sx={{
+                  margin: 2,
+                  border: "1px solid rgb(99,99,99)",
+                  borderRadius: 3,
+                }}
+              >
+                <img
+                  src={`https://j6b205.p.ssafy.io/api/starimg/${item.imageName}`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box hidden={value !== "1"}>
+        <MidMap
+          contents={contents}
+          baseLatitude={pos.latitude}
+          baseLongitude={pos.longitude}
+          baseheight={50}
+          maplevel={10}
+        />
+      </Box>
+      <Box hidden={value !== "2"}></Box>
     </>
   );
 }
