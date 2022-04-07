@@ -22,10 +22,7 @@ export default function Admin() {
         },
       })
       .then((res) => {
-        if (JSON.stringify(res).length !== 0) {
-          setDataSet(res.data);
-          console.log(res.data);
-        }
+        setDataSet(res.data);
       })
       .catch((error) => console.log(error));
   }, []);
