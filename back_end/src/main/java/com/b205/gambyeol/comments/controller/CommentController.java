@@ -24,14 +24,14 @@ public class CommentController {
     @PostMapping("/stars/comments")
     public ResponseEntity save(@RequestPart(value = "dto", required = false) CommentRequestDto dto,
                                @AuthenticationPrincipal long userId,
-                               @RequestParam final long id){
+                               @RequestBody final long id){
         return ResponseEntity.ok(commentService.save(dto, userId, id));
     }
 
     // 해당게시글에 댓글 삭제하기
     @PostMapping("/stars/comments/del")
     public ResponseEntity delete(@AuthenticationPrincipal long userId,
-                               @RequestParam final long id){
+                                 @RequestBody final long id){
         return ResponseEntity.ok(commentService.delete(userId, id));
     }
 }
