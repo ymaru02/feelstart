@@ -13,6 +13,7 @@ import axios from "axios";
 import { loginStore } from "Store/loginStore";
 import { useParams } from "react-router-dom";
 import AvatarCircle from "components/Atoms/AvatarCircle";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   label: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProfileBottom({ contents = [] }) {
+export default function ProfileBottom({ contents = [], follow = false }) {
   const token = loginStore().jwtToken;
   const { userid } = useParams();
 
@@ -75,7 +76,7 @@ export default function ProfileBottom({ contents = [] }) {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [follow]);
   return (
     <>
       <Box className={styles.bttongroup}>
@@ -147,7 +148,9 @@ export default function ProfileBottom({ contents = [] }) {
                   borderRadius: 3,
                 }}
               >
-                <AvatarCircle userProFile={item.profile} w1={150} w2={140} />
+                <Link to={`/profile/${item.userId}`}>
+                  <AvatarCircle userProFile={item.profile} w1={150} w2={140} />
+                </Link>
               </ImageListItem>
               {item.nickname}
             </Grid>
