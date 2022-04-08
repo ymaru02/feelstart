@@ -95,15 +95,20 @@ export default function ProfileBottom({ contents = [] }) {
           ))}
         </Grid>
       </Box>
-      <Box hidden={value !== "1"}>
-        <MidMap
-          contents={contents}
-          baseLatitude={pos.latitude}
-          baseLongitude={pos.longitude}
-          baseheight={50}
-          maplevel={10}
-        />
-      </Box>
+      {value === "1" ? (
+        <Box hidden={value !== "1"}>
+          <MidMap
+            contents={contents}
+            baseLatitude={pos.latitude}
+            baseLongitude={pos.longitude}
+            baseheight={50}
+            maplevel={7}
+          />
+        </Box>
+      ) : (
+        <></>
+      )}
+
       <Box hidden={value !== "2"}></Box>
     </>
   );
