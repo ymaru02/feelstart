@@ -17,6 +17,7 @@ export default function Map(props) {
   const handleChangeCenter = () => {
     const position = map.getCenter();
     const level = map.getLevel();
+    if (position.La > 1000) return;
     props.handlePropsChange(level, position);
   };
 

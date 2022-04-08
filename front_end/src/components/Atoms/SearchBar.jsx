@@ -12,7 +12,7 @@ export default function SearchBar({ handleSearch }) {
   const keydown = React.useRef();
 
   const handleSubmit = (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 || event.keyCode === undefined) {
       event.preventDefault();
       handleSearch(keyword);
       setKeyword("");
