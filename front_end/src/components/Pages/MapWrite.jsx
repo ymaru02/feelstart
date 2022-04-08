@@ -60,6 +60,7 @@ export default function MapWrite() {
           latitude: result[0].y,
           longitude: result[0].x,
         });
+        setReSet(true);
       }
     };
     geocoder.addressSearch(key, addresscallback);
@@ -70,7 +71,6 @@ export default function MapWrite() {
     if (key === "") return;
     setSearch(key);
     address(key);
-    setReSet(true);
   };
 
   // 지도의 데이터 받아오기
