@@ -1,13 +1,11 @@
 package com.b205.gambyeol.users.controller;
 
-import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.dto.LoginResponseDto;
 import com.b205.gambyeol.users.dto.UserProfileDto;
 import com.b205.gambyeol.users.security.TokenProvider;
 import com.b205.gambyeol.users.service.FollowService;
 import com.b205.gambyeol.users.service.UsersService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -336,7 +334,11 @@ public class UsersController {
     public ResponseEntity profile(@PathVariable final long id, @AuthenticationPrincipal long userId) {
         UserProfileDto userProfileDto = userService.getProfile(id, userId);
         return ResponseEntity.ok().body(userProfileDto);
+    }
 
+    @GetMapping("/user/profile/{id}/friends")
+    public ResponseEntity userFriends(@PathVariable final long id) {
+        return ResponseEntity.ok(followService.searchFriends(id));
     }
 
 }
