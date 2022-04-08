@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import Button from "@mui/material/Button";
 // import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
@@ -9,6 +9,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { makeStyles } from "@mui/styles";
 import MidMap from "components/Atoms/MidMap";
+import axios from "axios";
+import { loginStore } from "Store/loginStore";
+import { useParams } from "react-router-dom";
+import AvatarCircle from "components/Atoms/AvatarCircle";
 
 const useStyles = makeStyles({
   label: {
@@ -20,11 +24,16 @@ const useStyles = makeStyles({
 });
 
 export default function ProfileBottom({ contents = [] }) {
+  const token = loginStore().jwtToken;
+  const { userid } = useParams();
+
   const [value, setValue] = React.useState("0");
   const [pos, setPos] = React.useState({
     latitude: 0,
     longitude: 0,
   });
+  const [friends, setFriends] = useState([]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -53,6 +62,19 @@ export default function ProfileBottom({ contents = [] }) {
     } else {
       alert("GPS를 지원하지 않습니다");
     }
+
+    axios
+      .get(`/api/user/profile/${userid}/friends`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setFriends(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
   return (
     <>
@@ -109,7 +131,29 @@ export default function ProfileBottom({ contents = [] }) {
         <></>
       )}
 
-      <Box hidden={value !== "2"}></Box>
+      <Box hidden={value !== "2"}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {friends.map((item, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <ImageListItem
+                key={item.userId}
+                sx={{
+                  margin: 2,
+                  border: "1px solid rgb(99,99,99)",
+                  borderRadius: 3,
+                }}
+              >
+                <AvatarCircle userProFile={item.profile} w1={150} w2={140} />
+              </ImageListItem>
+              {item.nickname}
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </>
   );
 }
