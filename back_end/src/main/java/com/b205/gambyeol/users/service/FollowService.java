@@ -4,10 +4,14 @@ import com.b205.gambyeol.users.domain.Follow;
 import com.b205.gambyeol.users.domain.FollowRepository;
 import com.b205.gambyeol.users.domain.Users;
 import com.b205.gambyeol.users.domain.UsersRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.b205.gambyeol.users.dto.UsersDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,4 +43,9 @@ public class FollowService {
         return true;
     }
 
+    @Transactional
+    public List<UsersDto> searchFriends(final Long userId) {
+        List<Users> list = usersRepository.friendslist(userId);
+        return list.stream().map(UsersDto::new).collect(Collectors.toList());
+    }
 }
