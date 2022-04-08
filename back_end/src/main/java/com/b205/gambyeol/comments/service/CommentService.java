@@ -33,7 +33,7 @@ public class CommentService {
     @Transactional
     public List<CommentResponseDto> findAllByStarId(final Long starId) {
         Star findstar = starRepository.findByStarId(starId);
-        Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        Sort sort = Sort.by(Sort.Direction.ASC, "date");
         List<Comment> list = commentRepository.findAllByStarStarId(findstar.getStarId(), sort);
         return list.stream().map(CommentResponseDto::new).collect(Collectors.toList());
     }
