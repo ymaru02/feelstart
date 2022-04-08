@@ -49,6 +49,7 @@ export default function RecipeReviewCard(props) {
   const [mood, setMood] = useState(1);
   const token = loginStore().jwtToken;
   const username = loginStore().username;
+  const userpk = loginStore().userId;
 
   const { jwtToken } = loginStore();
 
@@ -93,36 +94,9 @@ export default function RecipeReviewCard(props) {
   const handelChange = (event) => {
     setComment({ writer: username, content: event.target.value });
   };
-
-  async function like() {
-    let res = await axios.get(`api/stars/${props.starid}/likes`, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    return setFavor(res.data);
-  }
-
-  async function likeCnt() {
-    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    return setFavorCnt(res.data);
-  }
-
-  useEffect(() => {
-    like();
-  }, []);
-
-  useEffect(() => {
-    likeCnt();
-  }, [favor]);
-
   const handleClickSave = () => {
     const data = {
-      user: username,
+      user: userpk,
       latitude: props.value.latitude,
       longitude: props.value.longitude,
       mood: props.value.mood,
@@ -138,8 +112,34 @@ export default function RecipeReviewCard(props) {
         console.log(e);
       });
   };
+  async function like() {
+    let res = await axios.get(`api/stars/${props.starid}/likes`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+    return setFavor(res.data);
+  }
+  async function likeCnt() {
+    let res = await axios.get(`api/stars/${props.starid}/likes/count`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+    return setFavorCnt(res.data);
+  }
 
   useEffect(() => {
+    likeCnt();
+
+    return () => {
+      setFavorCnt(0);
+    };
+  }, [favor]);
+
+  useEffect(() => {
+    like();
+
     axios
       .get(`/api/stars/${props.value.starId}/comments/all`, {
         headers: {
@@ -167,6 +167,11 @@ export default function RecipeReviewCard(props) {
       default:
         break;
     }
+
+    return () => {
+      setComments([]);
+      setFavor(false);
+    };
   }, []);
 
   return (
@@ -259,7 +264,10 @@ export default function RecipeReviewCard(props) {
       <CardActions disableSpacing>
         {!!favorCnt && favorCnt}
         <IconButton
-          onClick={handleFavorClick}
+          onClick={ () => {
+            handleFavorClick()
+            handleClickSave()
+          } }
           variant="outlined"
           style={favor ? { color: "#ff3333" } : { color: "#a0a0a0" }}
           aria-label="add to favorites"
