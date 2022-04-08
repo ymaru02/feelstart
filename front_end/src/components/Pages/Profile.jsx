@@ -7,12 +7,12 @@ import { loginStore } from "Store/loginStore";
 import { useParams } from "react-router-dom";
 export default function Profile() {
   const token = loginStore().jwtToken;
+  const { userid } = useParams();
   const [contents, setContents] = useState([]);
   const [userData, setUserData] = useState({});
   const [follow, setFollow] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
-  const { userid } = useParams();
 
   const handleFollowClick = () => {
     axios
