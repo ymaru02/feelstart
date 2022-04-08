@@ -24,7 +24,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProfileBottom({ contents = [], follow = false }) {
+export default function ProfileBottom({
+  contents = [],
+  follow = false,
+  changeid = 0,
+}) {
   const token = loginStore().jwtToken;
   const { userid } = useParams();
 
@@ -76,7 +80,7 @@ export default function ProfileBottom({ contents = [], follow = false }) {
       .catch((e) => {
         console.log(e);
       });
-  }, [follow]);
+  }, [follow, changeid]);
   return (
     <>
       <Box className={styles.bttongroup}>

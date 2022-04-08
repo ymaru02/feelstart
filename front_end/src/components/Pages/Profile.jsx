@@ -81,7 +81,7 @@ export default function Profile() {
         followingCount={followingCount}
         handleFollowClick={handleFollowClick}
       />
-      <ProfileBottom contents={contents} follow={follow} />
+      <ProfileBottom contents={contents} follow={follow} changeid={userid} />
     </div>
   );
 }
